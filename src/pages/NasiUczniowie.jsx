@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Star, Quote, Play, Sparkles } from 'lucide-react';
+import VideoPlayer from '@/components/VideoPlayer';
 import { motion } from 'framer-motion';
 
 import PageHeader from '../components/PageHeader';
@@ -17,26 +18,30 @@ export default function NasiUczniowie() {
       id: 1,
       name: "Kasia",
       role: "Maturzystka",
-      thumbnail: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=600&q=80",
-      videoUrl: "#",
+      videoUrl: "https://www.youtube.com/watch?v=ysz5S6PUM-U",
       quote: "Dzięki korepetycjom zdałam maturę rozszerzoną na 82%!"
     },
     {
       id: 2,
       name: "Michał",
       role: "II LO",
-      thumbnail: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&q=80",
-      videoUrl: "#",
+      videoUrl: "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
       quote: "Wreszcie rozumiem matematykę. To naprawdę działa!"
     },
     {
       id: 3,
       name: "Ola",
       role: "VIII klasa",
-      thumbnail: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80",
-      videoUrl: "#",
+      videoUrl: "https://www.youtube.com/watch?v=ScMzIvxBSi4",
       quote: "Cierpliwa, wspierająca i zawsze dobrze tłumaczy"
-    }
+    },
+    {
+      id: 4,
+      name: "Demo MP4",
+      role: "Lokalny film",
+      videoUrl: "/aaa.h264",
+      quote: "Przykładowy lokalny plik MP4",
+    },
   ];
 
   const textReviews = [
@@ -203,24 +208,8 @@ export default function NasiUczniowie() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
             {videoTestimonials.map((video) => (
-              <Card key={video.id} className="border-none shadow-xl hover:shadow-2xl transition-all overflow-hidden group cursor-pointer bg-white hover:-translate-y-1">
-                <div className="relative">
-                  <img 
-                    src={video.thumbnail} 
-                    alt={video.name}
-                    className="w-full h-40 sm:h-56 object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-2xl">
-                      <Play className="w-7 h-7 sm:w-9 sm:h-9 text-white ml-1" />
-                    </div>
-                  </div>
-                  <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 text-white">
-                    <h3 className="text-lg sm:text-xl font-bold mb-0.5 sm:mb-1">{video.name}</h3>
-                    <p className="text-xs sm:text-sm text-gray-200">{video.role}</p>
-                  </div>
-                </div>
+              <Card key={video.id} className="border-none shadow-xl hover:shadow-2xl transition-all overflow-hidden bg-white hover:-translate-y-1">
+                <VideoPlayer url={video.videoUrl} light={false} />
                 <CardContent className="p-4 sm:p-5 bg-gradient-to-br from-purple-50/50 to-white">
                   <div className="flex items-start gap-2">
                     <Quote className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500 flex-shrink-0 mt-1" />
