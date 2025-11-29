@@ -186,8 +186,16 @@ export default function Home() {
     setIsSubmitting(true);
 
     try {
-      // Simulate async submission (replace with real API call if needed)
-      await new Promise(resolve => setTimeout(resolve, 800));
+      const res = await fetch('/.netlify/functions/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        const { error } = await res.json();
+        throw new Error(error || 'Network error');
+      }
 
       toast.success('Dziękujemy za kontakt! Skontaktujemy się z Tobą jak najszybciej to możliwe. 😊');
       setFormData({ name: '', email: '', phone: '', message: '' });
@@ -210,7 +218,7 @@ export default function Home() {
       
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white/90 backdrop-blur-md shadow-md' : 'bg-transparent'
+        (scrolled || isMenuOpen) ? 'bg-white/90 backdrop-blur-md shadow-md' : 'bg-transparent'
       } ${showNavbar ? 'translate-y-0' : '-translate-y-full'}`}>
         <div className="max-w-6xl mx-auto px-3 sm:px-6 py-2.5 sm:py-4 flex justify-between items-center">
           <div className="flex items-center gap-2 sm:gap-3">

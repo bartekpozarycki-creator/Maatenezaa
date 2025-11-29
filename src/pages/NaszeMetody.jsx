@@ -129,7 +129,7 @@ export default function NaszeMetody() {
       />
 
       {/* Jak uczymy - Process Flow */}
-      <section className="py-8 sm:py-20 px-4 sm:px-6 bg-white relative overflow-hidden">
+      <section className="pt-24 pb-8 sm:py-20 px-4 sm:px-6 bg-white relative overflow-hidden">
         {/* Background decoration */}
         <div className="absolute top-20 right-0 w-96 h-96 bg-orange-200/20 rounded-full blur-3xl" />
         <div className="absolute bottom-20 left-0 w-96 h-96 bg-purple-200/20 rounded-full blur-3xl" />

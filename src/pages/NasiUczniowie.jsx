@@ -98,7 +98,7 @@ export default function NasiUczniowie() {
       />
 
       {/* Google Reviews */}
-      <section className="py-8 sm:py-20 px-4 sm:px-6 bg-white relative overflow-hidden">
+      <section className="pt-24 pb-8 sm:py-20 px-4 sm:px-6 bg-white relative overflow-hidden">
         {/* Decorative elements */}
         <div className="absolute top-10 right-0 w-72 h-72 bg-blue-200/20 rounded-full blur-3xl" />
         <div className="absolute bottom-10 left-0 w-72 h-72 bg-yellow-200/20 rounded-full blur-3xl" />
