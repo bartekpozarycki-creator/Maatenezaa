@@ -1,93 +1,168 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Star, Quote, Play, Sparkles } from 'lucide-react';
+import { Star, Quote, Play, X, ChevronDown } from 'lucide-react';
 import VideoPlayer from '@/components/VideoPlayer';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
+import Lightbox from 'yet-another-react-lightbox';
+import 'yet-another-react-lightbox/styles.css';
 
 import PageHeader from '../components/PageHeader';
+
+const SCREENSHOT_PREVIEW_COUNT = 6;
+
+const GOOGLE_REVIEWS_PAGE_URL =
+  (typeof import.meta !== "undefined" && import.meta.env?.VITE_GOOGLE_REVIEWS_URL) ||
+  "https://www.google.com/maps";
+
+const googleReviews = [
+  {
+    id: "google-wojtek-wroblewski",
+    author: "Wojtek Wróblewski",
+    rating: 5,
+    text: "Super korepetycje zajęcia prowadzenie w miłej atmosferze polecam",
+  },
+  {
+    id: "google-deepox",
+    author: "Deepox",
+    rating: 5,
+    text: "Szczerze mówiąc, wcześniej matematyka była dla mnie totalną czarną magią, a dzięki Jeremiaszowi w końcu zaczęło to mieć sens. Potrafi wytłumaczyć nawet trudne rzeczy w prosty i logiczny sposób, bez spinania się i zbędnego gadania.\n\nDuży plus za luźną atmosferę – nie ma stresu, można na spokojnie dopytać o wszystko i faktycznie zrozumieć temat, a nie tylko wykuć na pamięć. Widać, że mu zależy, żebyś ogarnął, a nie tylko odbębnił godzinę.\n\nJak ktoś ma problem z matmą, to naprawdę warto!",
+  },
+];
+
+function googleReviewInitials(name) {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  if (parts.length >= 2) {
+    return `${parts[0][0]}${parts[parts.length - 1][0]}`.toUpperCase();
+  }
+  return name.slice(0, 2).toUpperCase();
+}
+
+function googleReviewPreviewText(text) {
+  return text.replace(/\s+/g, " ").trim();
+}
 
 export default function NasiUczniowie() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  const googleMapsEmbedUrl = "PASTE_GOOGLE_MAPS_EMBED_URL_HERE";
+
   const videoTestimonials = [
     {
       id: 1,
       name: "Kasia",
       role: "Maturzystka",
       videoUrl: "https://www.youtube.com/watch?v=ysz5S6PUM-U",
-      quote: "Dzięki korepetycjom zdałam maturę rozszerzoną na 82%!"
+      quote: "Dzięki korepetycjom zdałam maturę rozszerzoną na 82%!",
+      transcript: "To jest przykładowa transkrypcja. Na zajęciach wszystko było tłumaczone spokojnie i krok po kroku. Najpierw powtórzyliśmy podstawy, potem robiliśmy zadania maturalne i omawialiśmy, skąd biorą się błędy.\n\nNajbardziej pomogło mi to, że każde trudniejsze zadanie rozbijaliśmy na małe kroki: co jest dane, co mamy policzyć, jaki wzór pasuje i dlaczego. Z czasem zaczęłam sama widzieć schematy, a nie tylko „ścianę liczb”.\n\nRobiliśmy też krótkie powtórki na początku lekcji i mini-testy pod koniec, żebym wiedziała, co już umiem, a co jeszcze trzeba dopracować. Dzięki regularnej pracy zaczęłam rozumieć, a nie tylko zapamiętywać."
     },
     {
       id: 2,
       name: "Michał",
       role: "II LO",
       videoUrl: "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
-      quote: "Wreszcie rozumiem matematykę. To naprawdę działa!"
+      quote: "Wreszcie rozumiem matematykę. To naprawdę działa!",
+      transcript: "Przykładowa transkrypcja: miałem duże zaległości, a w szkole wszystko leciało za szybko. Tutaj dostawałem proste wytłumaczenie i od razu ćwiczyliśmy na przykładach.\n\nZamiast robić wszystko „na pamięć”, uczyłem się rozumieć, co oznaczają symbole i skąd biorą się kolejne przekształcenia. Jak czegoś nie łapałem, wracaliśmy do fundamentów bez oceniania i bez presji.\n\nPo kilku tygodniach oceny poszły w górę, a ja przestałem się stresować kartkówkami. Najważniejsze było to, że dostałem plan: co powtarzać w tygodniu i jak ćwiczyć, żeby nie stać w miejscu."
     },
     {
       id: 3,
       name: "Ola",
       role: "VIII klasa",
       videoUrl: "https://www.youtube.com/watch?v=ScMzIvxBSi4",
-      quote: "Cierpliwa, wspierająca i zawsze dobrze tłumaczy"
+      quote: "Cierpliwa, wspierająca i zawsze dobrze tłumaczy",
+      transcript: "Przykładowa transkrypcja: przygotowania do egzaminu były konkretne — robiliśmy arkusze, uczyłam się strategii i tego, jak nie tracić punktów na prostych rzeczach.\n\nĆwiczyliśmy typowe zadania, ale też takie, które na początku mnie stresowały. Z czasem zobaczyłam, że da się to ogarnąć, jeśli trzymać się prostego schematu i nie pomijać kroków.\n\nNajbardziej pomogło mi to, że każde zadanie było rozpisane na proste kroki, a po rozwiązaniu omawialiśmy, co mogłoby pójść nie tak na egzaminie i jak tego uniknąć."
     },
     {
       id: 4,
       name: "Demo MP4",
       role: "Lokalny film",
-      videoUrl: "/aaa.h264",
+      videoUrl: "/aaa.mp4",
       quote: "Przykładowy lokalny plik MP4",
+      transcript: "Przykładowa transkrypcja: tu w przyszłości wstawimy prawdziwy zapis wypowiedzi z wideo. Na razie ten tekst tylko pokazuje układ: obok wideo jest miejsce na transkrypcję.\n\nJeśli treści będzie więcej, blok można przewijać, a układ nadal pozostanie czytelny. Możemy też dodać nagłówki, znaczniki czasu lub podział na akapity, żeby łatwiej było szybko znaleźć najważniejsze fragmenty wypowiedzi.",
+      orientation: "horizontal",
     },
   ];
 
-  const textReviews = [
-    {
-      name: "Natalia",
-      role: "Mama Kuby, VIII klasa",
-      content: "Kuba nie lubił matmy, a teraz prosi o dodatkowe zadania! Nie mogę uwierzyć w tę zmianę. Polecam z całego serca.",
-      rating: 5,
-      image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80"
-    },
-    {
-      name: "Paweł",
-      role: "III LO",
-      content: "Rozszerzona przestała być koszmarem. Nauczyła mnie myśleć logicznie, a nie tylko podstawiać do wzorów!",
-      rating: 5,
-      image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&q=80"
-    },
-    {
-      name: "Tomek",
-      role: "VI klasa",
-      content: "Świetnie tłumaczy. Wcześniej myślałem, że jestem głupi z matmy. Teraz wreszcie rozumiem!",
-      rating: 5,
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80"
-    },
-    {
-      name: "Asia",
-      role: "Maturzystka",
-      content: "Podejście do matury z pewnością siebie zamiast stresu? To możliwe dzięki zajęciom. Dostałam 78% z rozszerzonej!",
-      rating: 5,
-      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80"
-    },
-    {
-      name: "Marcin",
-      role: "I LO",
-      content: "Wreszcie wiem, do czego mi się przyda ta cała matematyka. Wszystko ma sens po ich zajęciach.",
-      rating: 5,
-      image: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&q=80"
-    },
-    {
-      name: "Zosia",
-      role: "VII klasa",
-      content: "Nigdy nie lubiłam matmy, ale te zajęcia są inne. Wreszcie nie boję się sprawdzianów!",
-      rating: 5,
-      image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&q=80"
-    }
+  
+
+  const screenshotPool = [
+    'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6910d8d3e519cbbd5350687e/cb42f77c3_image.png',
+    'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6910d8d3e519cbbd5350687e/1959c5c8e_image.png',
+    'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6910d8d3e519cbbd5350687e/a585c6226_image.png',
   ];
+
+  const screenshots = screenshotPool.map((url, i) => ({
+    url,
+    delay: String((i % 8) * 60),
+  }));
+
+  const [lightboxIndex, setLightboxIndex] = useState(-1);
+  const [galleryExpanded, setGalleryExpanded] = useState(false);
+  const [gallerySectionInView, setGallerySectionInView] = useState(true);
+  const [activeVideo, setActiveVideo] = useState(null);
+  const galleryScrollLockY = useRef(null);
+  const gallerySectionRef = useRef(null);
+
+  const handleExpandGallery = () => {
+    galleryScrollLockY.current = window.scrollY;
+    setGalleryExpanded(true);
+  };
+
+  const handleCollapseGallery = () => {
+    gallerySectionRef.current?.scrollIntoView({ behavior: "auto", block: "start" });
+    requestAnimationFrame(() => {
+      setGalleryExpanded(false);
+    });
+  };
+
+  useLayoutEffect(() => {
+    if (galleryScrollLockY.current === null) return;
+    const y = galleryScrollLockY.current;
+    galleryScrollLockY.current = null;
+    window.scrollTo(0, y);
+  }, [galleryExpanded]);
+
+  useEffect(() => {
+    const el = gallerySectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setGallerySectionInView(entry.isIntersecting);
+      },
+      { root: null, rootMargin: "0px", threshold: 0 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const previewScreenshots = screenshots.slice(0, SCREENSHOT_PREVIEW_COUNT);
+  const extraScreenshots = screenshots.slice(SCREENSHOT_PREVIEW_COUNT);
+
+  const overlayOpen = lightboxIndex >= 0 || activeVideo != null;
+
+  useEffect(() => {
+    if (!overlayOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    const previousGutter = document.documentElement.style.scrollbarGutter;
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.scrollbarGutter = 'stable';
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.documentElement.style.scrollbarGutter = previousGutter;
+    };
+  }, [overlayOpen]);
+
+  useEffect(() => {
+    if (!activeVideo) return;
+    const onKey = (e) => {
+      if (e.key === 'Escape') setActiveVideo(null);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [activeVideo]);
 
   return (
     <motion.div 
@@ -103,94 +178,127 @@ export default function NasiUczniowie() {
       />
 
       {/* Google Reviews */}
-      <section className="pt-24 pb-8 sm:py-20 px-4 sm:px-6 bg-white relative overflow-hidden">
-        {/* Decorative elements */}
-        <div className="absolute top-10 right-0 w-72 h-72 bg-blue-200/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-10 left-0 w-72 h-72 bg-yellow-200/20 rounded-full blur-3xl" />
+      <section className="pt-24 pb-10 sm:py-24 px-4 sm:px-6 relative overflow-hidden bg-gradient-to-b from-slate-50/90 via-white to-blue-50/40">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(59,130,246,0.12),transparent)]" />
+        <div className="absolute top-16 right-[-10%] w-[420px] h-[420px] bg-blue-300/15 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-[-10%] w-80 h-80 bg-amber-200/20 rounded-full blur-3xl" />
         
-        <div className="max-w-6xl mx-auto relative">
-          <div className="mb-6 sm:mb-12 text-center">
-            <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-700 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium mb-4">
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+        <div className="max-w-6xl mx-auto relative z-[1]">
+          <div className="mb-8 sm:mb-14 text-center">
+            <div className="inline-flex items-center gap-2 rounded-full border border-blue-200/80 bg-white/90 px-4 py-2 text-xs sm:text-sm font-semibold text-blue-800 shadow-sm backdrop-blur-sm mb-5">
+              <svg className="w-4 h-4 text-blue-600 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
               </svg>
               Opinie Google
             </div>
-            <h2 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-3">
+            <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-gray-900 mb-3">
               Co mówią o nas w Google?
             </h2>
-            <p className="text-sm sm:text-lg text-gray-600 max-w-2xl mx-auto">
-              Zobacz naszą ocenę i prawdziwe recenzje
+            <p className="text-sm sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+              Średnia <span className="font-semibold text-gray-800">5.0</span> — poniżej dwie autentyczne recenzje od naszych uczniów.
             </p>
           </div>
 
-          {/* Google Rating Card */}
-          <div className="max-w-4xl mx-auto mb-6 sm:mb-12">
-            <Card className="border-none shadow-2xl bg-gradient-to-br from-white via-blue-50/30 to-white overflow-hidden">
-              <CardContent className="p-6 sm:p-12">
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
-                  <div className="text-center">
-                    <div className="text-6xl sm:text-7xl font-bold text-gray-900 mb-2">4.9</div>
-                    <div className="flex gap-1 justify-center mb-2">
+          <div className="max-w-4xl mx-auto mb-10 sm:mb-14">
+            <div className="relative overflow-hidden rounded-3xl border border-blue-100/90 bg-white/90 p-1 shadow-xl shadow-blue-500/10 backdrop-blur-sm">
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-400/50 to-transparent" />
+              <CardContent className="p-6 sm:p-10 rounded-[1.35rem] bg-gradient-to-br from-white via-blue-50/40 to-slate-50/30">
+                <div className="flex flex-col sm:flex-row items-stretch justify-center gap-8 sm:gap-12">
+                  <div className="flex flex-col items-center text-center sm:items-center flex-1">
+                    <div className="text-5xl sm:text-6xl font-bold tabular-nums tracking-tight text-gray-900">
+                      5.0
+                    </div>
+                    <div className="mt-2 flex gap-0.5 justify-center">
                       {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-6 h-6 text-yellow-400 fill-yellow-400" />
+                        <Star key={i} className="w-6 h-6 sm:w-7 sm:h-7 text-amber-400 fill-amber-400 drop-shadow-sm" />
                       ))}
                     </div>
-                    <p className="text-gray-600 font-medium">Średnia ocen Google</p>
+                    <p className="mt-3 text-sm font-medium text-gray-600">Średnia ocena w Google</p>
                   </div>
-                  <div className="h-20 w-px bg-gray-200 hidden sm:block" />
-                  <div className="text-center">
-                    <div className="text-4xl sm:text-5xl font-bold text-gray-900 mb-2">150+</div>
-                    <p className="text-gray-600 font-medium">Pozytywnych opinii</p>
+                  <div className="hidden sm:block w-px self-stretch bg-gradient-to-b from-transparent via-blue-200/80 to-transparent min-h-[120px]" />
+                  <div className="sm:hidden h-px w-full bg-gradient-to-r from-transparent via-blue-200/80 to-transparent" />
+                  <div className="flex flex-col items-center text-center justify-center flex-1 rounded-2xl border border-blue-100/80 bg-white/70 px-6 py-5 shadow-inner">
+                    <div className="text-4xl sm:text-5xl font-bold tabular-nums text-blue-700">2</div>
+                    <p className="mt-2 text-sm font-semibold text-gray-800">Opinii poniżej</p>
+                    <p className="mt-1 text-xs text-gray-500 max-w-[14rem]">Recenzje wyświetlane na tej stronie — pełna lista na profilu Google.</p>
                   </div>
                 </div>
               </CardContent>
-            </Card>
+            </div>
           </div>
 
-          {/* Sample Google Reviews - Placeholder */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {[1, 2, 3].map((_, index) => (
-              <Card key={index} className="border-2 border-gray-100 hover:border-blue-200 hover:shadow-lg transition-all bg-white">
-                <CardContent className="p-5 sm:p-6 space-y-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white font-bold">
-                      ?
-                    </div>
-                    <div className="flex-1">
-                      <div className="h-4 bg-gray-200 rounded w-24 mb-2" />
-                      <div className="flex gap-0.5">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} className="w-3 h-3 text-yellow-400 fill-yellow-400" />
-                        ))}
+          <div className="grid sm:grid-cols-2 gap-5 sm:gap-7 max-w-4xl mx-auto mb-10 sm:mb-14">
+            {googleReviews.map((review, idx) => (
+              <motion.article
+                key={review.id}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.4, delay: idx * 0.06 }}
+              >
+                <a
+                  href={GOOGLE_REVIEWS_PAGE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Przejdź do opinii Google — ${review.author}`}
+                  className="group relative flex h-full min-h-[200px] flex-col overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-lg shadow-slate-200/50 outline-none transition-all duration-300 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-500/15 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                >
+                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-blue-500 via-sky-400 to-cyan-400 opacity-90" />
+                  <Quote className="pointer-events-none absolute right-3 top-8 z-[1] h-16 w-16 text-blue-100/90 rotate-6" aria-hidden />
+                  <CardContent className="relative z-[1] flex flex-1 flex-col gap-4 p-5 sm:p-7">
+                    <div className="flex items-start gap-3">
+                      <div
+                        className="flex h-12 w-12 sm:h-14 sm:w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-blue-700 text-base sm:text-lg font-bold text-white shadow-md ring-2 ring-white"
+                        aria-hidden
+                      >
+                        {googleReviewInitials(review.author)}
+                      </div>
+                      <div className="min-w-0 flex-1 pt-0.5">
+                        <p className="font-semibold text-gray-900 text-base sm:text-lg leading-tight">
+                          {review.author}
+                        </p>
+                        <div className="mt-1 inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-blue-700">
+                          Google
+                        </div>
+                        <div className="mt-2 flex gap-0.5">
+                          {[...Array(review.rating)].map((_, i) => (
+                            <Star key={i} className="w-4 h-4 text-amber-400 fill-amber-400" />
+                          ))}
+                        </div>
                       </div>
                     </div>
+                    <p className="relative text-sm sm:text-[15px] text-gray-700 leading-relaxed line-clamp-4 sm:line-clamp-5">
+                      {googleReviewPreviewText(review.text)}
+                    </p>
+                  </CardContent>
+                  <div
+                    className="pointer-events-none absolute inset-0 z-[2] flex items-center justify-center rounded-2xl bg-gradient-to-b from-blue-900/80 to-blue-950/85 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
+                    aria-hidden
+                  >
+                    <span className="mx-4 rounded-full bg-white px-5 py-2.5 text-center text-sm font-semibold text-blue-900 shadow-lg sm:text-base">
+                      Przejdź do opinii Google
+                    </span>
                   </div>
-                  <div className="space-y-2">
-                    <div className="h-3 bg-gray-100 rounded w-full" />
-                    <div className="h-3 bg-gray-100 rounded w-5/6" />
-                    <div className="h-3 bg-gray-100 rounded w-4/6" />
-                  </div>
-                  <p className="text-xs text-gray-500 italic">
-                    Opinie wkrótce pojawią się tutaj
-                  </p>
-                </CardContent>
-              </Card>
+                </a>
+              </motion.article>
             ))}
           </div>
 
-          <div className="mt-12 text-center">
+          <div className="text-center">
             <Button
               size="lg"
-              className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-6 sm:px-8 py-4 sm:py-6 text-sm sm:text-base rounded-xl shadow-lg"
+              className="rounded-2xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 sm:px-10 py-5 sm:py-6 text-sm sm:text-base shadow-lg shadow-blue-600/25 ring-1 ring-white/20"
+              asChild
             >
-              Zobacz wszystkie opinie na Google
+              <a href={GOOGLE_REVIEWS_PAGE_URL} target="_blank" rel="noopener noreferrer">
+                Zobacz wszystkie opinie na Google
+              </a>
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Video testimonials */}
+      {/* Video testimonials LEAVE THIS SECTION
       <section className="py-8 sm:py-20 px-4 sm:px-6 bg-gradient-to-b from-purple-50/30 to-white">
         <div className="max-w-6xl mx-auto">
           <div className="mb-6 sm:mb-12">
@@ -206,24 +314,97 @@ export default function NasiUczniowie() {
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
+          <div className="grid grid-cols-1 gap-3 sm:gap-6">
             {videoTestimonials.map((video) => (
-              <Card key={video.id} className="border-none shadow-xl hover:shadow-2xl transition-all overflow-hidden bg-white hover:-translate-y-1">
-                <VideoPlayer url={video.videoUrl} light={false} />
-                <CardContent className="p-4 sm:p-5 bg-gradient-to-br from-purple-50/50 to-white">
-                  <div className="flex items-start gap-2">
-                    <Quote className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500 flex-shrink-0 mt-1" />
-                    <p className="text-sm sm:text-base text-gray-700 italic font-medium">{video.quote}</p>
-                  </div>
-                </CardContent>
-              </Card>
+              <motion.button
+                key={video.id}
+                type="button"
+                layout
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.25 }}
+                onClick={() => setActiveVideo(video)}
+                className="text-left w-full group"
+              >
+                <Card className="border-none shadow-xl hover:shadow-2xl transition-all overflow-hidden bg-white group-hover:-translate-y-1 group-focus-visible:ring-2 group-focus-visible:ring-purple-400 group-focus-visible:ring-offset-2 rounded-xl">
+                  <CardContent className="p-4 sm:p-5">
+                    <div className="flex flex-col sm:flex-row gap-4 sm:gap-5">
+                      <div
+                        className={`relative mx-auto sm:mx-0 w-full max-w-md ${
+                          video.orientation === "horizontal"
+                            ? "sm:w-[360px] sm:max-w-none sm:flex-shrink-0"
+                            : "sm:w-[240px] sm:max-w-none sm:flex-shrink-0"
+                        }`}
+                      >
+                        <div className="pointer-events-none rounded-2xl overflow-hidden shadow-inner ring-1 ring-purple-100/80">
+                          <VideoPlayer
+                            url={video.videoUrl}
+                            containerClassName={`${video.orientation === "horizontal" ? "aspect-video" : "aspect-[4/5]"} rounded-2xl shadow-none`}
+                            videoClassName="object-cover"
+                          />
+                        </div>
+                        <div className="absolute inset-0 flex items-center justify-center rounded-2xl bg-black/25 group-hover:bg-black/35 transition-colors pointer-events-none">
+                          <span className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-white/95 text-purple-600 shadow-lg ring-2 ring-white/50">
+                            <Play className="w-5 h-5 sm:w-6 sm:h-6 ml-0.5" fill="currentColor" />
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="flex-1 min-w-0 flex flex-col justify-center gap-3">
+                        <div>
+                          <p className="text-xs font-semibold text-purple-600 uppercase tracking-wide mb-1">
+                            {video.name} · {video.role}
+                          </p>
+                          <div className="flex items-start gap-2">
+                            <Quote className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500 flex-shrink-0 mt-0.5" />
+                            <p className="text-sm sm:text-base text-gray-800 italic font-medium leading-snug">
+                              {video.quote}
+                            </p>
+                          </div>
+                        </div>
+                        <p className="text-xs sm:text-sm text-purple-700/90 font-medium">
+                          Kliknij, aby otworzyć pełny wywiad z transkryptem
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.button>
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
+
+      <AnimatePresence>
+        {galleryExpanded && gallerySectionInView && (
+          <motion.div
+            key="gallery-collapse-control"
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed top-14 sm:top-[4.25rem] left-0 right-0 z-[55] pointer-events-none"
+          >
+            <div className="sticky top-0 relative w-full min-h-11 pointer-events-auto flex justify-center">
+              <button
+                type="button"
+                onClick={handleCollapseGallery}
+                className="absolute left-1/2 top-0 -translate-x-1/2 inline-flex h-11 w-11 items-center justify-center rounded-full bg-white text-orange-600 shadow-lg ring-1 ring-orange-200/80 hover:bg-orange-50 hover:ring-orange-300 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
+                aria-label="Zwiń galerię screenów"
+              >
+                <ChevronDown className="w-6 h-6" strokeWidth={2.5} />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Screeny z wiadomości - Grid z animacjami */}
-      <section className="py-8 sm:py-20 px-4 sm:px-6 bg-gradient-to-b from-white via-orange-50/30 to-white">
+      <section
+        ref={gallerySectionRef}
+        id="galeria-screenow"
+        className="py-8 sm:py-20 px-4 sm:px-6 bg-gradient-to-b from-white via-orange-50/30 to-white scroll-mt-20 sm:scroll-mt-24"
+      >
         <div className="max-w-6xl mx-auto">
           <div className="mb-6 sm:mb-12">
             <div className="inline-flex items-center gap-2 bg-orange-100 text-orange-700 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium mb-4">
@@ -238,33 +419,197 @@ export default function NasiUczniowie() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-6">
-            {[
-              { url: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6910d8d3e519cbbd5350687e/cb42f77c3_image.png', delay: '0' },
-              { url: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6910d8d3e519cbbd5350687e/1959c5c8e_image.png', delay: '100' },
-              { url: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6910d8d3e519cbbd5350687e/a585c6226_image.png', delay: '200' },
-              { url: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6910d8d3e519cbbd5350687e/cb42f77c3_image.png', delay: '0' },
-              { url: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6910d8d3e519cbbd5350687e/1959c5c8e_image.png', delay: '100' },
-              { url: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6910d8d3e519cbbd5350687e/a585c6226_image.png', delay: '200' },
-            ].map((screenshot, index) => (
-              <div 
-                key={index}
-                className="group relative overflow-hidden rounded-lg sm:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
-                style={{ animationDelay: `${screenshot.delay}ms` }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-400/20 to-amber-400/20 opacity-0 group-hover:opacity-100 transition-opacity" />
-                <img 
-                  src={screenshot.url}
-                  alt="Opinia ucznia"
-                  className="w-full h-48 sm:h-72 object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-            ))}
+          <div className="space-y-0">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4">
+              {previewScreenshots.map((screenshot, index) => (
+                <motion.button
+                  key={`preview-${screenshot.url}-${index}`}
+                  type="button"
+                  onClick={() => setLightboxIndex(index)}
+                  className="group relative overflow-hidden rounded-lg sm:rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300 hover:-translate-y-1 cursor-pointer"
+                  style={{ animationDelay: `${screenshot.delay}ms` }}
+                  whileHover={{ scale: 1.01 }}
+                  whileTap={{ scale: 0.99 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 28 }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-orange-400/20 to-amber-400/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <img
+                    src={screenshot.url}
+                    alt="Opinia ucznia"
+                    className="w-full h-36 sm:h-56 object-contain bg-white group-hover:scale-105 transition-transform duration-300"
+                  />
+                </motion.button>
+              ))}
+            </div>
+
+            <AnimatePresence initial={false}>
+              {galleryExpanded && extraScreenshots.length > 0 && (
+                <motion.div
+                  key="gallery-extra"
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{
+                    height: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+                    opacity: { duration: 0.3, ease: "easeOut" },
+                  }}
+                  className="overflow-hidden"
+                >
+                  <motion.div
+                    initial="hidden"
+                    animate="visible"
+                    variants={{
+                      hidden: {},
+                      visible: {
+                        transition: { staggerChildren: 0.035, delayChildren: 0.06 },
+                      },
+                    }}
+                    className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4 pt-2 sm:pt-4"
+                  >
+                    {extraScreenshots.map((screenshot, i) => {
+                      const globalIndex = SCREENSHOT_PREVIEW_COUNT + i;
+                      return (
+                        <motion.button
+                          key={`extra-${screenshot.url}-${globalIndex}`}
+                          type="button"
+                          variants={{
+                            hidden: { opacity: 0, y: 16, scale: 0.97 },
+                            visible: {
+                              opacity: 1,
+                              y: 0,
+                              scale: 1,
+                              transition: { type: "spring", stiffness: 380, damping: 26 },
+                            },
+                          }}
+                          onClick={() => setLightboxIndex(globalIndex)}
+                          className="group relative overflow-hidden rounded-lg sm:rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300 hover:-translate-y-1 cursor-pointer"
+                          style={{ animationDelay: `${screenshot.delay}ms` }}
+                          whileHover={{ scale: 1.01 }}
+                          whileTap={{ scale: 0.99 }}
+                        >
+                          <div className="absolute inset-0 bg-gradient-to-br from-orange-400/20 to-amber-400/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+                          <img
+                            src={screenshot.url}
+                            alt="Opinia ucznia"
+                            className="w-full h-36 sm:h-56 object-contain bg-white group-hover:scale-105 transition-transform duration-300"
+                          />
+                        </motion.button>
+                      );
+                    })}
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
+
+          {!galleryExpanded && screenshots.length > SCREENSHOT_PREVIEW_COUNT && (
+            <p className="text-center text-sm text-gray-500 mt-4">
+              Pokazano {SCREENSHOT_PREVIEW_COUNT} z {screenshots.length} screenów
+            </p>
+          )}
+
+          {!galleryExpanded && screenshots.length > SCREENSHOT_PREVIEW_COUNT && (
+            <div className="flex justify-center mt-6">
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handleExpandGallery}
+                  className="rounded-full border-orange-200 text-orange-800 hover:bg-orange-50 gap-2"
+                >
+                  Pokaż wszystkie screeny ({screenshots.length})
+                  <ChevronDown className="w-4 h-4" />
+                </Button>
+              </motion.div>
+            </div>
+          )}
         </div>
       </section>
 
-      {/* Text reviews */}
+      <Lightbox
+        open={lightboxIndex >= 0}
+        close={() => setLightboxIndex(-1)}
+        index={lightboxIndex}
+        slides={screenshots.map((screenshot) => ({ src: screenshot.url }))}
+        carousel={{ padding: 140, imageFit: 'contain' }}
+        controller={{ closeOnBackdropClick: true }}
+        render={{ buttonClose: () => null }}
+        styles={{
+          container: { backgroundColor: 'rgba(0, 0, 0, 0.6)' },
+          image: { maxWidth: '70vw', maxHeight: '80vh' },
+        }}
+        on={{
+          view: ({ index }) => setLightboxIndex(index),
+        }}
+      />
+
+      <AnimatePresence>
+        {activeVideo && (
+          <motion.div
+            key={activeVideo.id}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="video-interview-title"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[200] flex flex-col items-stretch justify-start overflow-y-auto bg-black/70 backdrop-blur-sm px-3 py-6 sm:py-10"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setActiveVideo(null);
+            }}
+          >
+            <div className="relative w-full max-w-4xl mx-auto flex flex-col gap-4 pb-8">
+              <button
+                type="button"
+                onClick={() => setActiveVideo(null)}
+                className="absolute -top-1 right-0 sm:right-2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/95 text-gray-800 shadow-lg hover:bg-white transition-colors"
+                aria-label="Zamknij"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 12 }}
+                transition={{ duration: 0.25 }}
+                className="w-full rounded-2xl overflow-hidden bg-white shadow-2xl ring-1 ring-white/10"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="px-4 sm:px-6 pt-5 sm:pt-6 pb-3 border-b border-gray-100">
+                  <h3 id="video-interview-title" className="text-lg sm:text-2xl font-bold text-gray-900">
+                    {activeVideo.name}
+                  </h3>
+                  <p className="text-sm sm:text-base text-gray-600 mt-1">{activeVideo.role}</p>
+                  <p className="text-sm sm:text-base text-gray-700 italic mt-3 border-l-4 border-purple-200 pl-3">
+                    {activeVideo.quote}
+                  </p>
+                </div>
+
+                <div className="bg-black">
+                  <VideoPlayer
+                    url={activeVideo.videoUrl}
+                    containerClassName={`${activeVideo.orientation === "horizontal" ? "aspect-video" : "aspect-[4/5] sm:aspect-video"} rounded-none shadow-none`}
+                    videoClassName="object-contain sm:object-cover"
+                  />
+                </div>
+
+                <div className="px-4 sm:px-6 py-5 sm:py-6 bg-gradient-to-br from-purple-50/80 to-white border-t border-purple-100">
+                  <div className="text-xs font-semibold text-purple-700 mb-3 uppercase tracking-wide">
+                    Transkrypcja wywiadu
+                  </div>
+                  <div className="text-sm sm:text-base text-gray-800 leading-relaxed whitespace-pre-wrap">
+                    {activeVideo.transcript}
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Text reviews
       <section className="py-8 sm:py-20 px-4 sm:px-6 bg-gradient-to-b from-orange-50/30 to-white">
         <div className="max-w-6xl mx-auto">
           <div className="mb-6 sm:mb-12">
@@ -306,7 +651,7 @@ export default function NasiUczniowie() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* CTA */}
       <section className="py-12 sm:py-20 px-4 sm:px-6 bg-gradient-to-br from-orange-500 to-amber-500 relative">

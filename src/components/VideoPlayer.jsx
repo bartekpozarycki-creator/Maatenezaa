@@ -1,24 +1,38 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
 
-/**
- * Responsive 16:9 video player based on react-player.
- * Props:
- *  - url (string) – source (YouTube, Vimeo, mp4, etc.)
- *  - light (string | boolean) – optional thumbnail or true for auto-thumbnail
- *  - ...rest – forward to ReactPlayer
- */
-export default function VideoPlayer({ url, light = false, ...rest }) {
+function isYouTubeUrl(url) {
+  if (!url || typeof url !== 'string') return false;
+  return /youtube\.com|youtu\.be/i.test(url);
+}
+
+export default function VideoPlayer({ url, poster, containerClassName = "aspect-video", videoClassName = "" }) {
+  const shell = `relative w-full overflow-hidden rounded-xl shadow-lg ${containerClassName}`;
+
+  if (isYouTubeUrl(url)) {
+    return (
+      <div className={shell}>
+        <div className="absolute inset-0">
+          <ReactPlayer
+            url={url}
+            width="100%"
+            height="100%"
+            controls
+            config={{ youtube: { playerVars: { playsinline: 1 } } }}
+          />
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="aspect-video w-full overflow-hidden rounded-xl shadow-lg relative">
-      <ReactPlayer
-        url={url}
-        width="100%"
-        height="100%"
+    <div className={shell}>
+      <video
+        src={url}
+        poster={poster}
         controls
-        playsinline
-        light={light}
-        {...rest}
+        playsInline
+        className={`w-full h-full object-cover ${videoClassName}`}
       />
     </div>
   );

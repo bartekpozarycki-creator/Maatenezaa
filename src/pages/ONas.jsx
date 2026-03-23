@@ -18,47 +18,45 @@ export default function ONas() {
       name: "Bartosz",
       role: "Współzałożyciel i korepetytor",
       image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6910d8d3e519cbbd5350687e/63a153032_IMG_2700.jpg",
-      description: "Student informatyki, pasjonat matematyki i nauczania. Specjalizuje się w przygotowaniu do matury rozszerzonej oraz w pracy z uczniami liceum.",
-      achievements: ["Matura rozszerzona: 98%", "Ponad 100 uczniów", "Specjalizacja: liceum i matura"],
+      description:
+        "Cześć! :) Mam na imię Bartek, mam 19 lat i jestem studentem I roku matematyki na Uniwersytecie im. Adama Mickiewicza w Poznaniu i chętnie pomogę Ci zrozumieć matematykę!",
+      achievements: ["Ponad 1500 godzin prowadzonych zajęć", "Plan powtórek i materiałów pod Twój cel", "Spokojna atmosfera i zero pośpiechu przy tablicy"],
       quote: "Matematyka to nie czarna magia - to logika, której każdy może się nauczyć."
     },
     {
       name: "Jeremiasz",
       role: "Współzałożyciel i korepetytor",
       image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6910d8d3e519cbbd5350687e/be6438e6c_IMG_6222.jpg",
-      description: "Cześć! Studiuję na Politechnice Poznańskiej, a korepetycji udzielam, odkąd sam siedziałem w licealnej ławce. Najbardziej lubię pracować z osobami, dla których matematyka jest „pod górkę” – moment, w którym w końcu wszystko staje się jasne, to dla mnie największa satysfakcja.",
-      achievements: ["Specjalizacja: szkoła średnia i matura", "50+ zadowolonych uczniów"],
-      quote: "Każdy może polubić matematykę - wystarczy znaleźć właściwe podejście."
+      description: "Cześć! Studiuję na Politechnice Poznańskiej, a korepetycji udzielam, odkąd sam siedziałem w licealnej ławce. W celu potwierdzenia kompetencji matematycznych na studiach ukończyłem kursy z zakresu: analizy matematycznej 1, probabilistyki i statystyki, algebry oraz podstaw metod optymalizacji. Obecnie jestem w trakcie realizacji kursu „Narzędzia analizy matematycznej dla ICT”.",
+      achievements: ["Zaawansowane kursy matematyczne na studiach", "Lekcje dopasowane do tempa i stylu nauki", "Wracamy do zaległości, zanim przejdziemy dalej"],
+      quote: "Zawsze powtarzam uczniom, że bez pracy nie ma kołaczy - w matematyce nic nie zrobi się samo."
     }
   ];
 
   const tutors = [
     {
-      name: "Ania",
-      role: "Korepetytorka matematyki",
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&q=80",
-      specialty: "Szkoła podstawowa i egzamin ósmoklasisty",
-      description: "Studentka matematyki, która swoją cierpliwością i zrozumieniem potrafi dotrzeć do każdego ucznia.",
+      name: "Szymon",
+      role: "Korepetytor matematyki · student informatyki, Politechnika Poznańska",
+      image: "/szyms.png",
+      description:
+        "Cześć, tu Szymon. Staram się, żeby po lekcji było Ci po prostu lżej w głowie. Tłumaczę po kawałku, możesz przerywać i pytać o to samo drugi raz — bez problemu. Bez napinania się: wchodzimy w temat w Twoim tempie i jak coś jest niejasne, to wracamy, dopóki nie będzie sensu.",
+      points: [
+        "Wolę, żebyś zrozumiał, niż żebyś wykuł na pamięć",
+        "Spokojnie — możemy omówić jedno zadanie kilka razy z rzędu",
+      ],
       icon: BookOpen,
-      color: "bg-pink-500"
     },
     {
-      name: "Michał",
-      role: "Korepetytor matematyki",
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&q=80",
-      specialty: "Liceum - poziom podstawowy i rozszerzony",
-      description: "Student politechniki, który pokazuje, jak matematyka przekłada się na rzeczywistość.",
+      name: "Tomek",
+      role: "Korepetytor matematyki · student matematyki, UAM",
+      image: "/tomsan.jpg",
+      description:
+        "Siema, Tomek. Najbardziej się cieszę, jak ktoś mówi: „aaa, już wiem o co chodziło”, zamiast klikać dalej w ciemno. Tłumaczę prosto, bez kombinowania z nazwami. Jak czegoś nie czujesz — mówisz, nie udajesz się, że jest OK, i razem to ogarniamy.",
+      points: [
+        "Normalny język, bez „pokazów mądrości”",
+        "Zero pośpiechu — jak trzeba, stoimy przy jednym zadaniu dłużej",
+      ],
       icon: Target,
-      color: "bg-blue-500"
-    },
-    {
-      name: "Kasia",
-      role: "Korepetytorka matematyki",
-      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&q=80",
-      specialty: "Przygotowanie do matury",
-      description: "Świeża maturzystka z wynikiem 100% z rozszerzonej. Wie dokładnie, jak podejść do egzaminu.",
-      icon: Award,
-      color: "bg-purple-500"
     }
   ];
 
@@ -211,30 +209,54 @@ export default function ONas() {
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
+          <div className="flex flex-col gap-6 sm:gap-8">
             {tutors.map((tutor, index) => (
-              <Card key={index} className="border-2 border-gray-100 hover:border-purple-200 hover:shadow-xl transition-all bg-white overflow-hidden group">
-                <div className="relative h-40 sm:h-56 overflow-hidden">
-                  <img 
-                    src={tutor.image} 
-                    alt={tutor.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-                  <div className={`absolute top-2 sm:top-4 right-2 sm:right-4 w-8 h-8 sm:w-12 sm:h-12 ${tutor.color} rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg`}>
-                    <tutor.icon className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
+              <Card
+                key={index}
+                className="border border-gray-200 hover:border-purple-200 hover:shadow-md transition-all bg-white overflow-hidden group"
+              >
+                <div className="flex flex-col lg:flex-row lg:items-stretch lg:min-h-[320px]">
+                  <div className="relative w-full lg:w-[40%] lg:max-w-md lg:flex-shrink-0 min-h-[200px] sm:min-h-[240px] lg:min-h-0 overflow-hidden">
+                    {tutor.image ? (
+                      <img
+                        src={tutor.image}
+                        alt={tutor.name}
+                        className="absolute inset-0 h-full w-full object-cover object-center bg-slate-900 group-hover:scale-[1.02] transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center">
+                        <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-white/10 flex items-center justify-center">
+                          <span className="text-3xl sm:text-4xl font-extrabold text-white">
+                            {String(tutor.name || "").trim().slice(0, 1).toUpperCase()}
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                    <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-14 sm:h-16 bg-gradient-to-t from-black/40 to-transparent" aria-hidden />
+                    <div className="absolute top-3 right-3 sm:top-4 sm:right-4 flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl bg-purple-600 text-white shadow-md">
+                      <tutor.icon className="w-5 h-5" />
+                    </div>
+                    <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 text-white">
+                      <h3 className="text-lg sm:text-2xl font-bold mb-0.5 drop-shadow-sm">{tutor.name}</h3>
+                      <p className="text-sm text-white/90">{tutor.role}</p>
+                    </div>
                   </div>
-                  <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 right-2 sm:right-4 text-white">
-                    <h3 className="text-sm sm:text-xl font-bold mb-0.5">{tutor.name}</h3>
-                    <p className="text-xs text-gray-200">{tutor.role}</p>
-                  </div>
+
+                  <CardContent className="flex flex-1 flex-col justify-center gap-3 sm:gap-4 p-5 sm:p-7 lg:pl-8">
+                    {tutor.specialty ? (
+                      <p className="text-xs sm:text-sm font-medium text-purple-800">{tutor.specialty}</p>
+                    ) : null}
+                    <p className="text-sm sm:text-base text-gray-700 leading-relaxed">{tutor.description}</p>
+                    <ul className="space-y-1.5 text-sm text-gray-600">
+                      {tutor.points.map((line, i) => (
+                        <li key={i} className="flex gap-2 pl-0.5">
+                          <span className="text-purple-500 shrink-0">–</span>
+                          <span>{line}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
                 </div>
-                <CardContent className="p-3 sm:p-5 space-y-2 sm:space-y-3">
-                  <div className="inline-block bg-purple-100 text-purple-700 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs font-medium">
-                    {tutor.specialty}
-                  </div>
-                  <p className="text-xs sm:text-sm text-gray-700 leading-relaxed">{tutor.description}</p>
-                </CardContent>
               </Card>
             ))}
           </div>

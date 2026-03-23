@@ -53,14 +53,19 @@ export default function Home() {
       image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6910d8d3e519cbbd5350687e/63a153032_IMG_2700.jpg"
     },
     {
-      name: "Ania",
-      role: "Korepetytorka matematyki",
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&q=80"
+      name: "Jeremiasz",
+      role: "Współzałożyciel Matenezy",
+      image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6910d8d3e519cbbd5350687e/be6438e6c_IMG_6222.jpg"
     },
     {
-      name: "Michał",
-      role: "Korepetytor matematyki",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80"
+      name: "Tomek",
+      role: "Korepetytor matematyki, student matematyki (UAM)",
+      image: "/tomsan.jpg"
+    },
+    {
+      name: "Szymon",
+      role: "Korepetytor matematyki, student informatyki (Politechnika Poznańska)",
+      image: "/szyms.png"
     }
   ];
 
@@ -186,15 +191,26 @@ export default function Home() {
     setIsSubmitting(true);
 
     try {
-      const res = await fetch('/.netlify/functions/send-email', {
+      const contactEndpoint = import.meta.env.VITE_CONTACT_ENDPOINT || '/.netlify/functions/send-email';
+
+      const res = await fetch(contactEndpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
 
+      const text = await res.text();
+      let payload = null;
+      if (text) {
+        try {
+          payload = JSON.parse(text);
+        } catch (_) {
+          payload = null;
+        }
+      }
+
       if (!res.ok) {
-        const { error } = await res.json();
-        throw new Error(error || 'Network error');
+        throw new Error(payload?.error || 'Network error');
       }
 
       toast.success('Dziękujemy za kontakt! Skontaktujemy się z Tobą jak najszybciej to możliwe. 😊');
@@ -339,8 +355,8 @@ export default function Home() {
             <div className="relative">
               <div className="relative rounded-2xl overflow-hidden shadow-xl">
                 <img
-                  src="https://images.unsplash.com/photo-1509869175650-a1d97972541a?w=800&q=80"
-                  alt="Nauka matematyki"
+                  src="/alt.png"
+                  alt="Mateneza"
                   className="w-full h-[160px] md:h-[300px] object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-orange-900/30 to-transparent" />
@@ -408,8 +424,8 @@ export default function Home() {
             <div className="relative mt-6 lg:mt-0 hidden lg:block">
               <div className="relative rounded-3xl overflow-hidden shadow-2xl">
                 <img
-                  src="https://images.unsplash.com/photo-1509869175650-a1d97972541a?w=800&q=80"
-                  alt="Nauka matematyki"
+                  src="/alt.png"
+                  alt="Mateneza"
                   className="w-full h-[500px] object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-orange-900/30 to-transparent" />

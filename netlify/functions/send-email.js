@@ -33,9 +33,12 @@ export async function handler(event, _context) {
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
 
+    const toEmail = process.env.CONTACT_TO_EMAIL || 'bartek.pozarycki@gmail.com';
+    const fromEmail = process.env.CONTACT_FROM_EMAIL || 'Mateneza <no-reply@mateneza.com>';
+
     const result = await resend.emails.send({
-      from: 'Mateneza <no-reply@mateneza.com>',
-      to: 'bartek.pozarycki@gmail.com',
+      from: fromEmail,
+      to: toEmail,
       subject: `Nowa wiadomość od ${name}`,
       text: `Imię: ${name}\nEmail: ${email}\nTelefon: ${phone || 'Nie podano'}\n\nWiadomość:\n${message}`,
     });
