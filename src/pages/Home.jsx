@@ -1035,19 +1035,19 @@ export default function Home() {
             </div>
             </section>
 
-            {/* Opinie uczniów - Infinite Scroll Carousel */}
+            {/* Opinie uczniów i osiągnięcia – karuzela screenów */}
       <section id="opinie" className="py-12 sm:py-16 md:py-20 bg-gradient-to-b from-white via-orange-50/20 to-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-10 sm:mb-16">
           <div className="text-center">
             <div className="inline-flex items-center gap-2 bg-orange-100 text-orange-700 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium mb-4">
               <Star className="w-3 h-3 sm:w-4 sm:h-4 fill-orange-600" />
-              Opinie uczniów
+              Opinie i osiągnięcia
             </div>
             <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
-              Co mówią nasi uczniowie?
+              Opinie uczniów i ich osiągnięcia
             </h2>
             <p className="text-sm sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-              Prawdziwe screeny z wiadomości od zadowolonych uczniów i rodziców
+              Screeny z rozmów, opinie z Google i relacje uczniów
             </p>
           </div>
         </div>
@@ -1086,7 +1086,12 @@ export default function Home() {
                     </div>
                     <div>
                       <p className="text-xs sm:text-sm text-orange-100">Email</p>
-                      <p className="font-semibold text-sm sm:text-base">kontakt@mateneza.pl</p>
+                      <a
+                        href="mailto:korki.mateneza@gmail.com"
+                        className="font-semibold text-sm sm:text-base hover:underline break-all"
+                      >
+                        korki.mateneza@gmail.com
+                      </a>
                     </div>
                   </div>
                   <div className="flex items-center gap-3 sm:gap-4">
@@ -1095,7 +1100,9 @@ export default function Home() {
                     </div>
                     <div>
                       <p className="text-xs sm:text-sm text-orange-100">Telefon</p>
-                      <p className="font-semibold text-sm sm:text-base">+48 123 456 789</p>
+                      <a href="tel:+48508810722" className="font-semibold text-sm sm:text-base hover:underline">
+                        508 810 722
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -1301,8 +1308,12 @@ export default function Home() {
             <div className="col-span-2 sm:col-span-1">
               <h4 className="font-bold mb-2 sm:mb-3 text-sm sm:text-base">Kontakt</h4>
               <div className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-gray-400">
-                <p>kontakt@mateneza.pl</p>
-                <p>+48 123 456 789</p>
+                <a href="mailto:korki.mateneza@gmail.com" className="block hover:text-orange-400 transition-colors break-all">
+                  korki.mateneza@gmail.com
+                </a>
+                <a href="tel:+48508810722" className="block hover:text-orange-400 transition-colors">
+                  508 810 722
+                </a>
               </div>
             </div>
           </div>

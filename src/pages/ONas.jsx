@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Award, BookOpen, Heart, Target, Star, GraduationCap, Lightbulb, Users } from 'lucide-react';
+import { BookOpen, Heart, Target, Star, GraduationCap, Lightbulb, Users } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import PageHeader from '../components/PageHeader';
 
@@ -19,7 +19,7 @@ export default function ONas() {
       role: "Współzałożyciel i korepetytor",
       image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6910d8d3e519cbbd5350687e/63a153032_IMG_2700.jpg",
       description:
-        "Cześć! :) Mam na imię Bartek, mam 19 lat i jestem studentem I roku matematyki na Uniwersytecie im. Adama Mickiewicza w Poznaniu i chętnie pomogę Ci zrozumieć matematykę!",
+        "Mam na imię Bartek i studiuję matematykę na UAM w Poznaniu. Korepetycje dla podstawówki i liceum: materiał z lekcji, sprawdziany i matura. Tłumaczę krok po kroku w spokojnej atmosferze, tak byś zrozumiał ideę, nie tylko wynik. Bez stresu — jeśli chcesz lepszych wyników lub ogarnąć matmę, zapraszam.",
       achievements: ["Ponad 1500 godzin prowadzonych zajęć", "Plan powtórek i materiałów pod Twój cel", "Spokojna atmosfera i zero pośpiechu przy tablicy"],
       quote: "Matematyka to nie czarna magia - to logika, której każdy może się nauczyć."
     },
@@ -39,7 +39,7 @@ export default function ONas() {
       role: "Korepetytor matematyki · student informatyki, Politechnika Poznańska",
       image: "/szyms.png",
       description:
-        "Cześć, tu Szymon. Staram się, żeby po lekcji było Ci po prostu lżej w głowie. Tłumaczę po kawałku, możesz przerywać i pytać o to samo drugi raz — bez problemu. Bez napinania się: wchodzimy w temat w Twoim tempie i jak coś jest niejasne, to wracamy, dopóki nie będzie sensu.",
+        "Cześć, tu Szymon! Jestem studentem informatyki i na co dzień zajmuję się przedmiotami ścisłymi, więc dobrze wiem, z jakimi trudnościami mogą się one wiązać. Sam nie zawsze rozumiałem wszystko od razu, dlatego dziś potrafię spojrzeć na materiał z perspektywy ucznia i wytłumaczyć go w prosty, przystępny sposób. Stawiam na spokojne podejście i tłumaczenie krok po kroku, bez zbędnej presji i stresu. Ważne jest dla mnie, żebyś naprawdę zrozumiał temat, a nie tylko „zaliczył” zadanie. Pracuję w luźnej atmosferze i dopasowuję tempo do Twoich potrzeb, dzięki czemu nauka staje się bardziej komfortowa i efektywna.",
       points: [
         "Wolę, żebyś zrozumiał, niż żebyś wykuł na pamięć",
         "Spokojnie — możemy omówić jedno zadanie kilka razy z rzędu",
@@ -51,7 +51,7 @@ export default function ONas() {
       role: "Korepetytor matematyki · student matematyki, UAM",
       image: "/tomsan.jpg",
       description:
-        "Siema, Tomek. Najbardziej się cieszę, jak ktoś mówi: „aaa, już wiem o co chodziło”, zamiast klikać dalej w ciemno. Tłumaczę prosto, bez kombinowania z nazwami. Jak czegoś nie czujesz — mówisz, nie udajesz się, że jest OK, i razem to ogarniamy.",
+        "Cześć, jestem Tomek – studiuję matematykę na UAM w Poznaniu i lubię pokazywać, że nawet trudne tematy da się ogarnąć w sensowny sposób. Zamiast skomplikowanych definicji i schematów bez wyjaśnienia, skupiam się na tym, żebyś zobaczył, jak i dlaczego coś działa. Dzięki temu zadania przestają być „strzelaniem”, a zaczynają mieć sens. Na zajęciach stawiam na konkrety, przejrzyste przykłady i praktykę. Tłumaczę tak, jak sam chciałbym mieć to kiedyś wytłumaczone – jasno, bez zbędnego gadania i z naciskiem na zrozumienie. Dopasowuję się do Twojego poziomu i celu, niezależnie czy chcesz nadrobić zaległości, czy podciągnąć wyniki.",
       points: [
         "Normalny język, bez „pokazów mądrości”",
         "Zero pośpiechu — jak trzeba, stoimy przy jednym zadaniu dłużej",
@@ -125,10 +125,10 @@ export default function ONas() {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-4 sm:gap-8">
+          <div className="grid lg:grid-cols-2 gap-4 sm:gap-6">
             {founders.map((founder, index) => (
               <Card key={index} className="border-2 border-gray-100 hover:border-orange-200 hover:shadow-xl transition-all bg-white overflow-hidden group">
-                <div className="relative h-72 sm:h-96 lg:h-[500px] overflow-hidden">
+                <div className="relative h-52 sm:h-72 lg:h-[340px] overflow-hidden">
                   <img 
                     src={founder.image} 
                     alt={founder.name}
@@ -143,10 +143,10 @@ export default function ONas() {
                 
                 {/* Desktop - pełna treść */}
                 <div className="hidden sm:block">
-                  <CardContent className="p-5 sm:p-6 space-y-4">
-                    <p className="text-sm sm:text-base text-gray-700 leading-relaxed">{founder.description}</p>
+                  <CardContent className="p-3.5 sm:p-4 space-y-2.5">
+                    <p className="text-sm sm:text-base text-gray-700 leading-snug sm:leading-relaxed">{founder.description}</p>
                     
-                    <div className="space-y-2">
+                    <div className="space-y-1.5">
                       {founder.achievements.map((achievement, i) => (
                         <div key={i} className="flex items-center gap-2">
                           <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-orange-500 fill-orange-500 flex-shrink-0" />
@@ -155,8 +155,8 @@ export default function ONas() {
                       ))}
                     </div>
 
-                    <div className="pt-4 border-t border-gray-100">
-                      <p className="text-sm sm:text-base italic text-gray-600">"{founder.quote}"</p>
+                    <div className="pt-2 border-t border-gray-100">
+                      <p className="text-sm sm:text-base italic text-gray-600 leading-snug">"{founder.quote}"</p>
                     </div>
                   </CardContent>
                 </div>
@@ -213,48 +213,70 @@ export default function ONas() {
             {tutors.map((tutor, index) => (
               <Card
                 key={index}
-                className="border border-gray-200 hover:border-purple-200 hover:shadow-md transition-all bg-white overflow-hidden group"
+                className="group border-0 bg-white shadow-lg shadow-gray-200/40 ring-1 ring-gray-100 rounded-2xl sm:rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/10 hover:ring-purple-200/50"
               >
-                <div className="flex flex-col lg:flex-row lg:items-stretch lg:min-h-[320px]">
-                  <div className="relative w-full lg:w-[40%] lg:max-w-md lg:flex-shrink-0 min-h-[200px] sm:min-h-[240px] lg:min-h-0 overflow-hidden">
-                    {tutor.image ? (
-                      <img
-                        src={tutor.image}
-                        alt={tutor.name}
-                        className="absolute inset-0 h-full w-full object-cover object-center bg-slate-900 group-hover:scale-[1.02] transition-transform duration-500"
-                      />
-                    ) : (
-                      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center">
-                        <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-white/10 flex items-center justify-center">
-                          <span className="text-3xl sm:text-4xl font-extrabold text-white">
-                            {String(tutor.name || "").trim().slice(0, 1).toUpperCase()}
-                          </span>
+                <div className="flex flex-col lg:flex-row lg:items-stretch lg:min-h-0">
+                  <div className="relative w-full sm:w-[42%] sm:max-w-xs lg:w-[38%] lg:max-w-sm lg:flex-shrink-0 p-3 sm:p-4 lg:p-5 lg:pr-3">
+                    <div className="relative mx-auto w-full max-w-sm lg:max-w-none min-h-[150px] sm:min-h-[170px] lg:min-h-[190px]">
+                      {tutor.image ? (
+                        <div className="relative h-full min-h-[140px] sm:min-h-[155px] lg:min-h-[170px] overflow-hidden rounded-2xl">
+                          <img
+                            src={tutor.image}
+                            alt={tutor.name}
+                            className="h-full w-full min-h-[120px] object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]"
+                          />
+                          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-black/45 to-transparent" aria-hidden />
+                          <div className="absolute top-2 right-2 z-[1] flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-lg bg-purple-600 text-white shadow-lg ring-2 ring-white/35">
+                            <tutor.icon className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
+                          </div>
+                          <div className="absolute bottom-2 left-2.5 right-2.5 z-[1] text-white sm:left-3 sm:right-3">
+                            <h3 className="text-sm sm:text-lg font-bold mb-0.5 drop-shadow-md md:text-xl">
+                              {tutor.name}
+                            </h3>
+                            <p className="text-[10px] sm:text-[11px] text-white/95 leading-snug drop-shadow sm:text-xs">
+                              {tutor.role}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    )}
-                    <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-14 sm:h-16 bg-gradient-to-t from-black/40 to-transparent" aria-hidden />
-                    <div className="absolute top-3 right-3 sm:top-4 sm:right-4 flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl bg-purple-600 text-white shadow-md">
-                      <tutor.icon className="w-5 h-5" />
-                    </div>
-                    <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 text-white">
-                      <h3 className="text-lg sm:text-2xl font-bold mb-0.5 drop-shadow-sm">{tutor.name}</h3>
-                      <p className="text-sm text-white/90">{tutor.role}</p>
+                      ) : (
+                        <div className="flex min-h-[140px] sm:min-h-[155px] lg:min-h-[170px] items-center justify-center rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+                          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-white/10 flex items-center justify-center">
+                            <span className="text-2xl sm:text-3xl font-extrabold text-white">
+                              {String(tutor.name || "").trim().slice(0, 1).toUpperCase()}
+                            </span>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
 
-                  <CardContent className="flex flex-1 flex-col justify-center gap-3 sm:gap-4 p-5 sm:p-7 lg:pl-8">
-                    {tutor.specialty ? (
-                      <p className="text-xs sm:text-sm font-medium text-purple-800">{tutor.specialty}</p>
-                    ) : null}
-                    <p className="text-sm sm:text-base text-gray-700 leading-relaxed">{tutor.description}</p>
-                    <ul className="space-y-1.5 text-sm text-gray-600">
-                      {tutor.points.map((line, i) => (
-                        <li key={i} className="flex gap-2 pl-0.5">
-                          <span className="text-purple-500 shrink-0">–</span>
-                          <span>{line}</span>
-                        </li>
-                      ))}
-                    </ul>
+                  <CardContent className="flex flex-1 flex-col justify-between gap-0 p-3 pb-4 pt-2.5 sm:p-4 sm:pb-5 sm:pt-3 lg:p-6 lg:pl-2.5 lg:pr-7 min-h-0">
+                    <div className="space-y-2.5 sm:space-y-3">
+                      <div>
+                        <div className="h-0.5 w-8 rounded-full bg-gradient-to-r from-purple-500 to-violet-400 mb-1.5" aria-hidden />
+                        <p className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] text-purple-600/90">
+                          O korepetytorze
+                        </p>
+                        {tutor.specialty ? (
+                          <p className="text-xs sm:text-sm font-medium text-purple-800/90 mt-1.5">{tutor.specialty}</p>
+                        ) : null}
+                      </div>
+                      <p className="text-sm sm:text-base text-gray-700 leading-snug sm:leading-relaxed">{tutor.description}</p>
+                    </div>
+
+                    <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-purple-100/90">
+                      <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-wide text-purple-700 mb-1.5">
+                        W skrócie
+                      </p>
+                      <ul className="space-y-1 text-sm text-gray-600">
+                        {tutor.points.map((line, i) => (
+                          <li key={i} className="flex gap-2 pl-0.5">
+                            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-purple-400" aria-hidden />
+                            <span className="leading-snug">{line}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </CardContent>
                 </div>
               </Card>
@@ -276,15 +298,15 @@ export default function ONas() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {values.map((value, index) => (
               <Card key={index} className="border-2 border-gray-100 hover:border-orange-200 hover:shadow-lg transition-all bg-white text-center group">
-                <CardContent className="p-3 sm:p-6 space-y-2 sm:space-y-4">
-                  <div className={`w-10 h-10 sm:w-16 sm:h-16 bg-gradient-to-br ${value.color} rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto shadow-lg group-hover:scale-110 transition-transform`}>
-                    <value.icon className="w-5 h-5 sm:w-8 sm:h-8 text-white" />
+                <CardContent className="p-2.5 sm:p-3 space-y-1.5 sm:space-y-2">
+                  <div className={`w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br ${value.color} rounded-lg sm:rounded-xl flex items-center justify-center mx-auto shadow-lg group-hover:scale-110 transition-transform`}>
+                    <value.icon className="w-3.5 h-3.5 sm:w-6 sm:h-6 text-white" />
                   </div>
-                  <h3 className="text-xs sm:text-lg font-bold text-gray-900">{value.title}</h3>
-                  <p className="text-xs sm:text-sm text-gray-600 leading-relaxed hidden sm:block">{value.description}</p>
+                  <h3 className="text-xs sm:text-base font-bold text-gray-900 leading-tight">{value.title}</h3>
+                  <p className="text-[11px] sm:text-xs text-gray-600 leading-snug hidden sm:block">{value.description}</p>
                 </CardContent>
               </Card>
             ))}

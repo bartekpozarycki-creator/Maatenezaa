@@ -1,22 +1,11 @@
 import React, { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
+import { SCREENSHOT_OPINION_IMAGES } from '@/data/screenshotOpinionImages';
 
-const testimonialScreenshots = [
-  {
-    id: 1,
-    imageUrl: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6910d8d3e519cbbd5350687e/cb42f77c3_image.png',
-    alt: 'Opinia SMS'
-  },
-  {
-    id: 2,
-    imageUrl: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6910d8d3e519cbbd5350687e/1959c5c8e_image.png',
-    alt: 'Opinia SMS'
-  },
-  {
-    id: 3,
-    imageUrl: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6910d8d3e519cbbd5350687e/a585c6226_image.png',
-    alt: 'Opinia Discord'
-  }
-];
+const testimonialScreenshots = SCREENSHOT_OPINION_IMAGES.map((imageUrl, i) => ({
+  id: i + 1,
+  imageUrl,
+  alt: 'Opinia ucznia',
+}));
 
 const REPEAT_COPIES = 8;
 

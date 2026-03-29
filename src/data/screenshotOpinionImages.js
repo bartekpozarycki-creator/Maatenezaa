@@ -1,0 +1,12 @@
+export const SCREENSHOT_OPINION_IMAGES = [
+  "/screeny/att.MOqL7cufTA0Wof8UnADLhSedkiXrK9UQVlP6d7mxx-Y.jpeg",
+  "/screeny/att.N_oSxB1B5GznSu_g-ypLdFXrE0diF4ZwOB4EuZzXH5c.jpeg",
+  "/screeny/image.png",
+  "/screeny/image_2.png",
+  "/screeny/IMG_3359.jpeg",
+  "/screeny/IMG_3361.jpeg",
+  "/screeny/IMG_3365.jpeg",
+  "/screeny/IMG_3368.jpeg",
+  "/screeny/IMG_3371.jpeg",
+  "/screeny/IMG_3375.jpeg",
+];
