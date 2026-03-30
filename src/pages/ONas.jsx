@@ -17,17 +17,17 @@ export default function ONas() {
     {
       name: "Bartosz",
       role: "Współzałożyciel i korepetytor",
-      image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6910d8d3e519cbbd5350687e/63a153032_IMG_2700.jpg",
+      image: "/bart.jpg",
       description:
         "Mam na imię Bartek i studiuję matematykę na UAM w Poznaniu. Korepetycje dla podstawówki i liceum: materiał z lekcji, sprawdziany i matura. Tłumaczę krok po kroku w spokojnej atmosferze, tak byś zrozumiał ideę, nie tylko wynik. Bez stresu — jeśli chcesz lepszych wyników lub ogarnąć matmę, zapraszam.",
-      achievements: ["Ponad 1500 godzin prowadzonych zajęć", "Plan powtórek i materiałów pod Twój cel", "Spokojna atmosfera i zero pośpiechu przy tablicy"],
+      achievements: ["Ponad 1500 godzin prowadzonych zajęć", "Pomoc także w tych \"trudnych\" przypadkach", "Spokojna atmosfera, bez pośpiechu i stresu"],
       quote: "Matematyka to nie czarna magia - to logika, której każdy może się nauczyć."
     },
     {
       name: "Jeremiasz",
       role: "Współzałożyciel i korepetytor",
       image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6910d8d3e519cbbd5350687e/be6438e6c_IMG_6222.jpg",
-      description: "Cześć! Studiuję na Politechnice Poznańskiej, a korepetycji udzielam, odkąd sam siedziałem w licealnej ławce. W celu potwierdzenia kompetencji matematycznych na studiach ukończyłem kursy z zakresu: analizy matematycznej 1, probabilistyki i statystyki, algebry oraz podstaw metod optymalizacji. Obecnie jestem w trakcie realizacji kursu „Narzędzia analizy matematycznej dla ICT”.",
+      description: "Cześć! Studiuję Mikroelektronikę i komunikację cyfrową na Politechnice Poznańskiej, a korepetycji udzielam odkąd sam siedziałem w licealnej ławce. W celu potwierdzenia kompetencji matematycznych, do tej pory na studiach ukończyłem kursy z zakresu: Analizy Matematycznej, Probabilistyki i Statystyki, Algebry oraz Podstaw metod optymalizacji matematycznej.",
       achievements: ["Zaawansowane kursy matematyczne na studiach", "Lekcje dopasowane do tempa i stylu nauki", "Wracamy do zaległości, zanim przejdziemy dalej"],
       quote: "Zawsze powtarzam uczniom, że bez pracy nie ma kołaczy - w matematyce nic nie zrobi się samo."
     }
@@ -39,7 +39,22 @@ export default function ONas() {
       role: "Korepetytor matematyki · student informatyki, Politechnika Poznańska",
       image: "/szyms.png",
       description:
-        "Cześć, tu Szymon! Jestem studentem informatyki i na co dzień zajmuję się przedmiotami ścisłymi, więc dobrze wiem, z jakimi trudnościami mogą się one wiązać. Sam nie zawsze rozumiałem wszystko od razu, dlatego dziś potrafię spojrzeć na materiał z perspektywy ucznia i wytłumaczyć go w prosty, przystępny sposób. Stawiam na spokojne podejście i tłumaczenie krok po kroku, bez zbędnej presji i stresu. Ważne jest dla mnie, żebyś naprawdę zrozumiał temat, a nie tylko „zaliczył” zadanie. Pracuję w luźnej atmosferze i dopasowuję tempo do Twoich potrzeb, dzięki czemu nauka staje się bardziej komfortowa i efektywna.",
+        <>
+          Cześć, tu Szymon! Jako student informatyki na Politechnice Poznańskiej doskonale wiem, że{" "}
+          <strong className="font-semibold text-gray-900">przedmioty ścisłe potrafią zajść za skórę</strong>.{" "}
+          Specjalizuję się w{" "}
+          <strong className="font-semibold text-gray-900">analizie numerycznej</strong>, więc na matematykę patrzę przez
+          pryzmat konkretnych obliczeń i logicznych powiązań, co często ułatwia zrozumienie i wytłumaczenie nawet tych
+          najtrudniejszych tematów.
+          <br />
+          <br />
+          Jeśli szukasz kogoś, kto wyjaśni Ci materiał{" "}
+          <strong className="font-semibold text-gray-900">na spokojnie i w Twoim tempie</strong>, to trafiłeś/aś na
+          właściwą osobę. Moim celem nie jest tylko „wyklepanie” teorii, ale pokazanie Ci{" "}
+          <strong className="font-semibold text-gray-900">konkretnych schematów i rozwiązań</strong>, które faktycznie
+          działają na sprawdzianach. Niezależnie od tego, czy walczysz o przetrwanie, czy chcesz wyciągnąć ocenę na 6 —
+          razem damy radę to ogarnąć.
+        </>,
       points: [
         "Wolę, żebyś zrozumiał, niż żebyś wykuł na pamięć",
         "Spokojnie — możemy omówić jedno zadanie kilka razy z rzędu",
@@ -51,7 +66,19 @@ export default function ONas() {
       role: "Korepetytor matematyki · student matematyki, UAM",
       image: "/tomsan.jpg",
       description:
-        "Cześć, jestem Tomek – studiuję matematykę na UAM w Poznaniu i lubię pokazywać, że nawet trudne tematy da się ogarnąć w sensowny sposób. Zamiast skomplikowanych definicji i schematów bez wyjaśnienia, skupiam się na tym, żebyś zobaczył, jak i dlaczego coś działa. Dzięki temu zadania przestają być „strzelaniem”, a zaczynają mieć sens. Na zajęciach stawiam na konkrety, przejrzyste przykłady i praktykę. Tłumaczę tak, jak sam chciałbym mieć to kiedyś wytłumaczone – jasno, bez zbędnego gadania i z naciskiem na zrozumienie. Dopasowuję się do Twojego poziomu i celu, niezależnie czy chcesz nadrobić zaległości, czy podciągnąć wyniki.",
+        <>
+          Cześć, jestem Tomek – studiuję matematykę na UAM w Poznaniu i lubię pokazywać, że{" "}
+          <strong className="font-semibold text-gray-900">nawet trudne tematy da się ogarnąć</strong> w sensowny sposób.
+          Zamiast skomplikowanych definicji i schematów bez wyjaśnienia, skupiam się na tym, żebyś zobaczył,{" "}
+          <strong className="font-semibold text-gray-900">jak i dlaczego coś działa</strong>. Dzięki temu zadania
+          przestają być „strzelaniem”, a zaczynają mieć sens.
+          <br />
+          <br />
+          Na zajęciach stawiam na{" "}
+          <strong className="font-semibold text-gray-900">konkrety, przejrzyste przykłady i praktykę</strong>. Tłumaczę
+          jasno, bez zbędnego gadania i z naciskiem na zrozumienie. Dopasowuję się do Twojego poziomu i celu,
+          niezależnie czy chcesz nadrobić zaległości, czy podciągnąć wyniki.
+        </>,
       points: [
         "Normalny język, bez „pokazów mądrości”",
         "Zero pośpiechu — jak trzeba, stoimy przy jednym zadaniu dłużej",
@@ -125,9 +152,12 @@ export default function ONas() {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-4 sm:gap-6">
+          <div className="grid lg:grid-cols-2 gap-4 sm:gap-6 items-stretch">
             {founders.map((founder, index) => (
-              <Card key={index} className="border-2 border-gray-100 hover:border-orange-200 hover:shadow-xl transition-all bg-white overflow-hidden group">
+              <Card
+                key={index}
+                className="h-full flex flex-col border-2 border-gray-100 hover:border-orange-200 hover:shadow-xl transition-all bg-white overflow-hidden group"
+              >
                 <div className="relative h-52 sm:h-72 lg:h-[340px] overflow-hidden">
                   <img 
                     src={founder.image} 
@@ -143,20 +173,26 @@ export default function ONas() {
                 
                 {/* Desktop - pełna treść */}
                 <div className="hidden sm:block">
-                  <CardContent className="p-3.5 sm:p-4 space-y-2.5">
-                    <p className="text-sm sm:text-base text-gray-700 leading-snug sm:leading-relaxed">{founder.description}</p>
-                    
-                    <div className="space-y-1.5">
-                      {founder.achievements.map((achievement, i) => (
-                        <div key={i} className="flex items-center gap-2">
-                          <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-orange-500 fill-orange-500 flex-shrink-0" />
-                          <span className="text-xs sm:text-sm text-gray-700">{achievement}</span>
-                        </div>
-                      ))}
+                  <CardContent className="p-3.5 sm:p-4 flex flex-1 flex-col">
+                    <p className="flex-1 text-sm sm:text-base text-gray-700 leading-snug sm:leading-relaxed">
+                      {founder.description}
+                    </p>
+
+                    <div className="pt-2.5">
+                      <div className="space-y-1.5">
+                        {founder.achievements.map((achievement, i) => (
+                          <div key={i} className="flex items-center gap-2">
+                            <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-orange-500 fill-orange-500 flex-shrink-0" />
+                            <span className="text-xs sm:text-sm text-gray-700">{achievement}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
 
-                    <div className="pt-2 border-t border-gray-100">
-                      <p className="text-sm sm:text-base italic text-gray-600 leading-snug">"{founder.quote}"</p>
+                    <div className="mt-auto pt-2 border-t border-gray-100">
+                      <p className="text-sm sm:text-base italic text-gray-600 leading-snug">
+                        "{founder.quote}"
+                      </p>
                     </div>
                   </CardContent>
                 </div>
@@ -216,19 +252,16 @@ export default function ONas() {
                 className="group border-0 bg-white shadow-lg shadow-gray-200/40 ring-1 ring-gray-100 rounded-2xl sm:rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/10 hover:ring-purple-200/50"
               >
                 <div className="flex flex-col lg:flex-row lg:items-stretch lg:min-h-0">
-                  <div className="relative w-full sm:w-[42%] sm:max-w-xs lg:w-[38%] lg:max-w-sm lg:flex-shrink-0 p-3 sm:p-4 lg:p-5 lg:pr-3">
-                    <div className="relative mx-auto w-full max-w-sm lg:max-w-none min-h-[150px] sm:min-h-[170px] lg:min-h-[190px]">
+                  <div className="relative w-full sm:w-[42%] sm:max-w-xs lg:w-[38%] lg:max-w-sm lg:flex-shrink-0 p-2.5 sm:p-3.5 lg:p-4 lg:pr-3">
+                    <div className="relative mx-auto w-full max-w-sm lg:max-w-none min-h-[135px] sm:min-h-[155px] lg:min-h-0">
                       {tutor.image ? (
-                        <div className="relative h-full min-h-[140px] sm:min-h-[155px] lg:min-h-[170px] overflow-hidden rounded-2xl">
+                        <div className="relative h-full min-h-[125px] sm:min-h-[140px] lg:min-h-0 overflow-hidden rounded-2xl">
                           <img
                             src={tutor.image}
                             alt={tutor.name}
-                            className="h-full w-full min-h-[120px] object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]"
+                            className="h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]"
                           />
                           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-black/45 to-transparent" aria-hidden />
-                          <div className="absolute top-2 right-2 z-[1] flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-lg bg-purple-600 text-white shadow-lg ring-2 ring-white/35">
-                            <tutor.icon className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
-                          </div>
                           <div className="absolute bottom-2 left-2.5 right-2.5 z-[1] text-white sm:left-3 sm:right-3">
                             <h3 className="text-sm sm:text-lg font-bold mb-0.5 drop-shadow-md md:text-xl">
                               {tutor.name}
@@ -239,7 +272,7 @@ export default function ONas() {
                           </div>
                         </div>
                       ) : (
-                        <div className="flex min-h-[140px] sm:min-h-[155px] lg:min-h-[170px] items-center justify-center rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+                        <div className="flex min-h-[125px] sm:min-h-[140px] lg:min-h-0 items-center justify-center rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
                           <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-white/10 flex items-center justify-center">
                             <span className="text-2xl sm:text-3xl font-extrabold text-white">
                               {String(tutor.name || "").trim().slice(0, 1).toUpperCase()}
@@ -250,8 +283,8 @@ export default function ONas() {
                     </div>
                   </div>
 
-                  <CardContent className="flex flex-1 flex-col justify-between gap-0 p-3 pb-4 pt-2.5 sm:p-4 sm:pb-5 sm:pt-3 lg:p-6 lg:pl-2.5 lg:pr-7 min-h-0">
-                    <div className="space-y-2.5 sm:space-y-3">
+                  <CardContent className="flex flex-1 flex-col gap-0 p-3 pb-3 pt-2.5 sm:p-4 sm:pb-4 sm:pt-3 lg:p-6 lg:pl-2.5 lg:pr-7 min-h-0 lg:justify-between">
+                    <div className="space-y-2 sm:space-y-2.5 lg:flex-1">
                       <div>
                         <div className="h-0.5 w-8 rounded-full bg-gradient-to-r from-purple-500 to-violet-400 mb-1.5" aria-hidden />
                         <p className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] text-purple-600/90">
@@ -261,12 +294,14 @@ export default function ONas() {
                           <p className="text-xs sm:text-sm font-medium text-purple-800/90 mt-1.5">{tutor.specialty}</p>
                         ) : null}
                       </div>
-                      <p className="text-sm sm:text-base text-gray-700 leading-snug sm:leading-relaxed">{tutor.description}</p>
+                      <p className="text-sm sm:text-base text-gray-700 leading-snug sm:leading-relaxed">
+                        {tutor.description}
+                      </p>
                     </div>
 
-                    <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-purple-100/90">
+                    <div className="mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-purple-100/90 lg:mt-auto">
                       <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-wide text-purple-700 mb-1.5">
-                        W skrócie
+                        W punktach
                       </p>
                       <ul className="space-y-1 text-sm text-gray-600">
                         {tutor.points.map((line, i) => (
@@ -348,7 +383,7 @@ export default function ONas() {
       <footer className="py-8 px-4 sm:px-6 bg-gray-50 border-t border-gray-200">
         <div className="max-w-6xl mx-auto text-center">
           <p className="text-sm text-gray-600">
-            © 2024 Mateneza. Wszystkie prawa zastrzeżone.
+            © 2026 Mateneza. Wszystkie prawa zastrzeżone.
           </p>
         </div>
       </footer>

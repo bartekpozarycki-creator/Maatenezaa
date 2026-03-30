@@ -18,7 +18,7 @@ const GOOGLE_REVIEWS_PAGE_URL =
   (typeof import.meta !== "undefined" && import.meta.env?.VITE_GOOGLE_REVIEWS_URL) ||
   "https://share.google/fW46XFRPEJgoX2ohJ";
 
-const GOOGLE_REVIEWS_TOTAL = 9;
+const GOOGLE_REVIEWS_TOTAL = 11;
 
 const googleReviews = [
   {
@@ -478,7 +478,7 @@ Rada dla przyszłych maturzystów
         </div>
       </section>
 
-      <section className="py-8 sm:py-20 px-4 sm:px-6 bg-gradient-to-b from-purple-50/30 to-white">
+      {/*<section className="py-8 sm:py-20 px-4 sm:px-6 bg-gradient-to-b from-purple-50/30 to-white">
         <div className="max-w-6xl mx-auto">
           <div className="mb-6 sm:mb-12">
             <div className="inline-flex items-center gap-2 bg-purple-100 text-purple-700 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium mb-4">
@@ -557,7 +557,7 @@ Rada dla przyszłych maturzystów
           </div>
         </div>
       </section>
-
+      */}
       <Lightbox
         open={lightboxIndex >= 0}
         close={() => setLightboxIndex(-1)}

@@ -50,7 +50,7 @@ export default function Home() {
     {
       name: "Bartosz",
       role: "Współzałożyciel Matenezy",
-      image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6910d8d3e519cbbd5350687e/63a153032_IMG_2700.jpg"
+      image: "/bart.jpg"
     },
     {
       name: "Jeremiasz",
@@ -1320,7 +1320,7 @@ export default function Home() {
 
           <div className="border-t border-gray-800 pt-4 sm:pt-6 text-center">
             <p className="text-xs sm:text-sm text-gray-500">
-              © 2024 Mateneza. Wszystkie prawa zastrzeżone.
+              © 2026 Mateneza. Wszystkie prawa zastrzeżone.
             </p>
           </div>
         </div>
