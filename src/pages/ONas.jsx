@@ -19,7 +19,7 @@ export default function ONas() {
       role: "Współzałożyciel i korepetytor",
       image: "/bart.jpg",
       description:
-        "Mam na imię Bartek i studiuję matematykę na UAM w Poznaniu. Korepetycje dla podstawówki i liceum: materiał z lekcji, sprawdziany i matura. Tłumaczę krok po kroku w spokojnej atmosferze, tak byś zrozumiał ideę, nie tylko wynik. Bez stresu — jeśli chcesz lepszych wyników lub ogarnąć matmę, zapraszam.",
+        "Mam na imię Bartek i studiuję matematykę na UAM w Poznaniu. Korepetycje dla podstawówki i liceum: materiał z lekcji, sprawdziany i matura. Tłumaczę krok po kroku w spokojnej atmosferze, tak byś zrozumiał ideę, nie tylko wynik. Bez stresu - jeśli chcesz lepszych wyników lub ogarnąć matmę, zapraszam.",
       achievements: ["Ponad 1500 godzin prowadzonych zajęć", "Pomoc także w tych \"trudnych\" przypadkach", "Spokojna atmosfera, bez pośpiechu i stresu"],
       quote: "Matematyka to nie czarna magia - to logika, której każdy może się nauczyć."
     },
@@ -92,25 +92,29 @@ export default function ONas() {
       icon: Heart,
       title: "Bez stresu",
       description: "Tworzymy bezpieczną przestrzeń, gdzie każde pytanie jest dobre, a błędy są częścią nauki.",
-      color: "from-red-400 to-pink-400"
+      color: "from-red-400 to-pink-400",
+      hoverClass: "hover:border-pink-200 hover:shadow-pink-200/60"
     },
     {
       icon: Target,
       title: "Indywidualne podejście",
       description: "Każdy uczy się w swoim tempie. Dostosowujemy metody i materiały do Twoich potrzeb.",
-      color: "from-blue-400 to-cyan-400"
+      color: "from-blue-400 to-cyan-400",
+      hoverClass: "hover:border-cyan-200 hover:shadow-cyan-200/60"
     },
     {
       icon: Lightbulb,
       title: "Zrozumienie, nie wzory",
       description: "Pokazujemy logikę i sens za równaniami. Matematyka to myślenie, nie zapamiętywanie.",
-      color: "from-yellow-400 to-orange-400"
+      color: "from-yellow-400 to-orange-400",
+      hoverClass: "hover:border-orange-200 hover:shadow-orange-200/60"
     },
     {
       icon: GraduationCap,
       title: "Skuteczność",
       description: "Nasze metody działają - sprawdzone na setkach uczniów i tysiącach godzin zajęć.",
-      color: "from-purple-400 to-indigo-400"
+      color: "from-purple-400 to-indigo-400",
+      hoverClass: "hover:border-indigo-200 hover:shadow-indigo-200/60"
     }
   ];
 
@@ -335,7 +339,7 @@ export default function ONas() {
 
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {values.map((value, index) => (
-              <Card key={index} className="border-2 border-gray-100 hover:border-orange-200 hover:shadow-lg transition-all bg-white text-center group">
+              <Card key={index} className={`border-2 border-gray-100 hover:shadow-lg transition-all bg-white text-center group ${value.hoverClass}`}>
                 <CardContent className="p-2.5 sm:p-3 space-y-1.5 sm:space-y-2">
                   <div className={`w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br ${value.color} rounded-lg sm:rounded-xl flex items-center justify-center mx-auto shadow-lg group-hover:scale-110 transition-transform`}>
                     <value.icon className="w-3.5 h-3.5 sm:w-6 sm:h-6 text-white" />

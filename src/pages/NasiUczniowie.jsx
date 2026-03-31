@@ -4,7 +4,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Star, Quote, Play, X, ChevronDown } from 'lucide-react';
-import VideoPlayer from '@/components/VideoPlayer';
 import { AnimatePresence, motion } from 'framer-motion';
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
@@ -84,17 +83,17 @@ export default function NasiUczniowie() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  const googleMapsEmbedUrl = "PASTE_GOOGLE_MAPS_EMBED_URL_HERE";
+
 
   const videoTestimonials = [
     {
       id: 1,
       name: "Kacper",
       role: "Maturzysta · Digital Design, UKEN",
-      videoUrl: "/filmik.mov",
+      videoUrl: "https://www.youtube.com/embed/BS9u6JKIS_k?si=5XxXoYT4I1S84COm",
       title: `Kacper: od „nogi z matmy” do wymarzonych studiów`,
       quote:
-        `Od „nogi z matmy” do 64% na maturze i wymarzonych studiów — kamień z serca spadł, gdy zobaczyłem wynik.”`,
+        `Od „nogi z matmy” do 64% na maturze i wymarzonych studiów — kamień z serca spadł, gdy zobaczyłem wynik.`,
       transcript: `Oto film nagrany przez jednego z naszych uczniów! Kacper korzystał wielokrotnie z pomocy Jeremiasza podczas przygotowań do matury i postanowił podzielić się swoją historią, udzielić kilku rad przyszłym maturzystom oraz odpowiedzieć na kilka naszych pytań.
 
 Kacper: od „nogi z matmy” do wymarzonych studiów
@@ -228,6 +227,96 @@ Rada dla przyszłych maturzystów
         )}
       </AnimatePresence>
 
+      <section className="pt-24 sm:pt-28 pb-8 sm:pb-14 px-4 sm:px-6 bg-gradient-to-b from-purple-50/30 to-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-6 sm:mb-12">
+            <div className="inline-flex items-center gap-2 bg-purple-100 text-purple-700 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium mb-4">
+              <Play className="w-3 h-3 sm:w-4 sm:h-4" />
+              Opinie wideo
+            </div>
+            <h2 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-3">
+              Posłuchaj naszych uczniów
+            </h2>
+            <p className="text-sm sm:text-lg text-gray-600 max-w-2xl">
+              Rzeczywiste relacje z ich doświadczeń
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-3 sm:gap-6">
+            {videoTestimonials.map((video) => (
+              <motion.div
+                key={video.id}
+                layout
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.25 }}
+                className="text-left w-full group"
+              >
+                <Card
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => setActiveVideo(video)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setActiveVideo(video);
+                    }
+                  }}
+                  className="cursor-pointer border-none shadow-xl hover:shadow-2xl transition-all overflow-hidden bg-white group-hover:-translate-y-1 group-focus-visible:ring-2 group-focus-visible:ring-purple-400 group-focus-visible:ring-offset-2 rounded-xl"
+                >
+                  <CardContent className="p-4 sm:p-5 h-full">
+                    <div className="flex flex-col sm:flex-row sm:items-stretch gap-4 sm:gap-5 min-h-0">
+                      <div
+                        className={`relative mx-auto sm:mx-0 w-full max-w-md sm:self-start ${
+                          video.orientation === "horizontal"
+                            ? "sm:w-[360px] sm:max-w-none sm:flex-shrink-0"
+                            : "sm:w-[240px] sm:max-w-none sm:flex-shrink-0"
+                        }`}
+                      >
+                        <div className={`pointer-events-none rounded-2xl overflow-hidden shadow-inner ring-1 ring-purple-100/80 ${video.orientation === "horizontal" ? "aspect-video" : "aspect-[4/5]"}`}>
+                          <iframe
+                            width="100%"
+                            height="100%"
+                            src={video.videoUrl}
+                            title="YouTube video player"
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerPolicy="strict-origin-when-cross-origin"
+                            allowFullScreen
+                            className="w-full h-full"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="flex-1 min-w-0 min-h-0 flex flex-col justify-between gap-4 sm:py-0.5">
+                        <p className="text-xs font-semibold text-purple-600 uppercase tracking-wide shrink-0">
+                          {video.name} · {video.role}
+                        </p>
+                        <div className="flex-1 min-h-0 flex flex-col justify-center">
+                          <div className="flex items-start gap-1.5 sm:gap-2 w-full">
+                            <Quote className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500 flex-shrink-0 mt-0.5 opacity-90" aria-hidden />
+                            <p className="flex-1 min-w-0 text-center text-sm sm:text-base text-gray-800 italic font-medium leading-relaxed">
+                              {videoQuotedBody(video)}
+                            </p>
+                            <Quote
+                              className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500 flex-shrink-0 mt-0.5 -ml-0.5 rotate-180 opacity-90"
+                              aria-hidden
+                            />
+                          </div>
+                        </div>
+                        <p className="text-xs sm:text-sm text-purple-700/90 font-medium leading-snug shrink-0">
+                          Kliknij, aby otworzyć pełny wywiad z <strong>transkryptem</strong>
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section
         ref={gallerySectionRef}
         id="galeria-screenow"
@@ -274,14 +363,14 @@ Rada dla przyszłych maturzystów
               {galleryExpanded && extraScreenshots.length > 0 && (
                 <motion.div
                   key="gallery-extra"
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
                   transition={{
-                    height: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
-                    opacity: { duration: 0.3, ease: "easeOut" },
+                    duration: 0.3,
+                    ease: [0.22, 1, 0.36, 1],
                   }}
-                  className="overflow-hidden"
+                  className="overflow-visible pb-2 sm:pb-4"
                 >
                   <motion.div
                     initial="hidden"
@@ -478,86 +567,6 @@ Rada dla przyszłych maturzystów
         </div>
       </section>
 
-      {/*<section className="py-8 sm:py-20 px-4 sm:px-6 bg-gradient-to-b from-purple-50/30 to-white">
-        <div className="max-w-6xl mx-auto">
-          <div className="mb-6 sm:mb-12">
-            <div className="inline-flex items-center gap-2 bg-purple-100 text-purple-700 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium mb-4">
-              <Play className="w-3 h-3 sm:w-4 sm:h-4" />
-              Opinie wideo
-            </div>
-            <h2 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-3">
-              Posłuchaj naszych uczniów
-            </h2>
-            <p className="text-sm sm:text-lg text-gray-600 max-w-2xl">
-              Rzeczywiste relacje z ich doświadczeń
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 gap-3 sm:gap-6">
-            {videoTestimonials.map((video) => (
-              <motion.button
-                key={video.id}
-                type="button"
-                layout
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.25 }}
-                onClick={() => setActiveVideo(video)}
-                className="text-left w-full group"
-              >
-                <Card className="border-none shadow-xl hover:shadow-2xl transition-all overflow-hidden bg-white group-hover:-translate-y-1 group-focus-visible:ring-2 group-focus-visible:ring-purple-400 group-focus-visible:ring-offset-2 rounded-xl">
-                  <CardContent className="p-4 sm:p-5 h-full">
-                    <div className="flex flex-col sm:flex-row sm:items-stretch gap-4 sm:gap-5 min-h-0">
-                      <div
-                        className={`relative mx-auto sm:mx-0 w-full max-w-md sm:self-start ${
-                          video.orientation === "horizontal"
-                            ? "sm:w-[360px] sm:max-w-none sm:flex-shrink-0"
-                            : "sm:w-[240px] sm:max-w-none sm:flex-shrink-0"
-                        }`}
-                      >
-                        <div className="pointer-events-none rounded-2xl overflow-hidden shadow-inner ring-1 ring-purple-100/80">
-                          <VideoPlayer
-                            url={video.videoUrl}
-                            containerClassName={`${video.orientation === "horizontal" ? "aspect-video" : "aspect-[4/5]"} rounded-2xl shadow-none`}
-                            videoClassName="object-cover"
-                          />
-                        </div>
-                        <div className="absolute inset-0 flex items-center justify-center rounded-2xl bg-black/25 group-hover:bg-black/35 transition-colors pointer-events-none">
-                          <span className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-white/95 text-purple-600 shadow-lg ring-2 ring-white/50">
-                            <Play className="w-5 h-5 sm:w-6 sm:h-6 ml-0.5" fill="currentColor" />
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className="flex-1 min-w-0 min-h-0 flex flex-col justify-between gap-4 sm:py-0.5">
-                        <p className="text-xs font-semibold text-purple-600 uppercase tracking-wide shrink-0">
-                          {video.name} · {video.role}
-                        </p>
-                        <div className="flex-1 min-h-0 flex flex-col justify-center">
-                          <div className="flex items-start gap-2 sm:gap-2.5 w-full">
-                            <Quote className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500 flex-shrink-0 mt-0.5 opacity-90" aria-hidden />
-                            <p className="flex-1 min-w-0 text-sm sm:text-base text-gray-800 italic font-medium leading-relaxed">
-                              {videoQuotedBody(video)}
-                            </p>
-                            <Quote
-                              className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500 flex-shrink-0 mt-0.5 rotate-180 opacity-90"
-                              aria-hidden
-                            />
-                          </div>
-                        </div>
-                        <p className="text-xs sm:text-sm text-purple-700/90 font-medium leading-snug shrink-0">
-                          Kliknij, aby otworzyć pełny wywiad z transkryptem
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.button>
-            ))}
-          </div>
-        </div>
-      </section>
-      */}
       <Lightbox
         open={lightboxIndex >= 0}
         close={() => setLightboxIndex(-1)}
@@ -616,7 +625,7 @@ Rada dla przyszłych maturzystów
                   <p className="text-sm sm:text-base text-gray-600 mt-1">{activeVideo.role}</p>
                   <div className="mt-4 flex items-start gap-2 sm:gap-2.5">
                     <Quote className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500 shrink-0 mt-0.5 opacity-90" aria-hidden />
-                    <p className="flex-1 min-w-0 text-sm sm:text-base text-gray-800 italic font-medium leading-relaxed">
+                    <p className="flex-1 min-w-0 text-center text-sm sm:text-base text-gray-800 italic font-medium leading-relaxed">
                       {videoQuotedBody(activeVideo)}
                     </p>
                     <Quote
@@ -626,12 +635,17 @@ Rada dla przyszłych maturzystów
                   </div>
                 </div>
 
-                <div className="bg-black">
-                  <VideoPlayer
-                    url={activeVideo.videoUrl}
-                    autoPlay
-                    containerClassName={`${activeVideo.orientation === "horizontal" ? "aspect-video" : "aspect-[4/5] sm:aspect-video"} rounded-none shadow-none`}
-                    videoClassName="object-contain sm:object-cover"
+                <div className={`bg-black ${activeVideo.orientation === "horizontal" ? "aspect-video" : "aspect-[4/5] sm:aspect-video"}`}>
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src={`${activeVideo.videoUrl}${activeVideo.videoUrl.includes("?") ? "&" : "?"}autoplay=1`}
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                    className="w-full h-full"
                   />
                 </div>
 

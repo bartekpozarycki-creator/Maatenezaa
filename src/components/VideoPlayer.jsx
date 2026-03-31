@@ -12,6 +12,8 @@ export default function VideoPlayer({
   containerClassName = "aspect-video",
   videoClassName = "",
   autoPlay = false,
+  controls = true,
+  interactive = true,
 }) {
   const shell = `relative w-full overflow-hidden rounded-xl shadow-lg ${containerClassName}`;
   const videoRef = useRef(null);
@@ -31,12 +33,12 @@ export default function VideoPlayer({
   if (isYouTubeUrl(url)) {
     return (
       <div className={shell}>
-        <div className="absolute inset-0">
+        <div className={`absolute inset-0 ${interactive ? "" : "pointer-events-none"}`}>
           <ReactPlayer
             url={url}
             width="100%"
             height="100%"
-            controls
+            controls={controls}
             playing={autoPlay}
             config={{ youtube: { playerVars: { playsinline: 1, autoplay: autoPlay ? 1 : 0 } } }}
           />
@@ -51,10 +53,10 @@ export default function VideoPlayer({
         ref={videoRef}
         src={url}
         poster={poster}
-        controls
+        controls={controls}
         playsInline
         autoPlay={autoPlay}
-        className={`w-full h-full object-cover ${videoClassName}`}
+        className={`w-full h-full object-cover ${interactive ? "" : "pointer-events-none"} ${videoClassName}`}
       />
     </div>
   );

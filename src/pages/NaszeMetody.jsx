@@ -19,37 +19,43 @@ export default function NaszeMetody() {
       icon: Brain,
       title: "Zrozumienie zamiast pamięci",
       description: "Nie ucz się na pamięć wzorów - zrozum, skąd się biorą.",
-      color: "from-purple-500 to-violet-500"
+      color: "from-purple-500 to-violet-500",
+      hoverClass: "hover:border-purple-200 hover:shadow-purple-200/60"
     },
     {
       icon: Repeat,
       title: "Regularność to klucz",
       description: "Lepiej 30 minut dziennie niż 5 godzin przed sprawdzianem.",
-      color: "from-blue-500 to-cyan-500"
+      color: "from-blue-500 to-cyan-500",
+      hoverClass: "hover:border-blue-200 hover:shadow-blue-200/60"
     },
     {
       icon: Target,
       title: "Od prostego do złożonego",
       description: "Zacznij od podstaw i buduj na nich stopniowo.",
-      color: "from-orange-500 to-amber-500"
+      color: "from-orange-500 to-amber-500",
+      hoverClass: "hover:border-orange-200 hover:shadow-orange-200/60"
     },
     {
       icon: Coffee,
       title: "Rób przerwy",
       description: "Zmęczony mózg nie uczy się efektywnie. Przerwy to inwestycja.",
-      color: "from-green-500 to-emerald-500"
+      color: "from-green-500 to-emerald-500",
+      hoverClass: "hover:border-emerald-200 hover:shadow-emerald-200/60"
     },
     {
       icon: Book,
       title: "Rób notatki po swojemu",
       description: "Twórz własne skróty, rysunki, schematy - cokolwiek pomaga.",
-      color: "from-pink-500 to-rose-500"
+      color: "from-pink-500 to-rose-500",
+      hoverClass: "hover:border-pink-200 hover:shadow-pink-200/60"
     },
     {
       icon: Zap,
       title: "Ucz się aktywnie",
       description: "Samo czytanie to za mało. Rozwiązuj zadania i tłumacz na głos.",
-      color: "from-indigo-500 to-blue-500"
+      color: "from-indigo-500 to-blue-500",
+      hoverClass: "hover:border-indigo-200 hover:shadow-indigo-200/60"
     }
   ];
 
@@ -82,28 +88,32 @@ export default function NaszeMetody() {
       title: "Diagnoza",
       description: "Sprawdzamy, na jakim poziomie jesteś i co sprawia Ci trudność. Ustalamy cele.",
       icon: Target,
-      color: "from-blue-400 to-cyan-400"
+      color: "from-blue-400 to-cyan-400",
+      hoverClass: "hover:ring-blue-200 hover:shadow-blue-200/60"
     },
     {
       step: "2", 
       title: "Fundamenty",
       description: "Wracamy do podstaw, które są potrzebne do zrozumienia aktualnego materiału.",
       icon: Brain,
-      color: "from-purple-400 to-violet-400"
+      color: "from-purple-400 to-violet-400",
+      hoverClass: "hover:ring-purple-200 hover:shadow-purple-200/60"
     },
     {
       step: "3",
       title: "Krok po kroku",
       description: "Rozbijamy temat na małe części. Każdą tłumaczymy, rozwiązujemy przykłady.",
       icon: TrendingUp,
-      color: "from-orange-400 to-amber-400"
+      color: "from-orange-400 to-amber-400",
+      hoverClass: "hover:ring-orange-200 hover:shadow-orange-200/60"
     },
     {
       step: "4",
       title: "Praktyka",
       description: "Rozwiązujesz zadania sam, z naszym wsparciem. Utrwalamy wiedzę.",
       icon: CheckCircle2,
-      color: "from-green-400 to-emerald-400"
+      color: "from-green-400 to-emerald-400",
+      hoverClass: "hover:ring-emerald-200 hover:shadow-emerald-200/60"
     }
   ];
 
@@ -173,7 +183,7 @@ export default function NaszeMetody() {
               <div className="grid grid-cols-4 gap-6">
                 {ourMethod.map((item, index) => (
                   <div key={index} className="relative group">
-                    <Card className="border-none shadow-xl hover:shadow-2xl transition-all duration-300 bg-white hover:-translate-y-2 overflow-hidden">
+                    <Card className={`border-none ring-1 ring-transparent shadow-xl hover:shadow-2xl transition-all duration-300 bg-white hover:-translate-y-2 overflow-hidden ${item.hoverClass}`}>
                       <div className={`h-2 bg-gradient-to-r ${item.color}`} />
                       <CardContent className="p-6 space-y-4">
                         <div className={`w-16 h-16 bg-gradient-to-br ${item.color} rounded-2xl flex items-center justify-center mx-auto shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all`}>
@@ -197,7 +207,7 @@ export default function NaszeMetody() {
           {/* Mobile/Tablet version */}
           <div className="lg:hidden grid sm:grid-cols-2 gap-4 sm:gap-6">
             {ourMethod.map((item, index) => (
-              <Card key={index} className="border-none shadow-xl bg-white group overflow-hidden hover:shadow-2xl transition-all">
+              <Card key={index} className={`border-none ring-1 ring-transparent shadow-xl bg-white group overflow-hidden hover:shadow-2xl transition-all ${item.hoverClass}`}>
                 <div className={`h-2 bg-gradient-to-r ${item.color}`} />
                 <CardContent className="p-5 sm:p-6 space-y-4">
                   <div className="flex items-center gap-3">
@@ -235,7 +245,7 @@ export default function NaszeMetody() {
 
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
             {learningTips.map((tip, index) => (
-              <Card key={index} className="border-2 border-gray-100 hover:border-purple-200 hover:shadow-xl transition-all bg-white group overflow-hidden">
+              <Card key={index} className={`border-2 border-gray-100 hover:shadow-xl transition-all bg-white group overflow-hidden ${tip.hoverClass}`}>
                 <div className={`h-1 sm:h-1.5 bg-gradient-to-r ${tip.color}`} />
                 <CardContent className="p-3 sm:p-6 space-y-2 sm:space-y-4">
                   <div className={`w-10 h-10 sm:w-14 sm:h-14 bg-gradient-to-br ${tip.color} rounded-lg sm:rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg`}>
