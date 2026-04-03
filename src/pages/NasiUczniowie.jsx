@@ -17,7 +17,7 @@ const GOOGLE_REVIEWS_PAGE_URL =
   (typeof import.meta !== "undefined" && import.meta.env?.VITE_GOOGLE_REVIEWS_URL) ||
   "https://share.google/fW46XFRPEJgoX2ohJ";
 
-const GOOGLE_REVIEWS_TOTAL = 11;
+const GOOGLE_REVIEWS_TOTAL = 12;
 
 const googleReviews = [
   {
@@ -93,7 +93,7 @@ export default function NasiUczniowie() {
       videoUrl: "https://www.youtube.com/embed/BS9u6JKIS_k?si=5XxXoYT4I1S84COm",
       title: `Kacper: od „nogi z matmy” do wymarzonych studiów`,
       quote:
-        `Od „nogi z matmy” do 64% na maturze i wymarzonych studiów — kamień z serca spadł, gdy zobaczyłem wynik.`,
+        `64% na maturze i wymarzone studia - kamień z serca spadł, gdy zobaczyłem wynik.`,
       transcript: `Oto film nagrany przez jednego z naszych uczniów! Kacper korzystał wielokrotnie z pomocy Jeremiasza podczas przygotowań do matury i postanowił podzielić się swoją historią, udzielić kilku rad przyszłym maturzystom oraz odpowiedzieć na kilka naszych pytań.
 
 Kacper: od „nogi z matmy” do wymarzonych studiów
