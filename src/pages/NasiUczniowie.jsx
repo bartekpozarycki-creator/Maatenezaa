@@ -6,6 +6,7 @@ import { createPageUrl } from '@/utils';
 import { Star, Quote, Play, X, ChevronDown } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Lightbox from 'yet-another-react-lightbox';
+import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 import 'yet-another-react-lightbox/styles.css';
 
 import PageHeader from '../components/PageHeader';
@@ -17,7 +18,64 @@ const GOOGLE_REVIEWS_PAGE_URL =
   (typeof import.meta !== "undefined" && import.meta.env?.VITE_GOOGLE_REVIEWS_URL) ||
   "https://share.google/fW46XFRPEJgoX2ohJ";
 
-const GOOGLE_REVIEWS_TOTAL = 12;
+const GOOGLE_REVIEWS_TOTAL = 13;
+
+const OP_VIDEO = {
+  page: [255, 255, 255],
+  badgeBg: [255, 237, 213],
+  badgeText: [154, 52, 18],
+  accent: [234, 88, 12],
+  accentMid: [194, 65, 12],
+  accentLight: [249, 115, 22],
+  accentSoft: [154, 52, 18],
+  outline: [254, 215, 170],
+  outlineHover: [255, 247, 237],
+  iframeRing: [255, 237, 213],
+  ringFocus: [251, 146, 60],
+  accentHover: [215, 79, 11],
+  softBg: [255, 247, 237],
+  softBorder: [255, 237, 213],
+};
+
+const OP_GOOGLE = {
+  page: [219, 234, 254],
+  badgeBg: [191, 219, 254],
+  badgeText: [30, 58, 138],
+  accent: [66, 133, 244],
+  accentMid: [37, 99, 235],
+  accentLight: [96, 165, 250],
+  accentSoft: [29, 78, 216],
+  outline: [147, 197, 253],
+  outlineHover: [239, 246, 255],
+  iframeRing: [191, 219, 254],
+  ringFocus: [59, 130, 246],
+  accentHover: [51, 103, 214],
+  softBg: [239, 246, 255],
+  softBorder: [191, 219, 254],
+};
+
+function rgbCss(rgb) {
+  return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+}
+
+function opinionPaletteStyle(skin) {
+  return {
+    backgroundColor: rgbCss(skin.page),
+    ["--op-badge-bg"]: rgbCss(skin.badgeBg),
+    ["--op-badge-text"]: rgbCss(skin.badgeText),
+    ["--op-accent"]: rgbCss(skin.accent),
+    ["--op-accent-mid"]: rgbCss(skin.accentMid),
+    ["--op-accent-light"]: rgbCss(skin.accentLight),
+    ["--op-accent-soft"]: rgbCss(skin.accentSoft),
+    ["--op-outline"]: rgbCss(skin.outline),
+    ["--op-outline-hover"]: rgbCss(skin.outlineHover),
+    ["--op-iframe-ring"]: rgbCss(skin.iframeRing),
+    ["--op-ring-focus"]: rgbCss(skin.ringFocus),
+    ["--op-accent-hover"]: rgbCss(skin.accentHover),
+    ["--op-soft-bg"]: rgbCss(skin.softBg),
+    ["--op-soft-border"]: rgbCss(skin.softBorder),
+  };
+}
 
 const googleReviews = [
   {
@@ -30,7 +88,7 @@ const googleReviews = [
     id: "google-deepox",
     author: "Deepox",
     rating: 5,
-    text: "Szczerze mówiąc, wcześniej matematyka była dla mnie totalną czarną magią, a dzięki Jeremiaszowi w końcu zaczęło to mieć sens. Potrafi wytłumaczyć nawet trudne rzeczy w prosty i logiczny sposób, bez spinania się i zbędnego gadania.\n\nDuży plus za luźną atmosferę – nie ma stresu, można na spokojnie dopytać o wszystko i faktycznie zrozumieć temat, a nie tylko wykuć na pamięć. Widać, że mu zależy, żebyś ogarnął, a nie tylko odbębnił godzinę.\n\nJak ktoś ma problem z matmą, to naprawdę warto!",
+    text: "Szczerze mówiąc, wcześniej matematyka była dla mnie totalną czarną magią, a dzięki Jeremiaszowi w końcu zaczęło to mieć sens. Potrafi wytłumaczyć nawet trudne rzeczy w prosty i logiczny sposób, bez spinania się i zbędnego gadania.\n\nDuży plus za luźną atmosferę - nie ma stresu, można na spokojnie dopytać o wszystko i faktycznie zrozumieć temat, a nie tylko wykuć na pamięć. Widać, że mu zależy, żebyś ogarnął, a nie tylko odbębnił godzinę.\n\nJak ktoś ma problem z matmą, to naprawdę warto!",
   },
   {
     id: "google-karolina-dabrowska",
@@ -55,7 +113,7 @@ const googleReviews = [
     author: "Laura Kirke",
     rating: 5,
     text:
-      "całego serca polecam Jeremiasza!! Jeszcze jakiś czas temu matematyka była dla mnie ogromnym problemem – ledwo udawało mi się zaliczać sprawdziany i naprawdę traciłam wiarę w swoje możliwości. Dzięki jego zaangażowaniu, cierpliwości i świetnemu podejściu wszystko się zmieniło.\n\nTłumaczy w sposób niezwykle jasny i zrozumiały, nawet najtrudniejsze zagadnienia stają się proste. Zawsze potrafi znaleźć sposób, żeby dotrzeć do ucznia i sprawić, że nauka zaczyna mieć sens. Jest przy tym niesamowicie miły, wspierający i motywujący – nigdy nie pozwala się poddać.\n\nEfekty są niesamowite – z osoby, która ledwo zdawała matematykę, stałam się uczennicą na solidnym poziomie czwórkowym! To ogromna zmiana, z której jestem bardzo dumna, a wszystko dzięki jego pomocy.\n\nTo nie tylko świetny nauczyciel, ale też osoba, która naprawdę wierzy w swoich uczniów i pomaga im osiągać więcej, niż sami myśleli, że potrafią. Jeśli ktoś szuka najlepszego korepetytora – właśnie go znalazł!",
+      "całego serca polecam Jeremiasza!! Jeszcze jakiś czas temu matematyka była dla mnie ogromnym problemem - ledwo udawało mi się zaliczać sprawdziany i naprawdę traciłam wiarę w swoje możliwości. Dzięki jego zaangażowaniu, cierpliwości i świetnemu podejściu wszystko się zmieniło.\n\nTłumaczy w sposób niezwykle jasny i zrozumiały, nawet najtrudniejsze zagadnienia stają się proste. Zawsze potrafi znaleźć sposób, żeby dotrzeć do ucznia i sprawić, że nauka zaczyna mieć sens. Jest przy tym niesamowicie miły, wspierający i motywujący - nigdy nie pozwala się poddać.\n\nEfekty są niesamowite - z osoby, która ledwo zdawała matematykę, stałam się uczennicą na solidnym poziomie czwórkowym! To ogromna zmiana, z której jestem bardzo dumna, a wszystko dzięki jego pomocy.\n\nTo nie tylko świetny nauczyciel, ale też osoba, która naprawdę wierzy w swoich uczniów i pomaga im osiągać więcej, niż sami myśleli, że potrafią. Jeśli ktoś szuka najlepszego korepetytora - właśnie go znalazł!",
   },
 ];
 
@@ -196,11 +254,12 @@ Rada dla przyszłych maturzystów
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
-      className="min-h-screen bg-white"
+      className="min-h-screen"
+      style={opinionPaletteStyle(OP_VIDEO)}
     >
       <PageHeader 
         title="Nasi uczniowie"
-        subtitle="Opinie uczniów, ich osiągnięcia oraz wywiady — screeny, Google i wideo w jednym miejscu."
+        subtitle="Opinie uczniów, ich osiągnięcia oraz wywiady - screeny, Google i wideo w jednym miejscu."
       />
 
       <AnimatePresence>
@@ -217,7 +276,7 @@ Rada dla przyszłych maturzystów
               <button
                 type="button"
                 onClick={handleCollapseGallery}
-                className="absolute left-1/2 top-0 -translate-x-1/2 inline-flex h-11 w-11 items-center justify-center rounded-full bg-white text-orange-600 shadow-lg ring-1 ring-orange-200/80 hover:bg-orange-50 hover:ring-orange-300 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
+                className="absolute left-1/2 top-0 -translate-x-1/2 inline-flex h-11 w-11 items-center justify-center rounded-full bg-white text-[var(--op-accent)] shadow-lg ring-1 ring-[var(--op-outline)] hover:bg-[var(--op-outline-hover)] hover:ring-[var(--op-outline)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--op-ring-focus)]"
                 aria-label="Zwiń galerię screenów"
               >
                 <ChevronDown className="w-6 h-6" strokeWidth={2.5} />
@@ -227,10 +286,10 @@ Rada dla przyszłych maturzystów
         )}
       </AnimatePresence>
 
-      <section className="pt-24 sm:pt-28 pb-8 sm:pb-14 px-4 sm:px-6 bg-gradient-to-b from-purple-50/30 to-white">
+      <section id="opinie-video" className="pt-24 sm:pt-28 pb-8 sm:pb-14 px-4 sm:px-6 bg-transparent">
         <div className="max-w-6xl mx-auto">
           <div className="mb-6 sm:mb-12">
-            <div className="inline-flex items-center gap-2 bg-purple-100 text-purple-700 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium mb-4 bg-[var(--op-badge-bg)] text-[var(--op-badge-text)]">
               <Play className="w-3 h-3 sm:w-4 sm:h-4" />
               Opinie wideo
             </div>
@@ -262,7 +321,7 @@ Rada dla przyszłych maturzystów
                       setActiveVideo(video);
                     }
                   }}
-                  className="cursor-pointer border-none shadow-xl hover:shadow-2xl transition-all overflow-hidden bg-white group-hover:-translate-y-1 group-focus-visible:ring-2 group-focus-visible:ring-purple-400 group-focus-visible:ring-offset-2 rounded-xl"
+                  className="cursor-pointer border-none shadow-xl hover:shadow-2xl transition-all overflow-hidden bg-white group-hover:-translate-y-1 group-focus-visible:ring-2 group-focus-visible:ring-[var(--op-ring-focus)] group-focus-visible:ring-offset-2 rounded-xl"
                 >
                   <CardContent className="p-4 sm:p-5 h-full">
                     <div className="flex flex-col sm:flex-row sm:items-stretch gap-4 sm:gap-5 min-h-0">
@@ -273,7 +332,7 @@ Rada dla przyszłych maturzystów
                             : "sm:w-[240px] sm:max-w-none sm:flex-shrink-0"
                         }`}
                       >
-                        <div className={`pointer-events-none rounded-2xl overflow-hidden shadow-inner ring-1 ring-purple-100/80 ${video.orientation === "horizontal" ? "aspect-video" : "aspect-[4/5]"}`}>
+                        <div className={`pointer-events-none rounded-2xl overflow-hidden shadow-inner ring-1 ring-[var(--op-iframe-ring)] ${video.orientation === "horizontal" ? "aspect-video" : "aspect-[4/5]"}`}>
                           <iframe
                             width="100%"
                             height="100%"
@@ -289,22 +348,22 @@ Rada dla przyszłych maturzystów
                       </div>
 
                       <div className="flex-1 min-w-0 min-h-0 flex flex-col justify-between gap-4 sm:py-0.5">
-                        <p className="text-xs font-semibold text-purple-600 uppercase tracking-wide shrink-0">
+                        <p className="text-xs font-semibold text-[var(--op-accent-mid)] uppercase tracking-wide shrink-0">
                           {video.name} · {video.role}
                         </p>
                         <div className="flex-1 min-h-0 flex flex-col justify-center">
                           <div className="flex items-start gap-1.5 sm:gap-2 w-full">
-                            <Quote className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500 flex-shrink-0 mt-0.5 opacity-90" aria-hidden />
+                            <Quote className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--op-accent-light)] flex-shrink-0 mt-0.5 opacity-90" aria-hidden />
                             <p className="flex-1 min-w-0 text-center text-sm sm:text-base text-gray-800 italic font-medium leading-relaxed">
                               {videoQuotedBody(video)}
                             </p>
                             <Quote
-                              className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500 flex-shrink-0 mt-0.5 -ml-0.5 rotate-180 opacity-90"
+                              className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--op-accent-light)] flex-shrink-0 mt-0.5 -ml-0.5 rotate-180 opacity-90"
                               aria-hidden
                             />
                           </div>
                         </div>
-                        <p className="text-xs sm:text-sm text-purple-700/90 font-medium leading-snug shrink-0">
+                        <p className="text-xs sm:text-sm font-medium leading-snug shrink-0 text-[var(--op-accent-soft)] opacity-90">
                           Kliknij, aby otworzyć pełny wywiad z <strong>transkryptem</strong>
                         </p>
                       </div>
@@ -320,19 +379,19 @@ Rada dla przyszłych maturzystów
       <section
         ref={gallerySectionRef}
         id="galeria-screenow"
-        className="pt-24 pb-8 sm:pt-28 sm:pb-12 px-4 sm:px-6 bg-gradient-to-b from-white via-orange-50/30 to-white scroll-mt-20 sm:scroll-mt-24"
+        className="pt-24 pb-8 sm:pt-28 sm:pb-12 px-4 sm:px-6 scroll-mt-20 sm:scroll-mt-24 bg-transparent"
       >
         <div className="max-w-6xl mx-auto">
           <div className="mb-6 sm:mb-12">
-            <div className="inline-flex items-center gap-2 bg-orange-100 text-orange-700 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium mb-4">
-              <Star className="w-3 h-3 sm:w-4 sm:h-4 fill-orange-600" />
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium mb-4 bg-[var(--op-badge-bg)] text-[var(--op-badge-text)]">
+              <Star className="w-3 h-3 sm:w-4 sm:h-4 fill-[var(--op-accent)]" />
               Opinie i osiągnięcia
             </div>
             <h2 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-3">
               Opinie uczniów i ich osiągnięcia
             </h2>
             <p className="text-sm sm:text-lg text-gray-600 max-w-2xl">
-              Screeny z wiadomości — zobacz, jak uczniowie opisują zajęcia i swoje postępy
+              Screeny z wiadomości - zobacz, jak uczniowie opisują zajęcia i swoje postępy
             </p>
           </div>
 
@@ -349,7 +408,7 @@ Rada dla przyszłych maturzystów
                   whileTap={{ scale: 0.99 }}
                   transition={{ type: "spring", stiffness: 400, damping: 28 }}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-orange-400/20 to-amber-400/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="absolute inset-0 bg-[var(--op-accent)] opacity-0 transition-opacity group-hover:opacity-20" />
                   <img
                     src={screenshot.url}
                     alt="Opinia ucznia"
@@ -404,7 +463,7 @@ Rada dla przyszłych maturzystów
                           whileHover={{ scale: 1.01 }}
                           whileTap={{ scale: 0.99 }}
                         >
-                          <div className="absolute inset-0 bg-gradient-to-br from-orange-400/20 to-amber-400/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+                          <div className="absolute inset-0 bg-[var(--op-accent)] opacity-0 transition-opacity group-hover:opacity-20" />
                           <img
                             src={screenshot.url}
                             alt="Opinia ucznia"
@@ -432,7 +491,7 @@ Rada dla przyszłych maturzystów
                   type="button"
                   variant="outline"
                   onClick={handleExpandGallery}
-                  className="rounded-full border-orange-200 text-orange-800 hover:bg-orange-50 gap-2"
+                  className="rounded-full border-[var(--op-outline)] text-[var(--op-accent-soft)] hover:bg-[var(--op-outline-hover)] gap-2"
                 >
                   Pokaż wszystkie screeny ({screenshots.length})
                   <ChevronDown className="w-4 h-4" />
@@ -443,52 +502,54 @@ Rada dla przyszłych maturzystów
         </div>
       </section>
 
-      {/* Google Reviews */}
-      <section className="py-10 sm:py-20 px-4 sm:px-6 relative overflow-hidden bg-gradient-to-b from-slate-50/90 via-white to-blue-50/40">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(59,130,246,0.12),transparent)]" />
-        <div className="absolute top-16 right-[-10%] w-[420px] h-[420px] bg-blue-300/15 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-[-10%] w-80 h-80 bg-amber-200/20 rounded-full blur-3xl" />
-        
-        <div className="max-w-6xl mx-auto relative z-[1]">
+      <section
+        id="opinie-google"
+        className="py-10 sm:py-20 px-4 sm:px-6 scroll-mt-20 sm:scroll-mt-24"
+        style={opinionPaletteStyle(OP_GOOGLE)}
+      >
+        <div className="max-w-6xl mx-auto">
           <div className="mb-8 sm:mb-14 text-center">
-            <div className="inline-flex items-center gap-2 rounded-full border border-blue-200/80 bg-white/90 px-4 py-2 text-xs sm:text-sm font-semibold text-blue-800 shadow-sm backdrop-blur-sm mb-5">
-              <svg className="w-4 h-4 text-blue-600 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-              </svg>
+            <div className="inline-flex items-center gap-2.5 rounded-full border border-[var(--op-outline)] bg-white/95 px-4 py-2 text-xs sm:text-sm font-semibold text-[#202124] shadow-sm backdrop-blur-sm mb-5">
+              <span className="flex items-center gap-1" aria-hidden>
+                <span className="h-2 w-2 rounded-full bg-[#4285F4]" />
+                <span className="h-2 w-2 rounded-full bg-[#EA4335]" />
+                <span className="h-2 w-2 rounded-full bg-[#FBBC05]" />
+                <span className="h-2 w-2 rounded-full bg-[#34A853]" />
+              </span>
               Opinie Google
             </div>
             <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-gray-900 mb-3">
               Co mówią o nas w Google?
             </h2>
             <p className="text-sm sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              Średnia <span className="font-semibold text-gray-800">5.0</span> — w Google jest już{" "}
-              <span className="font-semibold text-gray-800">{GOOGLE_REVIEWS_TOTAL}</span> autentycznych recenzji od naszych uczniów. Poniżej — wybrane z nich.
+              Średnia <span className="font-semibold text-gray-800">5.0</span> - w Google jest już{" "}
+              <span className="font-semibold text-gray-800">{GOOGLE_REVIEWS_TOTAL}</span> autentycznych recenzji od naszych uczniów. Poniżej - wybrane z nich.
             </p>
           </div>
 
           <div className="max-w-4xl mx-auto mb-10 sm:mb-14">
-            <div className="relative overflow-hidden rounded-3xl border border-blue-100/90 bg-white/90 p-1 shadow-xl shadow-blue-500/10 backdrop-blur-sm">
-              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-400/50 to-transparent" />
-              <CardContent className="p-6 sm:p-10 rounded-[1.35rem] bg-gradient-to-br from-white via-blue-50/40 to-slate-50/30">
+            <div className="relative overflow-hidden rounded-3xl border border-[#dadce0] bg-white shadow-xl shadow-slate-200/50">
+              <div className="h-1 w-full bg-[var(--op-accent)]" aria-hidden />
+              <CardContent className="p-6 sm:p-10">
                 <div className="flex flex-col sm:flex-row items-stretch justify-center gap-8 sm:gap-12">
                   <div className="flex flex-col items-center text-center sm:items-center flex-1">
-                    <div className="text-5xl sm:text-6xl font-bold tabular-nums tracking-tight text-gray-900">
+                    <div className="text-5xl sm:text-6xl font-bold tabular-nums tracking-tight text-[#202124]">
                       5.0
                     </div>
                     <div className="mt-2 flex gap-0.5 justify-center">
                       {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-6 h-6 sm:w-7 sm:h-7 text-amber-400 fill-amber-400 drop-shadow-sm" />
+                        <Star key={i} className="w-6 h-6 sm:w-7 sm:h-7 text-[#FBBC05] fill-[#FBBC05]" />
                       ))}
                     </div>
-                    <p className="mt-3 text-sm font-medium text-gray-600">Średnia ocena w Google</p>
+                    <p className="mt-3 text-sm font-medium text-[#5f6368]">Średnia ocena w Google</p>
                   </div>
-                  <div className="hidden sm:block w-px self-stretch bg-gradient-to-b from-transparent via-blue-200/80 to-transparent min-h-[120px]" />
-                  <div className="sm:hidden h-px w-full bg-gradient-to-r from-transparent via-blue-200/80 to-transparent" />
-                  <div className="flex flex-col items-center text-center justify-center flex-1 rounded-2xl border border-blue-100/80 bg-white/70 px-6 py-5 shadow-inner">
-                    <div className="text-4xl sm:text-5xl font-bold tabular-nums text-blue-700">{GOOGLE_REVIEWS_TOTAL}</div>
+                  <div className="hidden sm:block w-px self-stretch bg-[#dadce0] min-h-[120px]" />
+                  <div className="sm:hidden h-px w-full bg-[#dadce0]" />
+                  <div className="flex flex-col items-center text-center justify-center flex-1 rounded-2xl border border-[#dadce0]/90 bg-white/80 px-6 py-5 shadow-inner">
+                    <div className="text-4xl sm:text-5xl font-bold tabular-nums text-[var(--op-accent)]">{GOOGLE_REVIEWS_TOTAL}</div>
                     <p className="mt-2 text-sm font-semibold text-gray-800">Opinii w Google</p>
                     <p className="mt-1 text-xs text-gray-500 max-w-[14rem]">
-                      Na stronie poniżej: {googleReviews.length} z nich — pełna lista na profilu Google.
+                      Na stronie poniżej: {googleReviews.length} z nich - pełna lista na profilu Google.
                     </p>
                   </div>
                 </div>
@@ -510,14 +571,14 @@ Rada dla przyszłych maturzystów
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`Przejdź do opinii Google — ${review.author}`}
-                  className="group relative flex h-full min-h-[200px] flex-col overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-lg shadow-slate-200/50 outline-none transition-all duration-300 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-500/15 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                  className="group relative flex h-full min-h-[200px] flex-col overflow-hidden rounded-2xl border border-[#dadce0]/90 bg-white shadow-lg shadow-slate-200/40 outline-none transition-all duration-300 hover:border-[var(--op-accent)]/40 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-[var(--op-accent)] focus-visible:ring-offset-2"
                 >
-                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-blue-500 via-sky-400 to-cyan-400 opacity-90" />
-                  <Quote className="pointer-events-none absolute right-3 top-8 z-[1] h-16 w-16 text-blue-100/90 rotate-6" aria-hidden />
+                  <div className="absolute inset-x-0 top-0 h-1 w-full bg-[var(--op-accent)]" aria-hidden />
+                  <Quote className="pointer-events-none absolute right-3 top-8 z-[1] h-16 w-16 text-[var(--op-accent)] opacity-[0.15] rotate-6" aria-hidden />
                   <CardContent className="relative z-[1] flex flex-1 flex-col gap-4 p-5 sm:p-7">
                     <div className="flex items-start gap-3">
                       <div
-                        className="flex h-12 w-12 sm:h-14 sm:w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-blue-700 text-base sm:text-lg font-bold text-white shadow-md ring-2 ring-white"
+                        className="flex h-12 w-12 sm:h-14 sm:w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-[var(--op-accent)] text-base sm:text-lg font-bold text-white shadow-md ring-2 ring-white"
                         aria-hidden
                       >
                         {googleReviewInitials(review.author)}
@@ -526,12 +587,12 @@ Rada dla przyszłych maturzystów
                         <p className="font-semibold text-gray-900 text-base sm:text-lg leading-tight">
                           {review.author}
                         </p>
-                        <div className="mt-1 inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-blue-700">
+                        <div className="mt-1 inline-flex items-center gap-1.5 rounded-full border border-[#dadce0]/80 bg-[#f8f9fa] px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-[#5f6368]">
                           Google
                         </div>
                         <div className="mt-2 flex gap-0.5">
                           {[...Array(review.rating)].map((_, i) => (
-                            <Star key={i} className="w-4 h-4 text-amber-400 fill-amber-400" />
+                            <Star key={i} className="w-4 h-4 text-[#FBBC05] fill-[#FBBC05]" />
                           ))}
                         </div>
                       </div>
@@ -541,10 +602,10 @@ Rada dla przyszłych maturzystów
                     </p>
                   </CardContent>
                   <div
-                    className="pointer-events-none absolute inset-0 z-[2] flex items-center justify-center rounded-2xl bg-gradient-to-b from-blue-900/80 to-blue-950/85 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
+                    className="pointer-events-none absolute inset-0 z-[2] flex items-center justify-center rounded-2xl bg-[#202124]/90 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
                     aria-hidden
                   >
-                    <span className="mx-4 rounded-full bg-white px-5 py-2.5 text-center text-sm font-semibold text-blue-900 shadow-lg sm:text-base">
+                    <span className="mx-4 rounded-full bg-white px-5 py-2.5 text-center text-sm font-semibold text-[#202124] shadow-lg sm:text-base">
                       Przejdź do opinii Google
                     </span>
                   </div>
@@ -556,7 +617,7 @@ Rada dla przyszłych maturzystów
           <div className="text-center">
             <Button
               size="lg"
-              className="rounded-2xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 sm:px-10 py-5 sm:py-6 text-sm sm:text-base shadow-lg shadow-blue-600/25 ring-1 ring-white/20"
+              className="rounded-2xl bg-[var(--op-accent)] hover:bg-[var(--op-accent-hover)] text-white px-8 sm:px-10 py-5 sm:py-6 text-sm sm:text-base shadow-lg shadow-[var(--op-accent)]/30 ring-1 ring-white/20 transition-colors"
               asChild
             >
               <a href={GOOGLE_REVIEWS_PAGE_URL} target="_blank" rel="noopener noreferrer">
@@ -572,6 +633,14 @@ Rada dla przyszłych maturzystów
         close={() => setLightboxIndex(-1)}
         index={lightboxIndex}
         slides={screenshots.map((screenshot) => ({ src: screenshot.url }))}
+        plugins={[Zoom]}
+        zoom={{
+          maxZoomPixelRatio: 3.5,
+          zoomInMultiplier: 2,
+          doubleTapDelay: 250,
+          doubleClickDelay: 250,
+          scrollToZoom: true,
+        }}
         carousel={{ padding: 140, imageFit: 'contain' }}
         controller={{ closeOnBackdropClick: true }}
         render={{ buttonClose: () => null }}
@@ -624,12 +693,12 @@ Rada dla przyszłych maturzystów
                   </h3>
                   <p className="text-sm sm:text-base text-gray-600 mt-1">{activeVideo.role}</p>
                   <div className="mt-4 flex items-start gap-2 sm:gap-2.5">
-                    <Quote className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500 shrink-0 mt-0.5 opacity-90" aria-hidden />
+                    <Quote className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--op-accent-light)] shrink-0 mt-0.5 opacity-90" aria-hidden />
                     <p className="flex-1 min-w-0 text-center text-sm sm:text-base text-gray-800 italic font-medium leading-relaxed">
                       {videoQuotedBody(activeVideo)}
                     </p>
                     <Quote
-                      className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500 shrink-0 mt-0.5 rotate-180 opacity-90"
+                      className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--op-accent-light)] shrink-0 mt-0.5 rotate-180 opacity-90"
                       aria-hidden
                     />
                   </div>
@@ -649,8 +718,8 @@ Rada dla przyszłych maturzystów
                   />
                 </div>
 
-                <div className="px-4 sm:px-6 py-5 sm:py-6 bg-gradient-to-br from-purple-50/80 to-white border-t border-purple-100">
-                  <div className="text-xs font-semibold text-purple-700 mb-3 uppercase tracking-wide">
+                <div className="px-4 sm:px-6 py-5 sm:py-6 bg-gradient-to-br from-[var(--op-soft-bg)]/90 to-white border-t border-[var(--op-soft-border)]">
+                  <div className="text-xs font-semibold text-[var(--op-accent-soft)] mb-3 uppercase tracking-wide">
                     Transkrypcja wywiadu
                   </div>
                   <div className="text-sm sm:text-base text-gray-800 leading-relaxed whitespace-pre-wrap">

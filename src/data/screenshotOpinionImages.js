@@ -11,4 +11,5 @@ export const SCREENSHOT_OPINION_IMAGES = [
   "/screeny/IMG_3371.jpeg",
   "/screeny/IMG_3375.jpeg",
   "/screeny/IMG_3382.jpeg",
+  "/screeny/IMG_3405.jpg",
 ];

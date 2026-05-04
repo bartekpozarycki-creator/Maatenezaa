@@ -68,7 +68,7 @@ export default function TimedPopup({ open, onClose, onNeverShow }) {
 
             <div className="px-5 pb-5 pt-4 text-center">
               <p className="text-sm leading-relaxed text-gray-600">
-                Nie zwlekaj – czas ucieka! Umów się na zajęcia i zacznij działać.{" "}
+                Nie zwlekaj - czas ucieka! Umów się na zajęcia i zacznij działać.{" "}
                 <span className="font-semibold text-orange-600">Pierwsza lekcja darmowa!</span>
               </p>
 
