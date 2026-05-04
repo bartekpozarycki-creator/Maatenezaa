@@ -738,13 +738,10 @@ export default function Home() {
                     />
                   </button>
                   <div
-                    className="grid overflow-hidden transition-[grid-template-rows] duration-200 ease-out motion-reduce:transition-none"
-                    style={{ gridTemplateRows: open ? '1fr' : '0fr' }}
+                    className={`overflow-hidden transition-[max-height] duration-200 ease-out motion-reduce:transition-none ${open ? 'max-h-96' : 'max-h-0'}`}
                   >
-                    <div className="min-h-0">
-                      <div className="text-xs leading-relaxed text-gray-600 pb-3 [&_strong]:text-gray-900">
-                        {item.body}
-                      </div>
+                    <div className="text-xs leading-relaxed text-gray-600 pb-3 [&_strong]:text-gray-900">
+                      {item.body}
                     </div>
                   </div>
                 </div>
@@ -1349,7 +1346,7 @@ export default function Home() {
           </div>
 
           <Accordion type="single" collapsible className="space-y-4">
-            <AccordionItem value="item-1" className="bg-gradient-to-br from-orange-50/50 to-amber-50/30 border-none rounded-2xl px-6 shadow-sm hover:shadow-md transition-all">
+            <AccordionItem value="item-1" className="bg-gradient-to-br from-orange-50/50 to-amber-50/30 border-none rounded-2xl px-6 shadow-sm hover:shadow-md transition-shadow duration-200">
               <AccordionTrigger className="text-left text-base sm:text-lg font-semibold text-gray-900 hover:text-orange-600 py-5">
                 Jak wygląda płatność za zajęcia?
               </AccordionTrigger>
@@ -1358,7 +1355,7 @@ export default function Home() {
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="item-2" className="bg-gradient-to-br from-orange-50/50 to-amber-50/30 border-none rounded-2xl px-6 shadow-sm hover:shadow-md transition-all">
+            <AccordionItem value="item-2" className="bg-gradient-to-br from-orange-50/50 to-amber-50/30 border-none rounded-2xl px-6 shadow-sm hover:shadow-md transition-shadow duration-200">
               <AccordionTrigger className="text-left text-base sm:text-lg font-semibold text-gray-900 hover:text-orange-600 py-5">
                 Jak przygotować się do zajęć?
               </AccordionTrigger>
@@ -1367,7 +1364,7 @@ export default function Home() {
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="item-3" className="bg-gradient-to-br from-orange-50/50 to-amber-50/30 border-none rounded-2xl px-6 shadow-sm hover:shadow-md transition-all">
+            <AccordionItem value="item-3" className="bg-gradient-to-br from-orange-50/50 to-amber-50/30 border-none rounded-2xl px-6 shadow-sm hover:shadow-md transition-shadow duration-200">
               <AccordionTrigger className="text-left text-base sm:text-lg font-semibold text-gray-900 hover:text-orange-600 py-5">
                 Czy potrzebuję tabletu graficznego lub iPada?
               </AccordionTrigger>
@@ -1376,7 +1373,7 @@ export default function Home() {
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="item-4" className="bg-gradient-to-br from-orange-50/50 to-amber-50/30 border-none rounded-2xl px-6 shadow-sm hover:shadow-md transition-all">
+            <AccordionItem value="item-4" className="bg-gradient-to-br from-orange-50/50 to-amber-50/30 border-none rounded-2xl px-6 shadow-sm hover:shadow-md transition-shadow duration-200">
               <AccordionTrigger className="text-left text-base sm:text-lg font-semibold text-gray-900 hover:text-orange-600 py-5">
                 Ile trwa jedna lekcja?
               </AccordionTrigger>
@@ -1385,7 +1382,7 @@ export default function Home() {
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="item-5" className="bg-gradient-to-br from-orange-50/50 to-amber-50/30 border-none rounded-2xl px-6 shadow-sm hover:shadow-md transition-all">
+            <AccordionItem value="item-5" className="bg-gradient-to-br from-orange-50/50 to-amber-50/30 border-none rounded-2xl px-6 shadow-sm hover:shadow-md transition-shadow duration-200">
               <AccordionTrigger className="text-left text-base sm:text-lg font-semibold text-gray-900 hover:text-orange-600 py-5">
                 Czy mogę kontaktować się z korepetytorem między zajęciami?
               </AccordionTrigger>
@@ -1394,7 +1391,7 @@ export default function Home() {
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="item-6" className="bg-gradient-to-br from-orange-50/50 to-amber-50/30 border-none rounded-2xl px-6 shadow-sm hover:shadow-md transition-all">
+            <AccordionItem value="item-6" className="bg-gradient-to-br from-orange-50/50 to-amber-50/30 border-none rounded-2xl px-6 shadow-sm hover:shadow-md transition-shadow duration-200">
               <AccordionTrigger className="text-left text-base sm:text-lg font-semibold text-gray-900 hover:text-orange-600 py-5">
                 Jak szybko zobaczę efekty?
               </AccordionTrigger>
@@ -1403,7 +1400,7 @@ export default function Home() {
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="item-7" className="bg-gradient-to-br from-orange-50/50 to-amber-50/30 border-none rounded-2xl px-6 shadow-sm hover:shadow-md transition-all">
+            <AccordionItem value="item-7" className="bg-gradient-to-br from-orange-50/50 to-amber-50/30 border-none rounded-2xl px-6 shadow-sm hover:shadow-md transition-shadow duration-200">
               <AccordionTrigger className="text-left text-base sm:text-lg font-semibold text-gray-900 hover:text-orange-600 py-5">
                 Co jeśli muszę odwołać zajęcia?
               </AccordionTrigger>
