@@ -8,56 +8,6 @@ import PageHeader from '../components/PageHeader';
 
 import { motion } from 'framer-motion';
 
-function renderFounderDecor(index) {
-  if (index === 0) {
-    return (
-      <>
-        <span className="pointer-events-none absolute bottom-3 right-6 text-5xl font-semibold text-orange-200/70 select-none">+</span>
-        <span className="pointer-events-none absolute bottom-10 right-16 text-3xl font-semibold text-amber-200/80 select-none">=</span>
-        <span className="pointer-events-none absolute bottom-4 right-24 h-10 w-10 rounded-full border border-orange-200/80" />
-      </>
-    );
-  }
-
-  return (
-    <>
-      <span className="pointer-events-none absolute bottom-3 right-7 text-5xl font-semibold text-orange-200/70 select-none">π</span>
-      <span className="pointer-events-none absolute bottom-12 right-20 text-2xl font-semibold text-amber-200/80 select-none">x²</span>
-      <span className="pointer-events-none absolute bottom-5 right-28 h-8 w-8 rotate-12 border border-orange-200/80" />
-    </>
-  );
-}
-
-function renderTutorDecor(index) {
-  if (index === 0) {
-    return (
-      <>
-        <span className="pointer-events-none absolute bottom-3 right-7 text-5xl font-semibold text-orange-200/70 select-none">%</span>
-        <span className="pointer-events-none absolute bottom-11 right-20 text-2xl font-semibold text-amber-200/80 select-none">√</span>
-        <span className="pointer-events-none absolute bottom-5 right-28 h-2 w-10 rounded-full bg-orange-200/70" />
-      </>
-    );
-  }
-
-  if (index === 1) {
-    return (
-      <>
-        <span className="pointer-events-none absolute bottom-3 right-8 text-5xl font-semibold text-orange-200/70 select-none">∞</span>
-        <span className="pointer-events-none absolute bottom-12 right-24 text-2xl font-semibold text-amber-200/80 select-none">Δ</span>
-        <span className="pointer-events-none absolute bottom-5 right-32 h-8 w-8 rounded-full border border-amber-200/80" />
-      </>
-    );
-  }
-
-  return (
-    <>
-      <span className="pointer-events-none absolute bottom-3 right-8 text-5xl font-semibold text-orange-200/70 select-none">∑</span>
-      <span className="pointer-events-none absolute bottom-11 right-24 text-2xl font-semibold text-amber-200/80 select-none">≠</span>
-      <span className="pointer-events-none absolute bottom-5 right-33 h-9 w-9 rotate-45 border border-orange-200/80" />
-    </>
-  );
-}
-
 export default function ONas() {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -210,7 +160,7 @@ export default function ONas() {
                   </div>
 
                   <CardContent className="relative z-10 flex flex-1 flex-col gap-0 p-3 pb-3 pt-2.5 sm:p-4 sm:pb-4 sm:pt-3 lg:p-6 lg:pl-2.5 lg:pr-7 min-h-0 lg:bg-gradient-to-br lg:from-white lg:via-orange-50/20 lg:to-amber-50/30">
-                    <div className="space-y-2 sm:space-y-2.5 lg:flex-1">
+                    <div className="relative z-10 space-y-2 sm:space-y-2.5 lg:flex-1">
                       <div>
                         <div className="h-0.5 w-8 rounded-full bg-gradient-to-r from-orange-500 to-amber-400 mb-1.5" aria-hidden />
                         <p className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700/90">
@@ -221,7 +171,6 @@ export default function ONas() {
                       {founder.description}
                       </p>
                     </div>
-                    {renderFounderDecor(index)}
                   </CardContent>
                 </div>
               </Card>
@@ -295,7 +244,7 @@ export default function ONas() {
                   </div>
 
                   <CardContent className="relative z-10 flex flex-1 flex-col gap-0 p-3 pb-3 pt-2.5 sm:p-4 sm:pb-4 sm:pt-3 lg:p-6 lg:pl-2.5 lg:pr-7 min-h-0 lg:bg-gradient-to-br lg:from-white lg:via-orange-50/20 lg:to-amber-50/30">
-                    <div className="space-y-2 sm:space-y-2.5 lg:flex-1">
+                    <div className="relative z-10 space-y-2 sm:space-y-2.5 lg:flex-1">
                       <div>
                         <div className="h-0.5 w-8 rounded-full bg-gradient-to-r from-orange-500 to-amber-400 mb-1.5" aria-hidden />
                         <p className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700/90">
@@ -309,7 +258,6 @@ export default function ONas() {
                         {tutor.description}
                       </p>
                     </div>
-                    {renderTutorDecor(index)}
                   </CardContent>
                 </div>
               </Card>
