@@ -168,7 +168,8 @@ export default function Home() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      setScrolled(currentScrollY > 50);
+      const isScrolled = currentScrollY > 50;
+      setScrolled(isScrolled);
 
       if (window.innerWidth < 768) {
         if (currentScrollY > lastScrollYRef.current && currentScrollY > 100) {
@@ -299,12 +300,12 @@ export default function Home() {
       }} />
       
       {/* Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 duration-300 motion-reduce:transition-none ${
+      <nav className={`fixed top-0 left-0 right-0 z-50 border-b border-orange-100/80 duration-300 motion-reduce:transition-none ${
         (scrolled || isMenuOpen)
-          ? 'max-md:bg-background max-md:shadow-md max-md:shadow-black/20 md:bg-background/90 md:backdrop-blur-md md:shadow-md'
-          : 'bg-transparent'
-      } transition-[transform,background-color,box-shadow] ${showNavbar ? 'translate-y-0' : '-translate-y-full'}`}>
-        <div className="max-w-6xl mx-auto px-3 sm:px-6 py-2.5 sm:py-4 flex justify-between items-center">
+          ? 'max-md:bg-white/90 max-md:backdrop-blur-md max-md:shadow-md max-md:shadow-black/20 md:bg-background/90 md:backdrop-blur-md md:shadow-md'
+          : 'max-md:bg-white/90 max-md:backdrop-blur-md max-md:shadow-md max-md:shadow-black/20 md:bg-transparent'
+      } transition-[transform,background-color,box-shadow,border-color,backdrop-filter] ${showNavbar ? 'translate-y-0' : '-translate-y-full'}`}>
+        <div className="max-w-6xl mx-auto px-3 sm:px-6 py-2 sm:py-4 flex justify-between items-center">
           <div className="flex items-center gap-2 sm:gap-3">
             <div className="w-7 h-7 sm:w-10 sm:h-10 bg-gradient-to-br from-orange-400 to-amber-500 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg">
               <Brain className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
@@ -439,35 +440,35 @@ export default function Home() {
         <div className="relative z-10">
         <div
           id="hero"
-          className="relative bg-gradient-to-b from-orange-100 via-amber-50/90 to-orange-50    pt-16 sm:pt-32 pb-8 sm:pb-20 px-3 sm:px-6"
+          className="relative bg-gradient-to-b from-orange-100 via-amber-50/90 to-orange-50 pt-[5.75rem] sm:pt-28 md:pt-24 pb-8 sm:pb-20 px-3 sm:px-6"
         >
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
             <div className="space-y-3 sm:space-y-8 animate-fade-in">
-              <div className="hidden sm:inline-flex items-center gap-1.5 bg-orange-100 text-orange-700 px-2.5 py-1 rounded-full text-xs font-medium">
-                <Sparkles className="w-3 h-3" />
-                Matma bez stresu
-              </div>
-
-              <h1 className="text-center sm:text-left text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900  leading-tight">
-                Zrozum matematykę
-                <span className="block bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent">
-                  bez stresu
-                </span>
-              </h1>
-
-              <div className="lg:hidden">
+              <div className="lg:hidden -mx-3 sm:mx-0">
                 <div className="relative">
-                  <div className="relative rounded-2xl overflow-hidden shadow-xl">
+                  <div className="relative overflow-hidden shadow-xl sm:rounded-2xl">
                     <img
                       src="/alt.png"
                       alt="Mateneza"
-                      className="w-full h-[160px] md:h-[300px] object-cover"
+                      className="w-full h-auto md:h-[300px] object-contain md:object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-orange-900/30 to-transparent" />
                   </div>
                 </div>
               </div>
+
+              <div className="hidden sm:inline-flex items-center gap-1.5 bg-orange-100 text-orange-700 px-2.5 py-1 rounded-full text-xs font-medium">
+                <Sparkles className="w-3 h-3" />
+                Matma bez stresu
+              </div>
+
+              <h1 className="text-left sm:text-left text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900  leading-tight">
+                Zrozum matematykę
+                <span className="block bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent">
+                  bez stresu
+                </span>
+              </h1>
 
               <p className="text-xs sm:text-lg md:text-xl text-gray-600  leading-relaxed">
                 <span className="md:hidden">Korepetycje dopasowane do Twojego poziomu. Bez presji, z cierpliwością i zrozumieniem.</span>

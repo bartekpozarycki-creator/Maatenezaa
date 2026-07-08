@@ -289,7 +289,7 @@ Rada dla przyszłych maturzystów
         )}
       </AnimatePresence>
 
-      <section id="opinie-video" className="pt-24 sm:pt-28 pb-8 sm:pb-14 px-4 sm:px-6 bg-transparent">
+      <section id="opinie-video" className="pt-[5.75rem] sm:pt-28 pb-8 sm:pb-14 px-4 sm:px-6 bg-transparent">
         <div className="max-w-6xl mx-auto">
           <div className="mb-6 sm:mb-12">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium mb-4 bg-[var(--op-badge-bg)] text-[var(--op-badge-text)]">
@@ -382,7 +382,7 @@ Rada dla przyszłych maturzystów
       <section
         ref={gallerySectionRef}
         id="galeria-screenow"
-        className="pt-24 pb-8 sm:pt-28 sm:pb-12 px-4 sm:px-6 scroll-mt-20 sm:scroll-mt-24 bg-transparent"
+        className="pt-[5.75rem] pb-8 sm:pt-28 sm:pb-12 px-4 sm:px-6 scroll-mt-20 sm:scroll-mt-24 bg-transparent"
       >
         <div className="max-w-6xl mx-auto">
           <div className="mb-6 sm:mb-12">

@@ -44,9 +44,9 @@ export default function PageHeader({ title, subtitle }) {
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 duration-300 motion-reduce:transition-none ${
       scrolled
-        ? 'max-md:bg-background max-md:shadow-md max-md:shadow-black/20 md:bg-background/90 md:backdrop-blur-md md:shadow-md'
-        : 'bg-transparent'
-    } transition-[transform,background-color,box-shadow] ${showNavbar ? 'translate-y-0' : '-translate-y-full'}`}>
+        ? 'max-md:bg-white/90 max-md:backdrop-blur-md max-md:shadow-md max-md:shadow-black/20 md:bg-background/90 md:backdrop-blur-md md:shadow-md'
+        : 'max-md:bg-white/90 max-md:backdrop-blur-md max-md:shadow-md max-md:shadow-black/20 md:bg-transparent'
+    } transition-[transform,background-color,box-shadow,backdrop-filter] ${showNavbar ? 'translate-y-0' : '-translate-y-full'}`}>
       <div className="max-w-6xl mx-auto px-3 sm:px-6 py-2.5 sm:py-4 flex justify-between items-center">
         <Link to={createPageUrl('Home')} className="flex items-center gap-2 sm:gap-3">
           <div className="w-7 h-7 sm:w-10 sm:h-10 bg-gradient-to-br from-orange-400 to-amber-500 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg">

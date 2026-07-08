@@ -106,7 +106,7 @@ export default function ONas() {
       />
 
       {/* Założyciele */}
-      <section className="relative overflow-hidden pt-24 pb-8 sm:py-20 px-4 sm:px-6 bg-gradient-to-b from-orange-50/35 via-white to-amber-50/25   ">
+      <section className="relative overflow-hidden pt-[5.75rem] pb-8 sm:py-20 px-4 sm:px-6 bg-gradient-to-b from-orange-50/35 via-white to-amber-50/25   ">
         <div className="pointer-events-none absolute inset-0" aria-hidden>
           <div className="absolute right-10 top-32 h-64 w-64 rounded-full bg-orange-200/25 blur-3xl" />
           <div className="absolute left-0 bottom-20 h-72 w-72 rounded-full bg-amber-100/40 blur-3xl" />
