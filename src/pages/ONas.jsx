@@ -1,13 +1,62 @@
-import React, { useEffect } from 'react';
+﻿import React, { useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Heart, Target, Star, GraduationCap, Lightbulb, Users } from 'lucide-react';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import PageHeader from '../components/PageHeader';
 
 import { motion } from 'framer-motion';
+
+function renderFounderDecor(index) {
+  if (index === 0) {
+    return (
+      <>
+        <span className="pointer-events-none absolute bottom-3 right-6 text-5xl font-semibold text-orange-200/70 select-none">+</span>
+        <span className="pointer-events-none absolute bottom-10 right-16 text-3xl font-semibold text-amber-200/80 select-none">=</span>
+        <span className="pointer-events-none absolute bottom-4 right-24 h-10 w-10 rounded-full border border-orange-200/80" />
+      </>
+    );
+  }
+
+  return (
+    <>
+      <span className="pointer-events-none absolute bottom-3 right-7 text-5xl font-semibold text-orange-200/70 select-none">π</span>
+      <span className="pointer-events-none absolute bottom-12 right-20 text-2xl font-semibold text-amber-200/80 select-none">x²</span>
+      <span className="pointer-events-none absolute bottom-5 right-28 h-8 w-8 rotate-12 border border-orange-200/80" />
+    </>
+  );
+}
+
+function renderTutorDecor(index) {
+  if (index === 0) {
+    return (
+      <>
+        <span className="pointer-events-none absolute bottom-3 right-7 text-5xl font-semibold text-orange-200/70 select-none">%</span>
+        <span className="pointer-events-none absolute bottom-11 right-20 text-2xl font-semibold text-amber-200/80 select-none">√</span>
+        <span className="pointer-events-none absolute bottom-5 right-28 h-2 w-10 rounded-full bg-orange-200/70" />
+      </>
+    );
+  }
+
+  if (index === 1) {
+    return (
+      <>
+        <span className="pointer-events-none absolute bottom-3 right-8 text-5xl font-semibold text-orange-200/70 select-none">∞</span>
+        <span className="pointer-events-none absolute bottom-12 right-24 text-2xl font-semibold text-amber-200/80 select-none">Δ</span>
+        <span className="pointer-events-none absolute bottom-5 right-32 h-8 w-8 rounded-full border border-amber-200/80" />
+      </>
+    );
+  }
+
+  return (
+    <>
+      <span className="pointer-events-none absolute bottom-3 right-8 text-5xl font-semibold text-orange-200/70 select-none">∑</span>
+      <span className="pointer-events-none absolute bottom-11 right-24 text-2xl font-semibold text-amber-200/80 select-none">≠</span>
+      <span className="pointer-events-none absolute bottom-5 right-33 h-9 w-9 rotate-45 border border-orange-200/80" />
+    </>
+  );
+}
 
 export default function ONas() {
   useEffect(() => {
@@ -19,17 +68,13 @@ export default function ONas() {
       role: "Współzałożyciel i korepetytor",
       image: "/bart.jpg",
       description:
-        "Mam na imię Bartek i studiuję matematykę na UAM w Poznaniu. Korepetycje dla podstawówki i liceum: materiał z lekcji, sprawdziany i matura. Tłumaczę krok po kroku w spokojnej atmosferze, tak byś zrozumiał ideę, nie tylko wynik. Bez stresu - jeśli chcesz lepszych wyników lub ogarnąć matmę, zapraszam.",
-      achievements: ["Ponad 1500 godzin prowadzonych zajęć", "Pomoc także w tych \"trudnych\" przypadkach", "Spokojna atmosfera, bez pośpiechu i stresu"],
-      quote: "Matematyka to nie czarna magia - to logika, której każdy może się nauczyć."
+        "Mam na imię Bartek. Studiowałem matematykę na Uniwersytecie im. Adama Mickiewicza w Poznaniu, jednak postanowiłem zmienić swoją ścieżkę i obecnie przygotowuję się do studiów na kierunku lekarskim. Korepetycji z matematyki udzielam od ponad 2 lat. W tym czasie przeprowadziłem około 800 godzin zajęć. Dzięki temu miałem okazję pracować z uczniami o bardzo różnym poziomie, dlatego wiem, że nie ma jednego sposobu nauki, który sprawdzi się u każdego. Na zajęciach stawiam przede wszystkim na zrozumienie materiału, indywidualne podejście i swobodną atmosferę."
     },
     {
       name: "Jeremiasz",
       role: "Współzałożyciel i korepetytor",
       image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6910d8d3e519cbbd5350687e/be6438e6c_IMG_6222.jpg",
-      description: "Cześć! Studiuję Mikroelektronikę i komunikację cyfrową na Politechnice Poznańskiej, a korepetycji udzielam odkąd sam siedziałem w licealnej ławce. W celu potwierdzenia kompetencji matematycznych, do tej pory na studiach ukończyłem kursy z zakresu: Analizy Matematycznej, Probabilistyki i Statystyki, Algebry oraz Podstaw metod optymalizacji matematycznej.",
-      achievements: ["Zaawansowane kursy matematyczne na studiach", "Lekcje dopasowane do tempa i stylu nauki", "Wracamy do zaległości, zanim przejdziemy dalej"],
-      quote: "Zawsze powtarzam uczniom, że bez pracy nie ma kołaczy - w matematyce nic nie zrobi się samo."
+      description: "Cześć! Studiuję Mikroelektronikę i komunikację cyfrową na Politechnice Poznańskiej, a korepetycji udzielam odkąd sam siedziałem w licealnej ławce. W celu potwierdzenia kompetencji matematycznych, do tej pory na studiach ukończyłem kursy z zakresu: Analizy Matematycznej, Probabilistyki i Statystyki, Algebry oraz Podstaw metod optymalizacji matematycznej."
     }
   ];
 
@@ -39,21 +84,21 @@ export default function ONas() {
       role: "Korepetytor matematyki · student informatyki, Politechnika Poznańska",
       image: "/szyms.png",
       description:
-        "Mam na imię Szymon i studiuję informatykę na Politechnice Poznańskiej. Korepetycje z matematyki dla szkoły podstawowej i średniej: materiał z lekcji, sprawdziany i to, co akurat sprawia Ci trudność. Tłumaczę krok po kroku w spokojnej atmosferze, tak byś złapał sens zadania, a nie tylko schemat. Bez stresu - jeśli chcesz ogarnąć matmę albo nadrobić zaległości, zapraszam.",
+        "Cześć! Mam na imię Szymon i studiuję informatykę na Politechnice Poznańskiej. Lubię matematykę i przedmioty ścisłe, dlatego zdecydowałem się pomagać innym w nauce. Udzielam korepetycji uczniom szkoły podstawowej i średniej na poziomie podstawowym. Pomagam w bieżącym materiale, przygotowaniu do sprawdzianów i klasówek oraz w nadrobieniu zaległości. Na zajęciach tłumaczę wszystko w prosty sposób i staram się dopasować tempo pracy do ucznia, tak żeby materiał był dobrze zrozumiały.",
     },
     {
       name: "Wojtek",
       role: "Korepetytor matematyki",
       image: "/wojtek.jpg",
       description:
-        "Mam na imię Wojtek i prowadzę korepetycje z matematyki dla uczniów szkoły podstawowej i średniej: lekcje z bieżącego materiału, przygotowanie do klasówki lub sprawdzianu, dopracowanie tematów, które się rozjeżdżają. Tłumaczę krok po kroku w spokojnej atmosferze, żeby najpierw było jasne, o co chodzi w zadaniu, a dopiero potem liczymy dalej. Bez pośpiechu - jak coś trzeba powtórzyć, robimy to normalnie, bez zbędnej presji.",
+        "Cześć! Mam na imię Wojtek. Od kilku lat pomagam uczniom szkoły podstawowej i średniej w nauce matematyki. Prowadzę zajęcia zarówno na poziomie podstawowym, jak i rozszerzonym. Chętnie pomogę z bieżącym materiałem, przygotowaniem do sprawdzianów i klasówek oraz z tematami, które sprawiają największą trudność. Od nowego roku akademickiego rozpoczynam studia na kierunku Lotnictwo na Politechnice Poznańskiej. Wierzę, że przy odrobinie cierpliwości i odpowiednim podejściu każdy jest w stanie dobrze zrozumieć matematykę.",
     },
     {
       name: "Tomek",
       role: "Korepetytor matematyki · student matematyki, UAM",
       image: "/tomsan.jpg",
       description:
-        "Cześć! Studiuję matematykę na UAM w Poznaniu, a korepetycji udzielam od czasu liceum - wtedy sam siedziałem po drugiej stronie ławki i wiem, jak wygląda presja przed sprawdzianem. Na zajęciach stawiam na zrozumienie: pokazuję, jak i dlaczego rozwiązanie działa, a potem ćwiczymy na zadaniach zbliżonych do tego, co masz w szkole. Spokojnie, bez zbędnego żargonu - jeśli chcesz poukładać materiał i podnieść wyniki, zapraszam.",
+        "Mam na imię Tomek i studiuję matematykę na Uniwersytecie im. Adama Mickiewicza w Poznaniu. Od początku studiów przykładam dużą wagę do nauki, a pierwszy rok zakończyłem ze średnią powyżej 4,5. Sam jeszcze niedawno przygotowywałem się do sprawdzianów i matury, więc dobrze wiem, z jakimi problemami najczęściej mierzą się uczniowie. Chętnie pomogę Ci uporządkować materiał, nadrobić zaległości i lepiej zrozumieć matematykę.",
     }
   ];
 
@@ -94,7 +139,7 @@ export default function ONas() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
-      className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-amber-50 relative overflow-hidden"
+      className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-amber-50    text-foreground relative overflow-hidden"
     >
       {/* Decorative blobs */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-orange-200/30 rounded-full blur-3xl animate-pulse pointer-events-none" />
@@ -111,7 +156,7 @@ export default function ONas() {
       />
 
       {/* Założyciele */}
-      <section className="relative overflow-hidden pt-24 pb-8 sm:py-20 px-4 sm:px-6 bg-gradient-to-b from-orange-50/35 via-white to-amber-50/25">
+      <section className="relative overflow-hidden pt-24 pb-8 sm:py-20 px-4 sm:px-6 bg-gradient-to-b from-orange-50/35 via-white to-amber-50/25   ">
         <div className="pointer-events-none absolute inset-0" aria-hidden>
           <div className="absolute right-10 top-32 h-64 w-64 rounded-full bg-orange-200/25 blur-3xl" />
           <div className="absolute left-0 bottom-20 h-72 w-72 rounded-full bg-amber-100/40 blur-3xl" />
@@ -122,84 +167,62 @@ export default function ONas() {
               <Star className="w-3 h-3 sm:w-4 sm:h-4 fill-amber-700" />
               Założyciele
             </div>
-            <h2 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-3">
+            <h2 className="text-2xl sm:text-4xl font-bold text-gray-900  mb-3">
               Poznaj nas bliżej
             </h2>
-            <p className="text-sm sm:text-lg text-gray-600 max-w-2xl">
+            <p className="text-sm sm:text-lg text-gray-600  max-w-2xl">
               Ludzie, którzy stworzyli Matenezę
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-4 sm:gap-6 items-stretch">
+          <div className="flex flex-col gap-6 sm:gap-8">
             {founders.map((founder, index) => (
               <Card
                 key={index}
-                className="h-full flex flex-col border-2 border-gray-100 hover:border-orange-200 hover:shadow-xl transition-all bg-white overflow-hidden group"
+                className="group relative border-0 bg-card text-card-foreground shadow-lg shadow-gray-200/40  ring-1 ring-gray-100  rounded-2xl sm:rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-orange-500/10 hover:ring-orange-200/50 "
               >
-                <div className="relative h-52 sm:h-72 lg:h-[340px] overflow-hidden">
-                  <img 
-                    src={founder.image} 
-                    alt={founder.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                  <div className="absolute bottom-3 sm:bottom-6 left-3 sm:left-6 text-white">
-                    <h3 className="text-base sm:text-2xl font-bold mb-1">{founder.name}</h3>
-                    <p className="text-xs sm:text-base text-orange-200">{founder.role}</p>
-                  </div>
-                </div>
-                
-                {/* Desktop - pełna treść */}
-                <div className="hidden sm:block">
-                  <CardContent className="p-3.5 sm:p-4 flex flex-1 flex-col">
-                    <p className="flex-1 text-sm sm:text-base text-gray-700 leading-snug sm:leading-relaxed">
-                      {founder.description}
-                    </p>
-
-                    <div className="pt-2.5">
-                      <div className="space-y-1.5">
-                        {founder.achievements.map((achievement, i) => (
-                          <div key={i} className="flex items-center gap-2">
-                            <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-orange-500 fill-orange-500 flex-shrink-0" />
-                            <span className="text-xs sm:text-sm text-gray-700">{achievement}</span>
-                          </div>
-                        ))}
+                <div className="pointer-events-none absolute -right-14 -top-14 h-36 w-36 rounded-full bg-orange-100/80 blur-3xl transition-colors duration-300 group-hover:bg-orange-200/90" />
+                <div className="pointer-events-none absolute -bottom-20 right-1/4 h-36 w-36 rounded-full bg-amber-100/70 blur-3xl" />
+                <div className="flex flex-col lg:flex-row lg:items-stretch lg:min-h-0">
+                  <div className="relative w-full sm:w-[42%] sm:max-w-xs lg:w-[38%] lg:max-w-sm lg:flex-shrink-0 p-2.5 sm:p-3.5 lg:p-4 lg:pr-3">
+                    <div className="relative mx-auto w-full max-w-sm lg:max-w-none">
+                      <div className="relative h-[220px] sm:h-[280px] lg:h-[320px] overflow-hidden rounded-2xl">
+                        <img
+                          src={founder.image}
+                          alt={founder.name}
+                          className="h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]"
+                        />
+                        <div className="absolute left-2.5 top-2.5 z-[1] inline-flex items-center gap-1.5 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-orange-700 shadow-sm backdrop-blur-sm">
+                          <Star className="h-3 w-3 fill-orange-500 text-orange-500" />
+                          Mateneza
+                        </div>
+                        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-black/45 to-transparent" aria-hidden />
+                        <div className="absolute bottom-2 left-2.5 right-2.5 z-[1] text-white sm:left-3 sm:right-3">
+                          <h3 className="text-sm sm:text-lg font-bold mb-0.5 drop-shadow-md md:text-xl">
+                            {founder.name}
+                          </h3>
+                          <p className="text-[10px] sm:text-[11px] text-white/95 leading-snug drop-shadow sm:text-xs">
+                            {founder.role}
+                          </p>
+                        </div>
                       </div>
                     </div>
+                  </div>
 
-                    <div className="mt-auto pt-2 border-t border-gray-100">
-                      <p className="text-sm sm:text-base italic text-gray-600 leading-snug">
-                        "{founder.quote}"
+                  <CardContent className="relative z-10 flex flex-1 flex-col gap-0 p-3 pb-3 pt-2.5 sm:p-4 sm:pb-4 sm:pt-3 lg:p-6 lg:pl-2.5 lg:pr-7 min-h-0 lg:bg-gradient-to-br lg:from-white lg:via-orange-50/20 lg:to-amber-50/30">
+                    <div className="space-y-2 sm:space-y-2.5 lg:flex-1">
+                      <div>
+                        <div className="h-0.5 w-8 rounded-full bg-gradient-to-r from-orange-500 to-amber-400 mb-1.5" aria-hidden />
+                        <p className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700/90">
+                          O założycielu
+                        </p>
+                      </div>
+                      <p className="text-sm sm:text-base text-gray-700  leading-snug sm:leading-relaxed whitespace-pre-line">
+                      {founder.description}
                       </p>
                     </div>
+                    {renderFounderDecor(index)}
                   </CardContent>
-                </div>
-
-                {/* Mobile - accordion */}
-                <div className="sm:hidden">
-                  <Accordion type="single" collapsible>
-                    <AccordionItem value="details" className="border-none px-3 pb-3">
-                      <AccordionTrigger className="text-xs font-semibold text-orange-600 py-2">
-                        Zobacz więcej
-                      </AccordionTrigger>
-                      <AccordionContent className="space-y-3 pt-2">
-                        <p className="text-xs text-gray-700 leading-relaxed">{founder.description}</p>
-                        
-                        <div className="space-y-1.5">
-                          {founder.achievements.map((achievement, i) => (
-                            <div key={i} className="flex items-center gap-1.5">
-                              <Star className="w-3 h-3 text-orange-500 fill-orange-500 flex-shrink-0" />
-                              <span className="text-xs text-gray-700">{achievement}</span>
-                            </div>
-                          ))}
-                        </div>
-
-                        <div className="pt-2 border-t border-gray-100">
-                          <p className="text-xs italic text-gray-600">"{founder.quote}"</p>
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                  </Accordion>
                 </div>
               </Card>
             ))}
@@ -208,7 +231,7 @@ export default function ONas() {
       </section>
 
       {/* Korepetytorzy */}
-      <section className="relative overflow-hidden py-8 sm:py-20 px-4 sm:px-6 bg-gradient-to-b from-amber-50/25 via-white to-orange-50/22">
+      <section className="relative overflow-hidden py-8 sm:py-20 px-4 sm:px-6 bg-gradient-to-b from-amber-50/25 via-white to-orange-50/22   ">
         <div className="pointer-events-none absolute inset-0" aria-hidden>
           <div className="absolute -right-16 top-20 h-72 w-72 rounded-full bg-orange-200/30 blur-3xl" />
           <div className="absolute -left-10 bottom-10 h-64 w-64 rounded-full bg-amber-200/25 blur-3xl" />
@@ -219,10 +242,10 @@ export default function ONas() {
               <Users className="w-3 h-3 sm:w-4 sm:h-4" />
               Nasz zespół
             </div>
-            <h2 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-3">
+            <h2 className="text-2xl sm:text-4xl font-bold text-gray-900  mb-3">
               Korepetytorzy
             </h2>
-            <p className="text-sm sm:text-lg text-gray-600 max-w-2xl">
+            <p className="text-sm sm:text-lg text-gray-600  max-w-2xl">
               Doświadczeni nauczyciele, którzy kochają to, co robią
             </p>
           </div>
@@ -231,8 +254,10 @@ export default function ONas() {
             {tutors.map((tutor, index) => (
               <Card
                 key={index}
-                className="group border-0 bg-white shadow-lg shadow-gray-200/40 ring-1 ring-gray-100 rounded-2xl sm:rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-orange-500/10 hover:ring-orange-200/50"
+                className="group relative border-0 bg-card text-card-foreground shadow-lg shadow-gray-200/40  ring-1 ring-gray-100  rounded-2xl sm:rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-orange-500/10 hover:ring-orange-200/50 "
               >
+                <div className="pointer-events-none absolute -right-14 -top-14 h-36 w-36 rounded-full bg-orange-100/80 blur-3xl transition-colors duration-300 group-hover:bg-orange-200/90" />
+                <div className="pointer-events-none absolute -bottom-20 right-1/4 h-36 w-36 rounded-full bg-amber-100/70 blur-3xl" />
                 <div className="flex flex-col lg:flex-row lg:items-stretch lg:min-h-0">
                   <div className="relative w-full sm:w-[42%] sm:max-w-xs lg:w-[38%] lg:max-w-sm lg:flex-shrink-0 p-2.5 sm:p-3.5 lg:p-4 lg:pr-3">
                     <div className="relative mx-auto w-full max-w-sm lg:max-w-none">
@@ -243,6 +268,10 @@ export default function ONas() {
                             alt={tutor.name}
                             className="h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]"
                           />
+                          <div className="absolute left-2.5 top-2.5 z-[1] inline-flex items-center gap-1.5 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-orange-700 shadow-sm backdrop-blur-sm">
+                            <Star className="h-3 w-3 fill-orange-500 text-orange-500" />
+                            Mateneza
+                          </div>
                           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-black/45 to-transparent" aria-hidden />
                           <div className="absolute bottom-2 left-2.5 right-2.5 z-[1] text-white sm:left-3 sm:right-3">
                             <h3 className="text-sm sm:text-lg font-bold mb-0.5 drop-shadow-md md:text-xl">
@@ -265,7 +294,7 @@ export default function ONas() {
                     </div>
                   </div>
 
-                  <CardContent className="flex flex-1 flex-col gap-0 p-3 pb-3 pt-2.5 sm:p-4 sm:pb-4 sm:pt-3 lg:p-6 lg:pl-2.5 lg:pr-7 min-h-0">
+                  <CardContent className="relative z-10 flex flex-1 flex-col gap-0 p-3 pb-3 pt-2.5 sm:p-4 sm:pb-4 sm:pt-3 lg:p-6 lg:pl-2.5 lg:pr-7 min-h-0 lg:bg-gradient-to-br lg:from-white lg:via-orange-50/20 lg:to-amber-50/30">
                     <div className="space-y-2 sm:space-y-2.5 lg:flex-1">
                       <div>
                         <div className="h-0.5 w-8 rounded-full bg-gradient-to-r from-orange-500 to-amber-400 mb-1.5" aria-hidden />
@@ -276,10 +305,11 @@ export default function ONas() {
                           <p className="text-xs sm:text-sm font-medium text-orange-900/90 mt-1.5">{tutor.specialty}</p>
                         ) : null}
                       </div>
-                      <p className="text-sm sm:text-base text-gray-700 leading-snug sm:leading-relaxed whitespace-pre-line">
+                      <p className="text-sm sm:text-base text-gray-700  leading-snug sm:leading-relaxed whitespace-pre-line">
                         {tutor.description}
                       </p>
                     </div>
+                    {renderTutorDecor(index)}
                   </CardContent>
                 </div>
               </Card>
@@ -289,7 +319,7 @@ export default function ONas() {
       </section>
 
       {/* Nasze wartości */}
-      <section className="relative overflow-hidden py-8 sm:py-20 px-4 sm:px-6 bg-gradient-to-b from-orange-50/22 via-orange-50/15 to-amber-50/35">
+      <section className="relative overflow-hidden py-8 sm:py-20 px-4 sm:px-6 bg-gradient-to-b from-orange-50/22 via-orange-50/15 to-amber-50/35   ">
         <div className="pointer-events-none absolute inset-0" aria-hidden>
           <div className="absolute left-1/3 top-10 h-56 w-56 rounded-full bg-orange-100/50 blur-3xl" />
           <div className="absolute right-0 bottom-0 h-72 w-72 rounded-full bg-amber-200/20 blur-3xl" />
@@ -300,20 +330,20 @@ export default function ONas() {
               <Heart className="w-3 h-3 sm:w-4 sm:h-4" />
               Nasze wartości
             </div>
-            <h2 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-3">
+            <h2 className="text-2xl sm:text-4xl font-bold text-gray-900  mb-3">
               To, co jest dla nas najważniejsze
             </h2>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {values.map((value, index) => (
-              <Card key={index} className={`border-2 border-gray-100 hover:shadow-lg transition-all bg-white text-center group ${value.hoverClass}`}>
+              <Card key={index} className={`border-2 border-gray-100  hover:shadow-lg transition-all text-center group ${value.hoverClass}`}>
                 <CardContent className="p-2.5 sm:p-3 space-y-1.5 sm:space-y-2">
                   <div className={`w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br ${value.color} rounded-lg sm:rounded-xl flex items-center justify-center mx-auto shadow-lg group-hover:scale-110 transition-transform`}>
                     <value.icon className="w-3.5 h-3.5 sm:w-6 sm:h-6 text-white" />
                   </div>
-                  <h3 className="text-xs sm:text-base font-bold text-gray-900 leading-tight">{value.title}</h3>
-                  <p className="text-[11px] sm:text-xs text-gray-600 leading-snug hidden sm:block">{value.description}</p>
+                  <h3 className="text-xs sm:text-base font-bold text-gray-900  leading-tight">{value.title}</h3>
+                  <p className="text-[11px] sm:text-xs text-gray-600  leading-snug hidden sm:block">{value.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -354,7 +384,7 @@ export default function ONas() {
       {/* Footer */}
       <footer className="py-8 px-4 sm:px-6 bg-gray-50 border-t border-gray-200">
         <div className="max-w-6xl mx-auto text-center">
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-600 ">
             © 2026 Mateneza. Wszystkie prawa zastrzeżone.
           </p>
         </div>

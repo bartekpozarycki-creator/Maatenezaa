@@ -138,6 +138,9 @@ function videoQuotedBody(video) {
 }
 
 export default function NasiUczniowie() {
+  const opinionVideoSkin = OP_VIDEO;
+  const opinionGoogleSkin = OP_GOOGLE;
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -254,8 +257,8 @@ Rada dla przyszłych maturzystów
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
-      className="min-h-screen"
-      style={opinionPaletteStyle(OP_VIDEO)}
+      className="min-h-screen transition-[background-color] duration-200"
+      style={opinionPaletteStyle(opinionVideoSkin)}
     >
       <PageHeader 
         title="Nasi uczniowie"
@@ -293,10 +296,10 @@ Rada dla przyszłych maturzystów
               <Play className="w-3 h-3 sm:w-4 sm:h-4" />
               Opinie wideo
             </div>
-            <h2 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-3">
+            <h2 className="text-2xl sm:text-4xl font-bold text-gray-900  mb-3">
               Posłuchaj naszych uczniów
             </h2>
-            <p className="text-sm sm:text-lg text-gray-600 max-w-2xl">
+            <p className="text-sm sm:text-lg text-gray-600  max-w-2xl">
               Rzeczywiste relacje z ich doświadczeń
             </p>
           </div>
@@ -321,7 +324,7 @@ Rada dla przyszłych maturzystów
                       setActiveVideo(video);
                     }
                   }}
-                  className="cursor-pointer border-none shadow-xl hover:shadow-2xl transition-all overflow-hidden bg-white group-hover:-translate-y-1 group-focus-visible:ring-2 group-focus-visible:ring-[var(--op-ring-focus)] group-focus-visible:ring-offset-2 rounded-xl"
+                  className="cursor-pointer border-none shadow-xl hover:shadow-2xl transition-all overflow-hidden bg-white  group-hover:-translate-y-1 group-focus-visible:ring-2 group-focus-visible:ring-[var(--op-ring-focus)] group-focus-visible:ring-offset-2 rounded-xl"
                 >
                   <CardContent className="p-4 sm:p-5 h-full">
                     <div className="flex flex-col sm:flex-row sm:items-stretch gap-4 sm:gap-5 min-h-0">
@@ -354,7 +357,7 @@ Rada dla przyszłych maturzystów
                         <div className="flex-1 min-h-0 flex flex-col justify-center">
                           <div className="flex items-start gap-1.5 sm:gap-2 w-full">
                             <Quote className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--op-accent-light)] flex-shrink-0 mt-0.5 opacity-90" aria-hidden />
-                            <p className="flex-1 min-w-0 text-center text-sm sm:text-base text-gray-800 italic font-medium leading-relaxed">
+                            <p className="flex-1 min-w-0 text-center text-sm sm:text-base text-gray-800  italic font-medium leading-relaxed">
                               {videoQuotedBody(video)}
                             </p>
                             <Quote
@@ -387,10 +390,10 @@ Rada dla przyszłych maturzystów
               <Star className="w-3 h-3 sm:w-4 sm:h-4 fill-[var(--op-accent)]" />
               Opinie i osiągnięcia
             </div>
-            <h2 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-3">
+            <h2 className="text-2xl sm:text-4xl font-bold text-gray-900  mb-3">
               Opinie uczniów i ich osiągnięcia
             </h2>
-            <p className="text-sm sm:text-lg text-gray-600 max-w-2xl">
+            <p className="text-sm sm:text-lg text-gray-600  max-w-2xl">
               Screeny z wiadomości - zobacz, jak uczniowie opisują zajęcia i swoje postępy
             </p>
           </div>
@@ -479,7 +482,7 @@ Rada dla przyszłych maturzystów
           </div>
 
           {!galleryExpanded && screenshots.length > SCREENSHOT_PREVIEW_COUNT && (
-            <p className="text-center text-sm text-gray-500 mt-4">
+            <p className="text-center text-sm text-gray-500  mt-4">
               Pokazano {SCREENSHOT_PREVIEW_COUNT} z {screenshots.length} screenów
             </p>
           )}
@@ -505,11 +508,11 @@ Rada dla przyszłych maturzystów
       <section
         id="opinie-google"
         className="py-10 sm:py-20 px-4 sm:px-6 scroll-mt-20 sm:scroll-mt-24"
-        style={opinionPaletteStyle(OP_GOOGLE)}
+        style={opinionPaletteStyle(opinionGoogleSkin)}
       >
         <div className="max-w-6xl mx-auto">
           <div className="mb-8 sm:mb-14 text-center">
-            <div className="inline-flex items-center gap-2.5 rounded-full border border-[var(--op-outline)] bg-white/95 px-4 py-2 text-xs sm:text-sm font-semibold text-[#202124] shadow-sm backdrop-blur-sm mb-5">
+            <div className="inline-flex items-center gap-2.5 rounded-full border border-[var(--op-outline)] bg-white/95  px-4 py-2 text-xs sm:text-sm font-semibold text-[#202124]  shadow-sm backdrop-blur-sm mb-5">
               <span className="flex items-center gap-1" aria-hidden>
                 <span className="h-2 w-2 rounded-full bg-[#4285F4]" />
                 <span className="h-2 w-2 rounded-full bg-[#EA4335]" />
@@ -518,17 +521,17 @@ Rada dla przyszłych maturzystów
               </span>
               Opinie Google
             </div>
-            <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-gray-900 mb-3">
+            <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-gray-900  mb-3">
               Co mówią o nas w Google?
             </h2>
-            <p className="text-sm sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              Średnia <span className="font-semibold text-gray-800">5.0</span> - w Google jest już{" "}
-              <span className="font-semibold text-gray-800">{GOOGLE_REVIEWS_TOTAL}</span> autentycznych recenzji od naszych uczniów. Poniżej - wybrane z nich.
+            <p className="text-sm sm:text-lg text-gray-600  max-w-2xl mx-auto leading-relaxed">
+              Średnia <span className="font-semibold text-gray-800 ">5.0</span> - w Google jest już{" "}
+              <span className="font-semibold text-gray-800 ">{GOOGLE_REVIEWS_TOTAL}</span> autentycznych recenzji od naszych uczniów. Poniżej - wybrane z nich.
             </p>
           </div>
 
           <div className="max-w-4xl mx-auto mb-10 sm:mb-14">
-            <div className="relative overflow-hidden rounded-3xl border border-[#dadce0] bg-white shadow-xl shadow-slate-200/50">
+            <div className="relative overflow-hidden rounded-3xl border border-[#dadce0]  bg-white  shadow-xl shadow-slate-200/50 ">
               <div className="h-1 w-full bg-[var(--op-accent)]" aria-hidden />
               <CardContent className="p-6 sm:p-10">
                 <div className="flex flex-col sm:flex-row items-stretch justify-center gap-8 sm:gap-12">
@@ -545,9 +548,9 @@ Rada dla przyszłych maturzystów
                   </div>
                   <div className="hidden sm:block w-px self-stretch bg-[#dadce0] min-h-[120px]" />
                   <div className="sm:hidden h-px w-full bg-[#dadce0]" />
-                  <div className="flex flex-col items-center text-center justify-center flex-1 rounded-2xl border border-[#dadce0]/90 bg-white/80 px-6 py-5 shadow-inner">
+                  <div className="flex flex-col items-center text-center justify-center flex-1 rounded-2xl border border-[#dadce0]/90  bg-white/80  px-6 py-5 shadow-inner">
                     <div className="text-4xl sm:text-5xl font-bold tabular-nums text-[var(--op-accent)]">{GOOGLE_REVIEWS_TOTAL}</div>
-                    <p className="mt-2 text-sm font-semibold text-gray-800">Opinii w Google</p>
+                    <p className="mt-2 text-sm font-semibold text-gray-800 ">Opinii w Google</p>
                     <p className="mt-1 text-xs text-gray-500 max-w-[14rem]">
                       Na stronie poniżej: {googleReviews.length} z nich - pełna lista na profilu Google.
                     </p>
@@ -571,7 +574,7 @@ Rada dla przyszłych maturzystów
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`Przejdź do opinii Google — ${review.author}`}
-                  className="group relative flex h-full min-h-[200px] flex-col overflow-hidden rounded-2xl border border-[#dadce0]/90 bg-white shadow-lg shadow-slate-200/40 outline-none transition-all duration-300 hover:border-[var(--op-accent)]/40 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-[var(--op-accent)] focus-visible:ring-offset-2"
+                  className="group relative flex h-full min-h-[200px] flex-col overflow-hidden rounded-2xl border border-[#dadce0]/90  bg-white  shadow-lg shadow-slate-200/40  outline-none transition-all duration-300 hover:border-[var(--op-accent)]/40 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-[var(--op-accent)] focus-visible:ring-offset-2"
                 >
                   <div className="absolute inset-x-0 top-0 h-1 w-full bg-[var(--op-accent)]" aria-hidden />
                   <Quote className="pointer-events-none absolute right-3 top-8 z-[1] h-16 w-16 text-[var(--op-accent)] opacity-[0.15] rotate-6" aria-hidden />
@@ -584,7 +587,7 @@ Rada dla przyszłych maturzystów
                         {googleReviewInitials(review.author)}
                       </div>
                       <div className="min-w-0 flex-1 pt-0.5">
-                        <p className="font-semibold text-gray-900 text-base sm:text-lg leading-tight">
+                        <p className="font-semibold text-gray-900  text-base sm:text-lg leading-tight">
                           {review.author}
                         </p>
                         <div className="mt-1 inline-flex items-center gap-1.5 rounded-full border border-[#dadce0]/80 bg-[#f8f9fa] px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-[#5f6368]">
@@ -597,7 +600,7 @@ Rada dla przyszłych maturzystów
                         </div>
                       </div>
                     </div>
-                    <p className="relative text-sm sm:text-[15px] text-gray-700 leading-relaxed line-clamp-4 sm:line-clamp-5">
+                    <p className="relative text-sm sm:text-[15px] text-gray-700  leading-relaxed line-clamp-4 sm:line-clamp-5">
                       {googleReviewPreviewText(review.text)}
                     </p>
                   </CardContent>
@@ -605,7 +608,7 @@ Rada dla przyszłych maturzystów
                     className="pointer-events-none absolute inset-0 z-[2] flex items-center justify-center rounded-2xl bg-[#202124]/90 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
                     aria-hidden
                   >
-                    <span className="mx-4 rounded-full bg-white px-5 py-2.5 text-center text-sm font-semibold text-[#202124] shadow-lg sm:text-base">
+                    <span className="mx-4 rounded-full bg-white  px-5 py-2.5 text-center text-sm font-semibold text-[#202124]  shadow-lg sm:text-base">
                       Przejdź do opinii Google
                     </span>
                   </div>
@@ -673,7 +676,7 @@ Rada dla przyszłych maturzystów
               <button
                 type="button"
                 onClick={() => setActiveVideo(null)}
-                className="absolute -top-1 right-0 sm:right-2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/95 text-gray-800 shadow-lg hover:bg-white transition-colors"
+                className="absolute -top-1 right-0 sm:right-2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/95 text-gray-800  shadow-lg hover:bg-white transition-colors"
                 aria-label="Zamknij"
               >
                 <X className="w-5 h-5" />
@@ -688,13 +691,13 @@ Rada dla przyszłych maturzystów
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="px-4 sm:px-6 pt-5 sm:pt-6 pb-3 border-b border-gray-100">
-                  <h3 id="video-interview-title" className="text-lg sm:text-2xl font-bold text-gray-900">
+                  <h3 id="video-interview-title" className="text-lg sm:text-2xl font-bold text-gray-900 ">
                     {activeVideo.name}
                   </h3>
-                  <p className="text-sm sm:text-base text-gray-600 mt-1">{activeVideo.role}</p>
+                  <p className="text-sm sm:text-base text-gray-600  mt-1">{activeVideo.role}</p>
                   <div className="mt-4 flex items-start gap-2 sm:gap-2.5">
                     <Quote className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--op-accent-light)] shrink-0 mt-0.5 opacity-90" aria-hidden />
-                    <p className="flex-1 min-w-0 text-center text-sm sm:text-base text-gray-800 italic font-medium leading-relaxed">
+                    <p className="flex-1 min-w-0 text-center text-sm sm:text-base text-gray-800  italic font-medium leading-relaxed">
                       {videoQuotedBody(activeVideo)}
                     </p>
                     <Quote
@@ -722,7 +725,7 @@ Rada dla przyszłych maturzystów
                   <div className="text-xs font-semibold text-[var(--op-accent-soft)] mb-3 uppercase tracking-wide">
                     Transkrypcja wywiadu
                   </div>
-                  <div className="text-sm sm:text-base text-gray-800 leading-relaxed whitespace-pre-wrap">
+                  <div className="text-sm sm:text-base text-gray-800  leading-relaxed whitespace-pre-wrap">
                     {activeVideo.transcript}
                   </div>
                 </div>
@@ -740,17 +743,17 @@ Rada dla przyszłych maturzystów
               <Sparkles className="w-3 h-3 sm:w-4 sm:h-4" />
               Wszystkie opinie
             </div>
-            <h2 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-3">
+            <h2 className="text-2xl sm:text-4xl font-bold text-gray-900  mb-3">
               Setki zadowolonych uczniów
             </h2>
-            <p className="text-sm sm:text-lg text-gray-600 max-w-2xl">
+            <p className="text-sm sm:text-lg text-gray-600  max-w-2xl">
               Zobacz, co mówią o nas uczniowie i rodzice
             </p>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {textReviews.map((review, index) => (
-              <Card key={index} className="border-2 border-gray-100 hover:border-orange-200 hover:shadow-lg transition-all bg-white">
+              <Card key={index} className="border-2 border-gray-100  hover:border-orange-200  hover:shadow-lg transition-all">
                 <CardContent className="p-5 sm:p-6 space-y-4">
                   <div className="flex items-center gap-3 sm:gap-4">
                     <img 
@@ -759,8 +762,8 @@ Rada dla przyszłych maturzystów
                       className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover ring-2 ring-orange-100"
                     />
                     <div>
-                      <h4 className="font-bold text-gray-900 text-sm sm:text-base">{review.name}</h4>
-                      <p className="text-xs sm:text-sm text-gray-600">{review.role}</p>
+                      <h4 className="font-bold text-gray-900  text-sm sm:text-base">{review.name}</h4>
+                      <p className="text-xs sm:text-sm text-gray-600 ">{review.role}</p>
                     </div>
                   </div>
                   <div className="flex gap-0.5 sm:gap-1">
@@ -768,7 +771,7 @@ Rada dla przyszłych maturzystów
                       <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 text-orange-500 fill-orange-500" />
                     ))}
                   </div>
-                  <p className="text-sm sm:text-base text-gray-700 leading-relaxed">{review.content}</p>
+                  <p className="text-sm sm:text-base text-gray-700  leading-relaxed">{review.content}</p>
                 </CardContent>
               </Card>
             ))}

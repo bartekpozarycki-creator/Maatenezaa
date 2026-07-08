@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+﻿import React, { useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from 'react-router-dom';
@@ -123,7 +123,7 @@ export default function NaszeMetody() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
-      className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50 relative overflow-hidden"
+      className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50    text-foreground relative overflow-hidden"
     >
       {/* Decorative blobs */}
       <div className="absolute top-0 left-0 w-96 h-96 bg-purple-200/30 rounded-full blur-3xl animate-pulse pointer-events-none" />
@@ -139,7 +139,7 @@ export default function NaszeMetody() {
       />
 
       {/* Jak uczymy - Process Flow */}
-      <section className="pt-24 pb-8 sm:py-20 px-4 sm:px-6 bg-white relative overflow-hidden">
+      <section className="pt-24 pb-8 sm:py-20 px-4 sm:px-6 bg-background relative overflow-hidden">
         {/* Background decoration */}
         <div className="absolute top-20 right-0 w-96 h-96 bg-orange-200/20 rounded-full blur-3xl" />
         <div className="absolute bottom-20 left-0 w-96 h-96 bg-purple-200/20 rounded-full blur-3xl" />
@@ -150,10 +150,10 @@ export default function NaszeMetody() {
               <BookOpen className="w-3 h-3 sm:w-4 sm:h-4" />
               Jak prowadzimy zajęcia
             </div>
-            <h2 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-3">
+            <h2 className="text-2xl sm:text-4xl font-bold text-gray-900  mb-3">
               Nasza metoda nauczania
             </h2>
-            <p className="text-sm sm:text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-sm sm:text-lg text-gray-600  max-w-2xl mx-auto">
               4 kroki, które prowadzą do sukcesu
             </p>
           </div>
@@ -183,7 +183,7 @@ export default function NaszeMetody() {
               <div className="grid grid-cols-4 gap-6">
                 {ourMethod.map((item, index) => (
                   <div key={index} className="relative group">
-                    <Card className={`border-none ring-1 ring-transparent shadow-xl hover:shadow-2xl transition-all duration-300 bg-white hover:-translate-y-2 overflow-hidden ${item.hoverClass}`}>
+                    <Card className={`border-none ring-1 ring-transparent shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden ${item.hoverClass}`}>
                       <div className={`h-2 bg-gradient-to-r ${item.color}`} />
                       <CardContent className="p-6 space-y-4">
                         <div className={`w-16 h-16 bg-gradient-to-br ${item.color} rounded-2xl flex items-center justify-center mx-auto shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all`}>
@@ -193,8 +193,8 @@ export default function NaszeMetody() {
                           <div className="inline-flex items-center justify-center w-8 h-8 bg-gray-900 text-white rounded-full text-sm font-bold mb-3">
                             {item.step}
                           </div>
-                          <h3 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h3>
-                          <p className="text-sm text-gray-600 leading-relaxed">{item.description}</p>
+                          <h3 className="text-lg font-bold text-gray-900  mb-2">{item.title}</h3>
+                          <p className="text-sm text-gray-600  leading-relaxed">{item.description}</p>
                         </div>
                       </CardContent>
                     </Card>
@@ -207,7 +207,7 @@ export default function NaszeMetody() {
           {/* Mobile/Tablet version */}
           <div className="lg:hidden grid sm:grid-cols-2 gap-4 sm:gap-6">
             {ourMethod.map((item, index) => (
-              <Card key={index} className={`border-none ring-1 ring-transparent shadow-xl bg-white group overflow-hidden hover:shadow-2xl transition-all ${item.hoverClass}`}>
+              <Card key={index} className={`border-none ring-1 ring-transparent shadow-xl group overflow-hidden hover:shadow-2xl transition-all ${item.hoverClass}`}>
                 <div className={`h-2 bg-gradient-to-r ${item.color}`} />
                 <CardContent className="p-5 sm:p-6 space-y-4">
                   <div className="flex items-center gap-3">
@@ -218,8 +218,8 @@ export default function NaszeMetody() {
                       <item.icon className="w-6 h-6 text-white" />
                     </div>
                   </div>
-                  <h3 className="text-base sm:text-lg font-bold text-gray-900">{item.title}</h3>
-                  <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">{item.description}</p>
+                  <h3 className="text-base sm:text-lg font-bold text-gray-900 ">{item.title}</h3>
+                  <p className="text-xs sm:text-sm text-gray-600  leading-relaxed">{item.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -235,24 +235,24 @@ export default function NaszeMetody() {
               <Lightbulb className="w-3 h-3 sm:w-4 sm:h-4" />
               Jak się uczyć
             </div>
-            <h2 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-3">
+            <h2 className="text-2xl sm:text-4xl font-bold text-gray-900  mb-3">
               Skuteczne techniki nauki
             </h2>
-            <p className="text-sm sm:text-lg text-gray-600 max-w-2xl">
+            <p className="text-sm sm:text-lg text-gray-600  max-w-2xl">
               Praktyczne porady, które naprawdę działają
             </p>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
             {learningTips.map((tip, index) => (
-              <Card key={index} className={`border-2 border-gray-100 hover:shadow-xl transition-all bg-white group overflow-hidden ${tip.hoverClass}`}>
+              <Card key={index} className={`border-2 border-gray-100  hover:shadow-xl transition-all group overflow-hidden ${tip.hoverClass}`}>
                 <div className={`h-1 sm:h-1.5 bg-gradient-to-r ${tip.color}`} />
                 <CardContent className="p-3 sm:p-6 space-y-2 sm:space-y-4">
                   <div className={`w-10 h-10 sm:w-14 sm:h-14 bg-gradient-to-br ${tip.color} rounded-lg sm:rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg`}>
                     <tip.icon className="w-5 h-5 sm:w-7 sm:h-7 text-white" />
                   </div>
-                  <h3 className="text-xs sm:text-lg font-bold text-gray-900 leading-tight">{tip.title}</h3>
-                  <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">{tip.description}</p>
+                  <h3 className="text-xs sm:text-lg font-bold text-gray-900  leading-tight">{tip.title}</h3>
+                  <p className="text-xs sm:text-sm text-gray-600  leading-relaxed">{tip.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -261,17 +261,17 @@ export default function NaszeMetody() {
       </section>
 
       {/* Błędy w nauce */}
-      <section className="py-8 sm:py-20 px-4 sm:px-6 bg-white">
+      <section className="py-8 sm:py-20 px-4 sm:px-6 bg-background">
         <div className="max-w-6xl mx-auto">
           <div className="mb-6 sm:mb-12">
             <div className="inline-flex items-center gap-2 bg-red-100 text-red-700 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium mb-4">
               <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
               Czego unikać
             </div>
-            <h2 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-3">
+            <h2 className="text-2xl sm:text-4xl font-bold text-gray-900  mb-3">
               Najczęstsze błędy w nauce
             </h2>
-            <p className="text-sm sm:text-lg text-gray-600 max-w-2xl">
+            <p className="text-sm sm:text-lg text-gray-600  max-w-2xl">
               Unikaj tych pułapek, a będziesz uczyć się efektywniej
             </p>
           </div>
@@ -286,7 +286,7 @@ export default function NaszeMetody() {
                     </div>
                     <div className="flex-1">
                       <h3 className="text-sm sm:text-base font-bold text-red-900 mb-2">❌ {item.mistake}</h3>
-                      <p className="text-xs sm:text-sm text-gray-700">{item.solution}</p>
+                      <p className="text-xs sm:text-sm text-gray-700 ">{item.solution}</p>
                     </div>
                   </div>
                 </CardContent>
@@ -299,18 +299,18 @@ export default function NaszeMetody() {
       {/* Zmiana mindset */}
       <section className="py-8 sm:py-20 px-4 sm:px-6 bg-gradient-to-b from-orange-50/30 to-white">
         <div className="max-w-4xl mx-auto">
-          <Card className="border-2 border-gray-100 hover:border-orange-200 shadow-xl bg-white">
+          <Card className="border-2 border-gray-100  hover:border-orange-200  shadow-xl">
             <CardContent className="p-6 sm:p-12">
               <div className="flex items-center justify-center mb-6">
                 <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-orange-400 to-amber-500 rounded-2xl flex items-center justify-center shadow-xl">
                   <Lightbulb className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
                 </div>
               </div>
-              <h2 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-4 sm:mb-6 text-center">
+              <h2 className="text-2xl sm:text-4xl font-bold text-gray-900  mb-4 sm:mb-6 text-center">
                 Zmiana podejścia
               </h2>
-              <div className="space-y-4 text-sm sm:text-base text-gray-700 leading-relaxed">
-                <p className="text-base sm:text-lg font-medium text-gray-900">
+              <div className="space-y-4 text-sm sm:text-base text-gray-700  leading-relaxed">
+                <p className="text-base sm:text-lg font-medium text-gray-900 ">
                   Najważniejsza zmiana, jaką możesz wprowadzić, to sposób myślenia o matematyce. 
                 </p>
                 <p>
@@ -322,7 +322,7 @@ export default function NaszeMetody() {
                   to kwestia właściwego podejścia, cierpliwości i praktyki.
                 </p>
                 <div className="bg-gradient-to-r from-orange-50 to-amber-50 border-l-4 border-orange-500 p-4 sm:p-6 mt-6 rounded-r-xl">
-                  <p className="text-sm sm:text-base text-gray-800 italic font-medium">
+                  <p className="text-sm sm:text-base text-gray-800  italic font-medium">
                     "Nie jestem dobry w matematyce - jeszcze. Ale każdego dnia staję się lepszy."
                   </p>
                 </div>

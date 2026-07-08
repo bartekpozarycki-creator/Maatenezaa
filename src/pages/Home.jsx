@@ -24,7 +24,6 @@ import {
   HelpCircle,
   User,
   Info,
-  ChevronDown,
   Search,
   ListChecks,
   Medal,
@@ -37,12 +36,20 @@ import {
 } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import InfiniteScrollCarousel from '../components/InfiniteScrollCarousel';
+import { useMobilePerformance } from '@/context/MobilePerformanceContext.jsx';
 
 const HOME_BLOB_COLORS = [
   'rgba(253, 186, 116, 0.16)',
   'rgba(252, 211, 77, 0.14)',
   'rgba(254, 215, 170, 0.22)',
   'rgba(253, 230, 138, 0.20)',
+];
+
+const HOME_BLOB_LAYOUT_MOBILE = [
+  'absolute right-[6%] top-[10%] h-44 w-44 rounded-full blur-2xl',
+  'absolute -left-[12%] top-[36%] h-48 w-48 rounded-full blur-2xl',
+  'absolute -right-[8%] top-[58%] h-40 w-40 rounded-full blur-2xl',
+  'absolute left-[10%] top-[78%] h-44 w-44 rounded-full blur-2xl',
 ];
 
 const HOME_BLOB_LAYOUT = [
@@ -66,10 +73,11 @@ const HOME_BLOB_LAYOUT = [
 ];
 
 export default function Home() {
+  const mobilePerf = useMobilePerformance();
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showNavbar, setShowNavbar] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const lastScrollYRef = useRef(0);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -81,7 +89,7 @@ export default function Home() {
   const [currentTeamMemberIndex, setCurrentTeamMemberIndex] = useState(0);
   const [showMessageHelp, setShowMessageHelp] = useState(false);
   const messageHelpRef = useRef(null);
-  const [openOfferPanel, setOpenOfferPanel] = useState(null);
+  const mobileMessageHelpRef = useRef(null);
 
   const teamMembers = [
     {
@@ -159,11 +167,11 @@ export default function Home() {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
+
       setScrolled(currentScrollY > 50);
-      
+
       if (window.innerWidth < 768) {
-        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        if (currentScrollY > lastScrollYRef.current && currentScrollY > 100) {
           setShowNavbar(false);
           setIsMenuOpen(false);
         } else {
@@ -172,15 +180,13 @@ export default function Home() {
       } else {
         setShowNavbar(true);
       }
-      
 
-      
-      setLastScrollY(currentScrollY);
+      lastScrollYRef.current = currentScrollY;
     };
-    
-    window.addEventListener('scroll', handleScroll);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
+  }, []);
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -213,7 +219,10 @@ export default function Home() {
   useEffect(() => {
     if (!showMessageHelp) return;
     const handleOutsideClick = (event) => {
-      if (!messageHelpRef.current?.contains(event.target)) {
+      if (
+        !messageHelpRef.current?.contains(event.target) &&
+        !mobileMessageHelpRef.current?.contains(event.target)
+      ) {
         setShowMessageHelp(false);
       }
     };
@@ -281,8 +290,8 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-white overflow-x-hidden">
-      <Toaster position="top-center" richColors toastOptions={{
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+      <Toaster position="top-center" theme="light" richColors toastOptions={{
         style: {
           marginTop: '70px',
         },
@@ -290,9 +299,11 @@ export default function Home() {
       }} />
       
       {/* Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        (scrolled || isMenuOpen) ? 'bg-white/90 backdrop-blur-md shadow-md' : 'bg-transparent'
-      } ${showNavbar ? 'translate-y-0' : '-translate-y-full'}`}>
+      <nav className={`fixed top-0 left-0 right-0 z-50 duration-300 motion-reduce:transition-none ${
+        (scrolled || isMenuOpen)
+          ? 'max-md:bg-background max-md:shadow-md max-md:shadow-black/20 md:bg-background/90 md:backdrop-blur-md md:shadow-md'
+          : 'bg-transparent'
+      } transition-[transform,background-color,box-shadow] ${showNavbar ? 'translate-y-0' : '-translate-y-full'}`}>
         <div className="max-w-6xl mx-auto px-3 sm:px-6 py-2.5 sm:py-4 flex justify-between items-center">
           <div className="flex items-center gap-2 sm:gap-3">
             <div className="w-7 h-7 sm:w-10 sm:h-10 bg-gradient-to-br from-orange-400 to-amber-500 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg">
@@ -303,7 +314,7 @@ export default function Home() {
             </span>
           </div>
           
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden md:flex items-center gap-5">
             <Link to={createPageUrl('ONas')} className="text-gray-700 hover:text-orange-600 transition-colors font-medium">
               O nas
             </Link>
@@ -311,7 +322,7 @@ export default function Home() {
               Nasze metody
             </Link>
             <Link to={createPageUrl('NasiUczniowie')} className="text-gray-700 hover:text-orange-600 transition-colors font-medium">
-              Opinie
+              Nasi uczniowie
             </Link>
 
             <div className="w-px h-6 bg-gray-300" />
@@ -330,68 +341,70 @@ export default function Home() {
             </button>
           </div>
 
-          <button 
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-5 text-gray-700 hover:text-orange-600 transition-colors z-50 relative"
-          >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          <div className="flex items-center gap-1 md:hidden">
+            <button 
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="p-5 text-gray-700 hover:text-orange-600 transition-colors z-50 relative"
+            >
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
             </div>
 
             <AnimatePresence>
             {isMenuOpen && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
-              className="md:hidden bg-white/95 backdrop-blur-lg border-t border-orange-200/50 shadow-xl overflow-hidden"
+              initial={{ opacity: 0, y: mobilePerf ? 0 : -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: mobilePerf ? 0 : -10 }}
+              transition={{ duration: mobilePerf ? 0.1 : 0.2, ease: [0.4, 0, 0.2, 1] }}
+              className="md:hidden max-h-[min(85vh,520px)] overflow-y-auto overflow-x-hidden bg-background border-t border-orange-200/50  shadow-xl"
             >
               <div className="px-4 py-3 space-y-1">
-                <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">Podstrony</div>
+                <div className="px-4 py-2 text-xs font-semibold text-gray-500  uppercase">Podstrony</div>
                 <Link
                   to={createPageUrl('ONas')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-orange-50 hover:to-amber-50 hover:text-orange-600 rounded-xl transition-all font-medium active:scale-95"
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-700  hover:bg-gradient-to-r hover:from-orange-50 hover:to-amber-50   hover:text-orange-600  rounded-xl transition-all font-medium active:scale-95"
                 >
                   O nas
                 </Link>
                 <Link
                   to={createPageUrl('NaszeMetody')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-orange-50 hover:to-amber-50 hover:text-orange-600 rounded-xl transition-all font-medium active:scale-95"
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-700  hover:bg-gradient-to-r hover:from-orange-50 hover:to-amber-50   hover:text-orange-600  rounded-xl transition-all font-medium active:scale-95"
                 >
                   Nasze metody
                 </Link>
                 <Link
                   to={createPageUrl('NasiUczniowie')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-orange-50 hover:to-amber-50 hover:text-orange-600 rounded-xl transition-all font-medium active:scale-95"
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-700  hover:bg-gradient-to-r hover:from-orange-50 hover:to-amber-50   hover:text-orange-600  rounded-xl transition-all font-medium active:scale-95"
                 >
-                  Opinie
+                  Nasi uczniowie
                 </Link>
 
-                <div className="h-px bg-gray-200 my-2" />
+                <div className="h-px bg-gray-200  my-2" />
 
-                <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">Strona główna</div>
+                <div className="px-4 py-2 text-xs font-semibold text-gray-500  uppercase">Strona główna</div>
                 <button
                   onClick={() => scrollToSection('oferta')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-orange-50 hover:to-amber-50 hover:text-orange-600 rounded-xl transition-all font-medium active:scale-95"
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-700  hover:bg-gradient-to-r hover:from-orange-50 hover:to-amber-50   hover:text-orange-600  rounded-xl transition-all font-medium active:scale-95"
                 >
                   Oferta
                 </button>
                 <button
                   onClick={() => scrollToSection('cennik')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-orange-50 hover:to-amber-50 hover:text-orange-600 rounded-xl transition-all font-medium active:scale-95"
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-700  hover:bg-gradient-to-r hover:from-orange-50 hover:to-amber-50   hover:text-orange-600  rounded-xl transition-all font-medium active:scale-95"
                 >
                   Cennik
                 </button>
                 <button
                   onClick={() => scrollToSection('kontakt')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-orange-50 hover:to-amber-50 hover:text-orange-600 rounded-xl transition-all font-medium active:scale-95"
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-700  hover:bg-gradient-to-r hover:from-orange-50 hover:to-amber-50   hover:text-orange-600  rounded-xl transition-all font-medium active:scale-95"
                 >
                   Kontakt
                 </button>
                 <button
                   onClick={() => scrollToSection('faq')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-orange-50 hover:to-amber-50 hover:text-orange-600 rounded-xl transition-all font-medium active:scale-95"
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-700  hover:bg-gradient-to-r hover:from-orange-50 hover:to-amber-50   hover:text-orange-600  rounded-xl transition-all font-medium active:scale-95"
                 >
                   FAQ
                 </button>
@@ -401,51 +414,62 @@ export default function Home() {
             </AnimatePresence>
       </nav>
 
-      <section className="relative isolate overflow-x-hidden bg-white" aria-label="Treść strony głównej">
-        <div className="pointer-events-none absolute inset-0 z-0 overflow-visible" aria-hidden>
-          {HOME_BLOB_LAYOUT.map((blobClass, i) => (
-            <div
-              key={i}
-              className={blobClass}
-              style={{ backgroundColor: HOME_BLOB_COLORS[i % 4] }}
-            />
-          ))}
+      <section className="relative isolate overflow-x-hidden bg-background" aria-label="Treść strony głównej">
+        <div className="pointer-events-none absolute inset-0 z-0 max-md:overflow-hidden md:overflow-visible" aria-hidden data-home-decorative-blobs>
+          <div className="absolute inset-0 md:hidden">
+            {HOME_BLOB_LAYOUT_MOBILE.map((blobClass, i) => (
+              <div
+                key={`m-${i}`}
+                className={blobClass}
+                style={{ backgroundColor: HOME_BLOB_COLORS[i % 4] }}
+              />
+            ))}
+          </div>
+          <div className="absolute inset-0 hidden md:block">
+            {HOME_BLOB_LAYOUT.map((blobClass, i) => (
+              <div
+                key={i}
+                className={blobClass}
+                style={{ backgroundColor: HOME_BLOB_COLORS[i % 4] }}
+              />
+            ))}
+          </div>
         </div>
 
         <div className="relative z-10">
         <div
           id="hero"
-          className="relative bg-gradient-to-b from-orange-100 via-amber-50/95 to-orange-50 pt-16 sm:pt-32 pb-8 sm:pb-20 px-3 sm:px-6"
+          className="relative bg-gradient-to-b from-orange-100 via-amber-50/90 to-orange-50    pt-16 sm:pt-32 pb-8 sm:pb-20 px-3 sm:px-6"
         >
         <div className="max-w-6xl mx-auto">
-          <div className="lg:hidden mb-6">
-            <div className="relative">
-              <div className="relative rounded-2xl overflow-hidden shadow-xl">
-                <img
-                  src="/alt.png"
-                  alt="Mateneza"
-                  className="w-full h-[160px] md:h-[300px] object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-orange-900/30 to-transparent" />
-              </div>
-            </div>
-          </div>
-
           <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
             <div className="space-y-3 sm:space-y-8 animate-fade-in">
-              <div className="inline-flex items-center gap-1.5 bg-orange-100 text-orange-700 px-2.5 py-1 rounded-full text-xs font-medium">
+              <div className="hidden sm:inline-flex items-center gap-1.5 bg-orange-100 text-orange-700 px-2.5 py-1 rounded-full text-xs font-medium">
                 <Sparkles className="w-3 h-3" />
                 Matma bez stresu
               </div>
 
-              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+              <h1 className="text-center sm:text-left text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900  leading-tight">
                 Zrozum matematykę
                 <span className="block bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent">
                   bez stresu
                 </span>
               </h1>
 
-              <p className="text-xs sm:text-lg md:text-xl text-gray-600 leading-relaxed">
+              <div className="lg:hidden">
+                <div className="relative">
+                  <div className="relative rounded-2xl overflow-hidden shadow-xl">
+                    <img
+                      src="/alt.png"
+                      alt="Mateneza"
+                      className="w-full h-[160px] md:h-[300px] object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-orange-900/30 to-transparent" />
+                  </div>
+                </div>
+              </div>
+
+              <p className="text-xs sm:text-lg md:text-xl text-gray-600  leading-relaxed">
                 <span className="md:hidden">Korepetycje dopasowane do Twojego poziomu. Bez presji, z cierpliwością i zrozumieniem.</span>
                 <span className="hidden md:block">Jesteśmy szkółką oferującą korepetycje dopasowane do Twojego poziomu i tempa. Bez presji, za to z dużą dawką cierpliwości
                 i zrozumienia. Bo matematyka nie musi być trudna - musi być dobrze wytłumaczona.</span>
@@ -472,15 +496,15 @@ export default function Home() {
               <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-8 pt-1 sm:pt-4">
                 <div className="flex items-center gap-1.5">
                   <CheckCircle2 className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-orange-600 flex-shrink-0" />
-                  <span className="text-xs sm:text-base text-gray-700">Szkoła podstawowa</span>
+                  <span className="text-xs sm:text-base text-gray-700 ">Szkoła podstawowa</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <CheckCircle2 className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-orange-600 flex-shrink-0" />
-                  <span className="text-xs sm:text-base text-gray-700">Liceum i technikum</span>
+                  <span className="text-xs sm:text-base text-gray-700 ">Liceum i technikum</span>
                 </div>
                 <div className="flex items-start gap-1.5">
                   <CheckCircle2 className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-orange-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-xs sm:text-base text-gray-700">
+                  <span className="text-xs sm:text-base text-gray-700 ">
                     <span className="md:hidden">Matura i egzaminy</span>
                     <span className="hidden md:inline">Przygotowanie do <strong>matury</strong>, egzaminów oraz kartkówek i sprawdzianów</span>
                   </span>
@@ -502,7 +526,7 @@ export default function Home() {
         </div>
         </div>
 
-      <div id="o-mnie" className="relative scroll-mt-28 bg-gradient-to-b from-white via-white to-amber-50/40 py-8 sm:py-16 md:py-20 px-3 sm:px-6">
+      <div id="o-mnie" className="relative scroll-mt-28 bg-gradient-to-b from-orange-50 via-stone-100/65 to-amber-50/45    py-8 sm:py-16 md:py-20 px-3 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-6 sm:gap-12 lg:gap-16 items-center">
             <div className="relative order-2 lg:order-1">
@@ -539,12 +563,12 @@ export default function Home() {
                 O nas
               </div>
 
-              <h2 className="text-xl sm:text-4xl md:text-5xl font-bold text-gray-900">
+              <h2 className="text-xl sm:text-4xl md:text-5xl font-bold text-gray-900 ">
                 Cześć! Miło nam Cię poznać
               </h2>
 
               {/* Desktop - bez accordion */}
-              <div className="hidden sm:block space-y-2 sm:space-y-4 text-xs sm:text-lg text-gray-600 leading-relaxed">
+              <div className="hidden sm:block space-y-2 sm:space-y-4 text-xs sm:text-lg text-gray-600  leading-relaxed">
                 <p>
                   Cześć! Tu Bartek i Jeremiasz - studenci Politechniki Poznańskiej i UAM. Połączyliśmy pasję do nauczania i wspólne doświadczenie, tworząc Matenezę. To, co zaczęło się od indywidualnych korepetycji, dzięki sukcesom naszych uczniów przerodziło się w profesjonalną szkółkę. Dziś wraz z naszym zespołem pomagamy ogarnąć matematykę konkretnie i bez zbędnego stresu - niezależnie od tego, czy celujesz w wyśrubowany wynik, czy chcesz po prostu spokojnie zaliczyć rok.                </p>
                 <p>
@@ -560,7 +584,7 @@ export default function Home() {
                     <AccordionTrigger className="text-xs text-left font-semibold text-orange-600 hover:text-orange-700 py-2 px-3 bg-orange-50/50 rounded-lg">
                       Czytaj więcej o nas
                     </AccordionTrigger>
-                    <AccordionContent className="text-xs text-gray-600 leading-relaxed pt-2 space-y-2">
+                    <AccordionContent className="text-xs text-gray-600  leading-relaxed pt-2 space-y-2">
                       <p>
                         Dwóch znajomych studentów, których połączyła pasja do nauczania, postanowiło stworzyć wspólną szkółkę korepetycji z matematyki. Zaczynaliśmy od indywidualnych zajęć, a dzięki sukcesom naszych uczniów - nasza współpraca przerodziła się w rozwijający się projekt edukacyjny. Dziś pomagamy dziesiątkom uczniów poprawiać wyniki w szkole, nabierać pewności siebie i odkrywać, że matematyka naprawdę może być zrozumiama. Wiemy, że matematyka bywa trudna, dlatego w naszej szkółce nie ma miejsca na stres i presję.
                       </p>
@@ -568,7 +592,7 @@ export default function Home() {
                         Ponieważ sami niedawno zdawaliśmy maturę, doskonale rozumiemy potrzeby uczniów i wiemy, na czym naprawdę warto się skupić. Dzięki temu potrafimy skutecznie przygotować do egzaminów, tłumaczyć w prosty sposób i wskazywać najważniejsze elementy, które decydują o sukcesie.
                       </p>
                       <p>
-                        <strong className="text-gray-900">Naszą misją</strong> jest pokazać Ci, że matematyka to nie czarna magia - to logika, której można się nauczyć. Prowadzimy przygotowania do matury oraz pomagamy w bieżącej nauce w trakcie roku szkolnego, nawet jeśli uważasz, że nauka matematyki to dla Ciebie wyjątkowe wyzwanie.
+                        <strong className="text-gray-900 ">Naszą misją</strong> jest pokazać Ci, że matematyka to nie czarna magia - to logika, której można się nauczyć. Prowadzimy przygotowania do matury oraz pomagamy w bieżącej nauce w trakcie roku szkolnego, nawet jeśli uważasz, że nauka matematyki to dla Ciebie wyjątkowe wyzwanie.
                       </p>
                     </AccordionContent>
                   </AccordionItem>
@@ -578,11 +602,11 @@ export default function Home() {
               <div className="grid grid-cols-2 gap-2 sm:gap-6 pt-2 sm:pt-4">
                 <div className="space-y-0.5 sm:space-y-1">
                   <div className="text-xl sm:text-4xl font-bold text-orange-600">100+</div>
-                  <p className="text-xs sm:text-base text-gray-600">zadowolonych uczniów</p>
+                  <p className="text-xs sm:text-base text-gray-600 ">zadowolonych uczniów</p>
                 </div>
                 <div className="space-y-0.5 sm:space-y-1">
                   <div className="text-base sm:text-3xl font-bold text-orange-600 leading-tight">Gwarantowana</div>
-                  <p className="text-xs sm:text-base text-gray-600">zdawalność egzaminów</p>
+                  <p className="text-xs sm:text-base text-gray-600 ">zdawalność egzaminów</p>
                 </div>
               </div>
 
@@ -600,13 +624,13 @@ export default function Home() {
               </div>
       </div>
 
-      <div id="oferta" className="relative scroll-mt-28 bg-gradient-to-b from-amber-50/40 via-orange-50/22 to-white py-6 sm:py-16 md:py-20 px-3 sm:px-6">
+      <div id="oferta" className="relative scroll-mt-28 bg-gradient-to-b from-amber-50/45 via-orange-50/22 to-white    py-6 sm:py-16 md:py-20 px-3 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-5 sm:mb-12 md:mb-16">
-            <h2 className="text-xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-1.5 sm:mb-4">
+            <h2 className="text-xl sm:text-4xl md:text-5xl font-bold text-gray-900  mb-1.5 sm:mb-4">
               Dla kogo są korepetycje?
             </h2>
-            <p className="text-xs sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-2">
+            <p className="text-xs sm:text-lg md:text-xl text-gray-600  max-w-2xl mx-auto px-2">
               <span className="sm:hidden">Od szkoły podstawowej po maturę</span>
               <span className="hidden sm:block">Od szkoły podstawowej po maturę - jesteśmy tu dla Ciebie.</span>
             </p>
@@ -649,14 +673,14 @@ export default function Home() {
                 color: "from-yellow-400 to-amber-500"
               }
             ].map((offer, index) => (
-              <Card key={index} className="border-none shadow-md sm:shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group relative bg-white">
+              <Card key={index} className="border-none shadow-md sm:shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group relative">
                 <div className={`absolute top-0 right-0 w-16 sm:w-24 h-16 sm:h-24 bg-gradient-to-br ${offer.color} opacity-5 rounded-bl-full`} />
                 <CardContent className="p-3.5 sm:p-6 space-y-2 sm:space-y-4 relative">
                   <div className={`w-10 h-10 sm:w-16 sm:h-16 bg-gradient-to-br ${offer.color} rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform`}>
                     <offer.icon className="w-5 h-5 sm:w-8 sm:h-8 text-white" />
                   </div>
-                  <h3 className="text-sm sm:text-xl font-bold text-gray-900 leading-tight">{offer.title}</h3>
-                  <p className="text-xs sm:text-base text-gray-600 leading-relaxed">
+                  <h3 className="text-sm sm:text-xl font-bold text-gray-900  leading-tight">{offer.title}</h3>
+                  <p className="text-xs sm:text-base text-gray-600  leading-relaxed">
                     {offer.fullDesc}
                   </p>
                 </CardContent>
@@ -693,8 +717,8 @@ export default function Home() {
                 title: 'Matura i egzaminy',
                 body: (
                   <>
-                    <strong className="text-gray-900">Egzamin ósmoklasisty</strong> czy{' '}
-                    <strong className="text-gray-900">Matura</strong> tuż-tuż? Skupiamy się na tym, co najważniejsze.
+                    <strong className="text-gray-900 ">Egzamin ósmoklasisty</strong> czy{' '}
+                    <strong className="text-gray-900 ">Matura</strong> tuż-tuż? Skupiamy się na tym, co najważniejsze.
                     Rozwiązujemy zadania, omawiamy strategie, budujemy pewność siebie.
                   </>
                 ),
@@ -710,39 +734,18 @@ export default function Home() {
               },
             ].map((item) => {
               const Icon = item.Icon;
-              const open = openOfferPanel === item.id;
               return (
                 <div
                   key={item.id}
-                  className={`rounded-xl border-none px-3 shadow-sm ${item.panel}`}
+                  className={`rounded-xl border-none px-3 py-3 shadow-sm ${item.panel}`}
                 >
-                  <button
-                    type="button"
-                    aria-expanded={open}
-                    onClick={() =>
-                      setOpenOfferPanel((prev) => (prev === item.id ? null : item.id))
-                    }
-                    className={`flex w-full items-center justify-between gap-2 py-3 text-left text-sm font-bold text-gray-900 ${item.titleHover} motion-reduce:transition-none`}
-                  >
-                    <span className="flex min-w-0 items-center gap-2">
-                      <span
-                        className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br ${item.iconBg}`}
-                      >
-                        <Icon className="h-4 w-4 text-white" aria-hidden />
-                      </span>
-                      {item.title}
+                  <div className="flex min-w-0 items-center gap-2 text-sm font-bold text-gray-900 ">
+                    <span
+                      className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br ${item.iconBg}`}
+                    >
+                      <Icon className="h-4 w-4 text-white" aria-hidden />
                     </span>
-                    <ChevronDown
-                      className={`h-4 w-4 flex-shrink-0 text-gray-500 transition-transform duration-200 ease-out motion-reduce:transition-none ${open ? 'rotate-180' : ''}`}
-                      aria-hidden
-                    />
-                  </button>
-                  <div
-                    className={`overflow-hidden transition-[max-height] duration-200 ease-out motion-reduce:transition-none ${open ? 'max-h-96' : 'max-h-0'}`}
-                  >
-                    <div className="text-xs leading-relaxed text-gray-600 pb-3 [&_strong]:text-gray-900">
-                      {item.body}
-                    </div>
+                    {item.title}
                   </div>
                 </div>
               );
@@ -752,27 +755,27 @@ export default function Home() {
         </div>
 
       {/* Cennik */}
-      <div id="cennik" className="relative scroll-mt-28 bg-gradient-to-b from-white via-amber-50/28 to-orange-50/28 py-6 sm:py-16 md:py-20 px-3 sm:px-6">
+      <div id="cennik" className="relative scroll-mt-28 bg-gradient-to-b from-white via-amber-50/22 to-orange-50/30    py-6 sm:py-16 md:py-20 px-3 sm:px-6">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-5 sm:mb-12 md:mb-16">
             <div className="inline-flex items-center gap-1.5 bg-orange-100 text-orange-700 px-2.5 py-1 rounded-full text-xs font-medium mb-3">
               <Sparkles className="w-3 h-3" />
               Cennik
             </div>
-            <h2 className="text-xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-1.5 sm:mb-4">
+            <h2 className="text-xl sm:text-4xl md:text-5xl font-bold text-gray-900  mb-1.5 sm:mb-4">
               Przejrzysta oferta
               <span className="block bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent">
                 <span className="sm:hidden">dopasowana do potrzeb</span>
                 <span className="hidden sm:inline">dostosowana do Twoich potrzeb</span>
               </span>
             </h2>
-            <p className="text-xs sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-2">
+            <p className="text-xs sm:text-lg md:text-xl text-gray-600  max-w-3xl mx-auto px-2">
               <span className="sm:hidden"><strong>Pierwsza lekcja darmowa!</strong></span>
               <span className="hidden sm:block">Proste i przejrzyste ceny. <strong>Pierwsza lekcja jest darmowa!</strong></span>
             </p>
           </div>
 
-          <Card className="border-2 border-orange-200 shadow-xl hover:shadow-2xl transition-all duration-300 relative overflow-hidden bg-gradient-to-br from-white via-orange-50/10 to-amber-50/20">
+          <Card className="border-2 border-orange-200  shadow-xl hover:shadow-2xl transition-all duration-300 relative overflow-hidden bg-gradient-to-br from-white via-orange-50/10 to-amber-50/20   ">
             <div className="absolute top-0 right-0 w-40 sm:w-64 h-40 sm:h-64 bg-gradient-to-br from-orange-400/10 to-amber-400/10 rounded-bl-full" />
             <div className="absolute bottom-0 left-0 w-32 sm:w-48 h-32 sm:h-48 bg-gradient-to-tr from-amber-400/10 to-orange-400/10 rounded-tr-full" />
             
@@ -781,69 +784,69 @@ export default function Home() {
                 <div className="inline-flex w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-orange-400 to-amber-500 rounded-2xl sm:rounded-3xl items-center justify-center shadow-lg mb-3 sm:mb-4">
                   <BookOpen className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+                <h3 className="text-2xl sm:text-3xl font-bold text-gray-900  mb-2">
                   Nasze korepetycje
                 </h3>
-                <p className="text-xs sm:text-base text-gray-600 max-w-2xl mx-auto">
+                <p className="text-xs sm:text-base text-gray-600  max-w-2xl mx-auto">
                   <span className="sm:hidden">Ceny za 60 minut zajęć</span>
                   <span className="hidden sm:inline">Profesjonalne zajęcia dopasowane do Twoich potrzeb. Ceny za 60 minut lekcji.</span>
                 </p>
               </div>
 
               <div className="grid sm:grid-cols-3 gap-3 sm:gap-6 max-w-4xl mx-auto mb-6 sm:mb-8">
-                <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-md hover:shadow-lg transition-all border-2 border-orange-100">
+                <div className="bg-card rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-md hover:shadow-lg transition-all border-2 border-orange-100 ">
                   <div className="flex flex-col h-full">
                     <div className="flex items-start gap-2 sm:gap-3">
                       <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-orange-300 to-orange-400 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
                         <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                       </div>
                       <div className="space-y-0.5">
-                        <h4 className="text-xs sm:text-sm font-semibold text-gray-600 leading-tight">Szkoła</h4>
-                        <p className="text-sm sm:text-base font-bold text-gray-900 leading-tight">podstawowa</p>
+                        <h4 className="text-xs sm:text-sm font-semibold text-gray-600  leading-tight">Szkoła</h4>
+                        <p className="text-sm sm:text-base font-bold text-gray-900  leading-tight">podstawowa</p>
                       </div>
                     </div>
-                    <p className="text-[11px] sm:text-xs text-gray-600 mt-3">kangurki • egzamin ósmoklasisty • bieżący materiał</p>
+                    <p className="text-[11px] sm:text-xs text-gray-600  mt-3">kangurki • egzamin ósmoklasisty • bieżący materiał</p>
                     <div className="mt-3 pt-3 border-t border-orange-100 text-right sm:text-left">
                       <div className="text-2xl sm:text-3xl font-bold text-orange-600">90 zł</div>
-                      <div className="text-xs sm:text-sm text-gray-500">za 60 min</div>
+                      <div className="text-xs sm:text-sm text-gray-500 ">za 60 min</div>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-md hover:shadow-lg transition-all border-2 border-orange-100">
+                <div className="bg-card rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-md hover:shadow-lg transition-all border-2 border-orange-100 ">
                   <div className="flex flex-col h-full">
                     <div className="flex items-start gap-2 sm:gap-3">
                       <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-orange-400 to-orange-500 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
                         <Brain className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                       </div>
                       <div className="space-y-0.5">
-                        <h4 className="text-xs sm:text-sm font-semibold text-gray-600 leading-tight">Szkoła średnia</h4>
-                        <p className="text-sm sm:text-base font-bold text-gray-900 leading-tight">poziom podstawowy</p>
+                        <h4 className="text-xs sm:text-sm font-semibold text-gray-600  leading-tight">Szkoła średnia</h4>
+                        <p className="text-sm sm:text-base font-bold text-gray-900  leading-tight">poziom podstawowy</p>
                       </div>
                     </div>
-                    <p className="text-[11px] sm:text-xs text-gray-600 mt-3">matura podstawowa • pomoc w tematach szkolnych</p>
+                    <p className="text-[11px] sm:text-xs text-gray-600  mt-3">matura podstawowa • pomoc w tematach szkolnych</p>
                     <div className="mt-3 pt-3 border-t border-orange-100 text-right sm:text-left">
                       <div className="text-2xl sm:text-3xl font-bold text-orange-600">90 zł</div>
-                      <div className="text-xs sm:text-sm text-gray-500">za 60 min</div>
+                      <div className="text-xs sm:text-sm text-gray-500 ">za 60 min</div>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-md hover:shadow-lg transition-all border-2 border-orange-100">
+                <div className="bg-card rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-md hover:shadow-lg transition-all border-2 border-orange-100 ">
                   <div className="flex flex-col h-full">
                     <div className="flex items-start gap-2 sm:gap-3">
                       <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
                         <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                       </div>
                       <div className="space-y-0.5">
-                        <h4 className="text-xs sm:text-sm font-semibold text-gray-600 leading-tight">Szkoła średnia</h4>
-                        <p className="text-sm sm:text-base font-bold text-gray-900 leading-tight">poziom rozszerzony</p>
+                        <h4 className="text-xs sm:text-sm font-semibold text-gray-600  leading-tight">Szkoła średnia</h4>
+                        <p className="text-sm sm:text-base font-bold text-gray-900  leading-tight">poziom rozszerzony</p>
                       </div>
                     </div>
-                    <p className="text-[11px] sm:text-xs text-gray-600 mt-3">matura rozszerzona • trudniejsze zadania • ambitne (lub mniej ;) ) cele</p>
+                    <p className="text-[11px] sm:text-xs text-gray-600  mt-3">matura rozszerzona • trudniejsze zadania • ambitne (lub mniej ;) ) cele</p>
                     <div className="mt-3 pt-3 border-t border-orange-100 text-right sm:text-left">
                       <div className="text-2xl sm:text-3xl font-bold text-orange-600">100 zł</div>
-                      <div className="text-xs sm:text-sm text-gray-500">za 60 min</div>
+                      <div className="text-xs sm:text-sm text-gray-500 ">za 60 min</div>
                     </div>
                   </div>
                 </div>
@@ -859,14 +862,14 @@ export default function Home() {
                 >
                   Umów darmową lekcję
                 </Button>
-                <p className="text-center text-xs sm:text-sm text-gray-500 mt-3 sm:mt-4">
+                <p className="text-center text-xs sm:text-sm text-gray-500  mt-3 sm:mt-4">
                   Bez zobowiązań • Szybka odpowiedź • Elastyczne terminy
                 </p>
-                <div className="mt-3 flex gap-3 rounded-2xl border border-orange-100 bg-gradient-to-r from-orange-50/90 via-white to-amber-50/90 px-3 py-3 sm:px-4 sm:py-3.5 shadow-sm ring-1 ring-orange-100/70">
+                <div className="mt-3 flex gap-3 rounded-2xl border border-orange-100  bg-gradient-to-r from-orange-50/90 via-white to-amber-50/90    px-3 py-3 sm:px-4 sm:py-3.5 shadow-sm ring-1 ring-orange-100/70 ">
                   <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500 to-amber-500 text-white shadow-md">
                     <Info className="h-4 w-4 sm:h-[18px] sm:w-[18px]" aria-hidden />
                   </div>
-                  <p className="text-left text-xs sm:text-sm text-gray-800 leading-snug font-medium">
+                  <p className="text-left text-xs sm:text-sm text-gray-800  leading-snug font-medium">
                     W przypadku pomocy jednorazowej (np. lekcja przed sprawdzianem lub kartkówką) zajęcia są płatne.
                   </p>
                 </div>
@@ -877,7 +880,7 @@ export default function Home() {
         </div>
 
       {false && (
-      <div className="relative scroll-mt-28 bg-gradient-to-b from-slate-50 via-sky-50/25 to-white py-6 sm:py-16 md:py-20 px-3 sm:px-6">
+      <div className="relative scroll-mt-28 bg-gradient-to-b from-orange-50/28 via-sky-50/18 to-white    py-6 sm:py-16 md:py-20 px-3 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-5 sm:mb-12 md:mb-16">
             <div className="inline-flex items-center gap-2 rounded-full border border-sky-200/80 bg-white/90 px-3 py-1 text-[11px] sm:text-xs font-semibold uppercase tracking-wide text-sky-800 shadow-sm mb-3 sm:mb-4">
@@ -919,7 +922,7 @@ export default function Home() {
               ].map((step, index) => {
                 const StepIcon = step.icon;
                 return (
-                <Card key={index} className="border border-slate-200/80 shadow-md hover:shadow-lg transition-shadow duration-300 bg-white/95 group relative overflow-hidden rounded-2xl">
+                <Card key={index} className="border border-slate-200/80  shadow-md hover:shadow-lg transition-shadow duration-300 bg-white/95  group relative overflow-hidden rounded-2xl">
                   <div className={`absolute top-0 right-0 w-20 sm:w-24 h-20 sm:h-24 bg-gradient-to-br ${step.corner} to-transparent opacity-90 rounded-bl-full`} />
                   <CardContent className="p-5 sm:p-6 space-y-3 relative">
                     <div className={`w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br ${step.color} rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg ring-2 ring-white/60 group-hover:scale-105 transition-transform`}>
@@ -983,15 +986,15 @@ export default function Home() {
       </div>
       )}
 
-      <div id="metoda" className="relative scroll-mt-28 bg-gradient-to-b from-amber-50/35 via-white to-orange-50/25 py-6 sm:py-16 md:py-20 px-3 sm:px-6">
+      <div id="metoda" className="relative scroll-mt-28 bg-gradient-to-b from-orange-50/30 via-amber-50/25 to-orange-50/25    py-6 sm:py-16 md:py-20 px-3 sm:px-6">
         <div className="max-w-6xl mx-auto">
 
-          <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-orange-200/70 bg-gradient-to-br from-orange-50 via-amber-50/60 to-rose-50/50 p-4 sm:p-10 shadow-md ring-1 ring-orange-100/60">
+          <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-orange-200/70  bg-gradient-to-br from-orange-50 via-amber-50/60 to-rose-50/50    p-4 sm:p-10 shadow-md ring-1 ring-orange-100/60 ">
             <div className="pointer-events-none absolute -right-16 top-0 h-48 w-48 rounded-full bg-gradient-to-br from-orange-200/35 to-rose-200/25 blur-2xl" aria-hidden />
             <div className="pointer-events-none absolute -left-10 bottom-0 h-40 w-40 rounded-full bg-amber-200/30 blur-2xl" aria-hidden />
             <div className="relative">
             <div className="mb-4 sm:mb-6 flex flex-col items-center gap-2 text-center">
-              <div className="inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-[11px] sm:text-xs font-semibold text-orange-800 shadow-sm ring-1 ring-orange-200/80">
+              <div className="inline-flex items-center gap-2 rounded-full bg-white/90  px-3 py-1 text-[11px] sm:text-xs font-semibold text-orange-800  shadow-sm ring-1 ring-orange-200/80 ">
                 <Sparkles className="h-3.5 w-3.5 text-orange-500" aria-hidden />
                 Atuty zajęć
               </div>
@@ -1001,7 +1004,7 @@ export default function Home() {
                   <span className="hidden sm:inline">Co wyróżnia nasze zajęcia?</span>
                 </span>
               </h3>
-              <p className="mx-auto max-w-xl px-2 text-center text-xs text-gray-600 sm:text-sm">
+              <p className="mx-auto max-w-xl px-2 text-center text-xs text-gray-600  sm:text-sm">
                 Konkretne plusy Matenezy - od pierwszej darmowej lekcji po kontakt między spotkaniami.
               </p>
             </div>
@@ -1053,107 +1056,45 @@ export default function Home() {
               ].map((benefit, index) => {
                 const BenefitIcon = benefit.icon;
                 return (
-                <Card key={index} className="border border-orange-100/90 bg-white/95 hover:shadow-xl transition-shadow duration-300 shadow-sm group relative overflow-hidden rounded-2xl">
+                <Card key={index} className="border border-orange-100/90  bg-white/95  hover:shadow-xl transition-shadow duration-300 shadow-sm group relative overflow-hidden rounded-2xl">
                   <div className={`absolute inset-0 bg-gradient-to-br ${benefit.soft} to-transparent opacity-80 pointer-events-none`} />
                   <div className={`absolute top-0 right-0 w-20 sm:w-28 h-20 sm:h-28 bg-gradient-to-br ${benefit.gradient} opacity-[0.07] rounded-bl-full`} />
                   <CardContent className="p-4 sm:p-5 space-y-2.5 sm:space-y-3 relative">
                     <div className={`w-11 h-11 sm:w-14 sm:h-14 bg-gradient-to-br ${benefit.gradient} rounded-xl flex items-center justify-center shadow-md ring-2 ring-white/70 group-hover:scale-105 transition-transform`}>
                       <BenefitIcon className="w-5 h-5 sm:w-7 sm:h-7 text-white" />
                     </div>
-                    <h3 className="text-sm sm:text-base font-bold text-gray-900 leading-tight">{benefit.title}</h3>
-                    <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">{benefit.fullDesc}</p>
+                    <h3 className="text-sm sm:text-base font-bold text-gray-900  leading-tight">{benefit.title}</h3>
+                    <p className="text-xs sm:text-sm text-gray-600  leading-relaxed">{benefit.fullDesc}</p>
                   </CardContent>
                 </Card>
               );
               })}
             </div>
 
-            <div className="sm:hidden">
-              <Accordion type="single" collapsible className="space-y-2">
-                <AccordionItem value="benefit-1" className="rounded-xl border border-rose-100 bg-white/95 px-3 shadow-sm">
-                  <AccordionTrigger className="text-left text-xs font-bold text-gray-900 py-2.5 hover:text-rose-700 hover:no-underline">
-                    <div className="flex items-center gap-2">
-                      <div className="w-7 h-7 bg-gradient-to-br from-rose-500 to-orange-500 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm ring-1 ring-white/80">
-                        <Gift className="w-3.5 h-3.5 text-white" />
+            <div className="sm:hidden space-y-2">
+              {[
+                { icon: Gift, title: "Pierwsza lekcja darmowa", gradient: "from-rose-500 to-orange-500", border: "border-rose-100 " },
+                { icon: Monitor, title: "Lekcje online", gradient: "from-orange-500 to-amber-500", border: "border-orange-100 " },
+                { icon: ShieldCheck, title: "Bez stresu", gradient: "from-amber-600 to-yellow-500", border: "border-amber-200/90 " },
+                { icon: Puzzle, title: "Logika nad wzorami", gradient: "from-orange-600 to-red-500", border: "border-orange-100 " },
+                { icon: Library, title: "Sprawdzone materiały", gradient: "from-amber-500 to-orange-600", border: "border-amber-100 " },
+                { icon: Send, title: "Wsparcie 24/7", gradient: "from-rose-500 to-pink-500", border: "border-rose-100 " },
+              ].map((benefit) => {
+                const Icon = benefit.icon;
+                return (
+                  <div
+                    key={benefit.title}
+                    className={`rounded-xl border ${benefit.border} bg-white/95  px-3 py-2.5 shadow-sm`}
+                  >
+                    <div className="flex items-center gap-2 text-xs font-bold text-gray-900 ">
+                      <div className={`w-7 h-7 bg-gradient-to-br ${benefit.gradient} rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm ring-1 ring-white/80`}>
+                        <Icon className="w-3.5 h-3.5 text-white" />
                       </div>
-                      Pierwsza lekcja darmowa
+                      {benefit.title}
                     </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-xs text-gray-600 leading-relaxed pb-2.5">
-                    Poznaj naszą metodę bez zobowiązań. Sprawdź, czy nasze podejście jest tym, czego szukasz.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="benefit-2" className="rounded-xl border border-orange-100 bg-white/95 px-3 shadow-sm">
-                  <AccordionTrigger className="text-left text-xs font-bold text-gray-900 py-2.5 hover:text-orange-700 hover:no-underline">
-                    <div className="flex items-center gap-2">
-                      <div className="w-7 h-7 bg-gradient-to-br from-orange-500 to-amber-500 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm ring-1 ring-white/80">
-                        <Monitor className="w-3.5 h-3.5 text-white" />
-                      </div>
-                      Lekcje online
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-xs text-gray-600 leading-relaxed pb-2.5">
-                    Zajęcia na współdzielonej tablicy. Korepetytorzy z tabletami graficznymi dla przejrzystych notatek.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="benefit-3" className="rounded-xl border border-amber-200/90 bg-white/95 px-3 shadow-sm">
-                  <AccordionTrigger className="text-left text-xs font-bold text-gray-900 py-2.5 hover:text-amber-800 hover:no-underline">
-                    <div className="flex items-center gap-2">
-                      <div className="w-7 h-7 bg-gradient-to-br from-amber-600 to-yellow-500 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm ring-1 ring-white/80">
-                        <ShieldCheck className="w-3.5 h-3.5 text-white" />
-                      </div>
-                      Bez stresu
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-xs text-gray-600 leading-relaxed pb-2.5">
-                    Tworzymy bezpieczną przestrzeń, gdzie możesz pytać o wszystko. Dostosowujemy tempo do Ciebie.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="benefit-4" className="rounded-xl border border-orange-100 bg-white/95 px-3 shadow-sm">
-                  <AccordionTrigger className="text-left text-xs font-bold text-gray-900 py-2.5 hover:text-orange-800 hover:no-underline">
-                    <div className="flex items-center gap-2">
-                      <div className="w-7 h-7 bg-gradient-to-br from-orange-600 to-red-500 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm ring-1 ring-white/80">
-                        <Puzzle className="w-3.5 h-3.5 text-white" />
-                      </div>
-                      Logika nad wzorami
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-xs text-gray-600 leading-relaxed pb-2.5">
-                    Pokazujemy sens za równaniami. Matematyka to logiczne myślenie, które przyda się w życiu.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="benefit-5" className="rounded-xl border border-amber-100 bg-white/95 px-3 shadow-sm">
-                  <AccordionTrigger className="text-left text-xs font-bold text-gray-900 py-2.5 hover:text-amber-800 hover:no-underline">
-                    <div className="flex items-center gap-2">
-                      <div className="w-7 h-7 bg-gradient-to-br from-amber-500 to-orange-600 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm ring-1 ring-white/80">
-                        <Library className="w-3.5 h-3.5 text-white" />
-                      </div>
-                      Sprawdzone materiały
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-xs text-gray-600 leading-relaxed pb-2.5">
-                    Pracujemy na własnych zestawach zadań dopasowanych do Twoich potrzeb i poziomu.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="benefit-6" className="rounded-xl border border-rose-100 bg-white/95 px-3 shadow-sm">
-                  <AccordionTrigger className="text-left text-xs font-bold text-gray-900 py-2.5 hover:text-pink-800 hover:no-underline">
-                    <div className="flex items-center gap-2">
-                      <div className="w-7 h-7 bg-gradient-to-br from-rose-500 to-pink-500 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm ring-1 ring-white/80">
-                        <Send className="w-3.5 h-3.5 text-white" />
-                      </div>
-                      Wsparcie 24/7
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-xs text-gray-600 leading-relaxed pb-2.5">
-                    Między zajęciami możesz kontaktować się z korepetytorem i zadawać pytania.
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
+                  </div>
+                );
+              })}
             </div>
             </div>
 
@@ -1171,17 +1112,17 @@ export default function Home() {
       </div>
 
       {/* Opinie uczniów i osiągnięcia - karuzela screenów */}
-      <div id="opinie" className="relative scroll-mt-28 bg-gradient-to-b from-amber-50/32 via-orange-50/14 to-amber-50/28 py-12 sm:py-16 md:py-20">
+      <div id="opinie" className="relative scroll-mt-28 bg-gradient-to-b from-orange-50/25 via-amber-50/18 to-amber-50/32    py-12 sm:py-16 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-10 sm:mb-16">
           <div className="text-center">
             <div className="inline-flex items-center gap-2 bg-orange-100 text-orange-700 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium mb-4">
               <Star className="w-3 h-3 sm:w-4 sm:h-4 fill-orange-600" />
               Opinie i osiągnięcia
             </div>
-            <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-gray-900  mb-3 sm:mb-4">
               Opinie uczniów i ich osiągnięcia
             </h2>
-            <p className="text-sm sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-sm sm:text-lg md:text-xl text-gray-600  max-w-2xl mx-auto">
               Screeny z rozmów, opinie z Google i relacje uczniów
             </p>
           </div>
@@ -1203,11 +1144,39 @@ export default function Home() {
       </div>
 
       {/* Kontakt */}
-      <div id="kontakt" className="relative scroll-mt-28 bg-gradient-to-b from-amber-50/28 via-orange-100/35 to-amber-50/38 py-10 sm:py-16 md:py-20 px-4 sm:px-6">
+      <div id="kontakt" className="relative scroll-mt-28 bg-gradient-to-b from-amber-50/32 via-orange-100/28 to-amber-50/40    py-10 sm:py-16 md:py-20 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto relative z-10">
-          <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
+          <div className="bg-card text-card-foreground rounded-3xl shadow-2xl overflow-hidden border border-border">
             <div className="grid md:grid-cols-2">
-              <div className="bg-gradient-to-br from-orange-500 to-amber-500 p-6 sm:p-10 md:p-12 text-white space-y-3 sm:space-y-6">
+              <div className="relative bg-gradient-to-br from-orange-500 to-amber-500 p-6 sm:p-10 md:p-12 text-white space-y-3 sm:space-y-6">
+                <div ref={mobileMessageHelpRef} className="absolute top-4 right-4 z-20 md:hidden">
+                  <button
+                    type="button"
+                    onClick={() => setShowMessageHelp((prev) => !prev)}
+                    aria-label="Wskazówki do wiadomości"
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-white/20 text-sm font-bold text-white shadow-md ring-1 ring-white/30 hover:bg-white/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-white transition-all duration-200"
+                  >
+                    <span className="leading-none">?</span>
+                  </button>
+                  <AnimatePresence>
+                    {showMessageHelp && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -6, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -6, scale: 0.98 }}
+                        transition={{ duration: 0.18 }}
+                        className="absolute right-0 mt-2 w-[260px] rounded-2xl border border-orange-200  bg-popover text-popover-foreground p-4 text-left shadow-xl"
+                      >
+                        <p className="text-xs font-semibold text-gray-900 ">
+                          Co warto napisać w wiadomości:
+                        </p>
+                        <p className="mt-2 text-xs text-gray-700  leading-relaxed">
+                          klasa i poziom, aktualne trudności, cel (np. poprawa ocen, egzamin, matura), preferowane dni i godziny zajęć oraz nick na Discordzie - tam odbywają się zajęcia.
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
                 <h2 className="text-2xl sm:text-4xl font-bold">
                   Gotowy na pierwszą lekcję?
                 </h2>
@@ -1246,7 +1215,7 @@ export default function Home() {
               </div>
 
               <div className="relative p-6 sm:p-10 md:p-12 space-y-3 sm:space-y-4">
-                <div ref={messageHelpRef} className="absolute top-4 right-4 sm:top-6 sm:right-6 z-20">
+                <div ref={messageHelpRef} className="absolute top-4 right-4 sm:top-6 sm:right-6 z-20 hidden md:block">
                   <button
                     type="button"
                     onClick={() => setShowMessageHelp((prev) => !prev)}
@@ -1262,19 +1231,19 @@ export default function Home() {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: -6, scale: 0.98 }}
                         transition={{ duration: 0.18 }}
-                        className="absolute right-0 mt-2 w-[260px] sm:w-[300px] rounded-2xl border border-orange-200 bg-white p-4 text-left shadow-xl"
+                        className="absolute right-0 mt-2 w-[260px] sm:w-[300px] rounded-2xl border border-orange-200  bg-popover text-popover-foreground p-4 text-left shadow-xl"
                       >
-                        <p className="text-xs sm:text-sm font-semibold text-gray-900">
+                        <p className="text-xs sm:text-sm font-semibold text-gray-900 ">
                           Co warto napisać w wiadomości:
                         </p>
-                        <p className="mt-2 text-xs sm:text-sm text-gray-700 leading-relaxed">
+                        <p className="mt-2 text-xs sm:text-sm text-gray-700  leading-relaxed">
                           klasa i poziom, aktualne trudności, cel (np. poprawa ocen, egzamin, matura), preferowane dni i godziny zajęć oraz nick na Discordzie - tam odbywają się zajęcia.
                         </p>
                       </motion.div>
                     )}
                   </AnimatePresence>
                 </div>
-                <h3 className="text-lg sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-6">Napisz do nas</h3>
+                <h3 className="text-lg sm:text-2xl font-bold text-gray-900  mb-3 sm:mb-6">Napisz do nas</h3>
                 <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
                   <input
                     type="text"
@@ -1318,7 +1287,7 @@ export default function Home() {
                   >
                     {isSubmitting ? 'Wysyłanie...' : 'Wyślij wiadomość'}
                   </Button>
-                  <p className="text-xs sm:text-sm text-gray-500 text-center">
+                  <p className="text-xs sm:text-sm text-gray-500  text-center">
                     Odpowiemy w ciągu 24 godzin
                   </p>
                 </form>
@@ -1329,17 +1298,17 @@ export default function Home() {
         </div>
 
       {/* FAQ */}
-      <div id="faq" className="relative scroll-mt-28 bg-gradient-to-b from-amber-50/38 via-white to-orange-50/42 py-10 sm:py-16 md:py-20 px-4 sm:px-6">
+      <div id="faq" className="relative scroll-mt-28 bg-gradient-to-b from-amber-50/40 via-orange-50/20 to-orange-50/45    py-10 sm:py-16 md:py-20 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto relative z-10">
           <div className="text-center mb-8 sm:mb-12 md:mb-16">
             <div className="inline-flex items-center gap-2 bg-orange-100 text-orange-700 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium mb-4">
               <HelpCircle className="w-3 h-3 sm:w-4 sm:h-4" />
               Najczęściej zadawane pytania
             </div>
-            <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-2 sm:mb-4">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-gray-900  mb-2 sm:mb-4">
               Masz pytania?
             </h2>
-            <p className="text-sm sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-4">
+            <p className="text-sm sm:text-lg md:text-xl text-gray-600  max-w-2xl mx-auto px-4">
               <span className="md:hidden">Odpowiedzi na najczęstsze pytania</span>
               <span className="hidden md:block">Zebrane odpowiedzi na najczęściej zadawane pytania dotyczące naszych korepetycji</span>
             </p>
@@ -1347,71 +1316,71 @@ export default function Home() {
 
           <Accordion type="single" collapsible className="space-y-4">
             <AccordionItem value="item-1" className="bg-gradient-to-br from-orange-50/50 to-amber-50/30 border-none rounded-2xl px-6 shadow-sm hover:shadow-md transition-shadow duration-200">
-              <AccordionTrigger className="text-left text-base sm:text-lg font-semibold text-gray-900 hover:text-orange-600 py-5">
+              <AccordionTrigger className="text-left text-base sm:text-lg font-semibold text-gray-900  hover:text-orange-600 py-5">
                 Jak wygląda płatność za zajęcia?
               </AccordionTrigger>
-              <AccordionContent className="text-sm sm:text-base text-gray-600 leading-relaxed pb-5">
+              <AccordionContent className="text-sm sm:text-base text-gray-600  leading-relaxed pb-5">
                 Rozliczamy się po każdych zajęciach przelewem na konto bankowe. W tytule przelewu podaj swoje <strong>imię i nazwisko oraz datę zajęć</strong> - dzięki temu szybko potwierdzimy wpłatę. Szczegóły dotyczące rachunku bankowego otrzymasz po ustaleniu terminu pierwszych zajęć.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-2" className="bg-gradient-to-br from-orange-50/50 to-amber-50/30 border-none rounded-2xl px-6 shadow-sm hover:shadow-md transition-shadow duration-200">
-              <AccordionTrigger className="text-left text-base sm:text-lg font-semibold text-gray-900 hover:text-orange-600 py-5">
+              <AccordionTrigger className="text-left text-base sm:text-lg font-semibold text-gray-900  hover:text-orange-600 py-5">
                 Jak przygotować się do zajęć?
               </AccordionTrigger>
-              <AccordionContent className="text-sm sm:text-base text-gray-600 leading-relaxed pb-5">
+              <AccordionContent className="text-sm sm:text-base text-gray-600  leading-relaxed pb-5">
                 Przed zajęciami <strong>ustalasz zakres materiału z korepetytorem</strong> - może to być konkretny temat, który sprawia Ci trudność, przygotowanie do sprawdzianu, czy nadrobienie zaległości. Dzięki temu każda lekcja jest maksymalnie efektywna i dopasowana do Twoich potrzeb. Możesz przesłać screeny z zadaniami lub poinformować, nad czym chcesz popracować.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-3" className="bg-gradient-to-br from-orange-50/50 to-amber-50/30 border-none rounded-2xl px-6 shadow-sm hover:shadow-md transition-shadow duration-200">
-              <AccordionTrigger className="text-left text-base sm:text-lg font-semibold text-gray-900 hover:text-orange-600 py-5">
+              <AccordionTrigger className="text-left text-base sm:text-lg font-semibold text-gray-900  hover:text-orange-600 py-5">
                 Czy potrzebuję tabletu graficznego lub iPada?
               </AccordionTrigger>
-              <AccordionContent className="text-sm sm:text-base text-gray-600 leading-relaxed pb-5">
+              <AccordionContent className="text-sm sm:text-base text-gray-600  leading-relaxed pb-5">
                 <strong>Nie, nie potrzebujesz!</strong> To jedno z najczęstszych pytań, ale spokojnie - tablet graficzny czy iPad <strong>nie są wymagane</strong>. Pracujemy na współdzielonej tablicy online, do której wszyscy mają dostęp. Korepetytorzy posiadają tablety graficzne i wszystko, co piszą, widzisz na bieżąco. Jeśli masz tablet lub iPada, możesz ich używać do wspólnego pisania na tablicy i robienia notatek cyfrowo - wtedy praca jest jeszcze płynniejsza. Ale klasyczny zeszyt i długopis też świetnie się sprawdzają! 📝
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-4" className="bg-gradient-to-br from-orange-50/50 to-amber-50/30 border-none rounded-2xl px-6 shadow-sm hover:shadow-md transition-shadow duration-200">
-              <AccordionTrigger className="text-left text-base sm:text-lg font-semibold text-gray-900 hover:text-orange-600 py-5">
+              <AccordionTrigger className="text-left text-base sm:text-lg font-semibold text-gray-900  hover:text-orange-600 py-5">
                 Ile trwa jedna lekcja?
               </AccordionTrigger>
-              <AccordionContent className="text-sm sm:text-base text-gray-600 leading-relaxed pb-5">
+              <AccordionContent className="text-sm sm:text-base text-gray-600  leading-relaxed pb-5">
                 Standardowa lekcja trwa <strong>60 minut</strong>. To optymalny czas, który pozwala na dogłębne omówienie tematu, rozwiązanie zadań i utrwalenie wiedzy. W zależności od potrzeb możemy też umówić się na zajęcia trwające 90 minut - szczególnie przy przygotowaniach do egzaminów lub gdy jest dużo materiału do omówienia.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-5" className="bg-gradient-to-br from-orange-50/50 to-amber-50/30 border-none rounded-2xl px-6 shadow-sm hover:shadow-md transition-shadow duration-200">
-              <AccordionTrigger className="text-left text-base sm:text-lg font-semibold text-gray-900 hover:text-orange-600 py-5">
+              <AccordionTrigger className="text-left text-base sm:text-lg font-semibold text-gray-900  hover:text-orange-600 py-5">
                 Czy mogę kontaktować się z korepetytorem między zajęciami?
               </AccordionTrigger>
-              <AccordionContent className="text-sm sm:text-base text-gray-600 leading-relaxed pb-5">
+              <AccordionContent className="text-sm sm:text-base text-gray-600  leading-relaxed pb-5">
                 Tak! <strong>Między lekcjami masz możliwość kontaktu z korepetytorem</strong>, który chętnie pomoże rozwiązać wątpliwości lub odpowie na pytania. Jeśli utkniesz przy zadaniu domowym albo coś nie jest jasne - możesz napisać. To część naszego wsparcia, dzięki któremu nie zostajesz sam na sam z problemem. 📐
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-6" className="bg-gradient-to-br from-orange-50/50 to-amber-50/30 border-none rounded-2xl px-6 shadow-sm hover:shadow-md transition-shadow duration-200">
-              <AccordionTrigger className="text-left text-base sm:text-lg font-semibold text-gray-900 hover:text-orange-600 py-5">
+              <AccordionTrigger className="text-left text-base sm:text-lg font-semibold text-gray-900  hover:text-orange-600 py-5">
                 Jak szybko zobaczę efekty?
               </AccordionTrigger>
-              <AccordionContent className="text-sm sm:text-base text-gray-600 leading-relaxed pb-5">
+              <AccordionContent className="text-sm sm:text-base text-gray-600  leading-relaxed pb-5">
                 To zależy od Twoich potrzeb i regularności zajęć. Wielu uczniów zauważa <strong>poprawę zrozumienia materiału już po pierwszych 2-3 lekcjach</strong>. Przy systematycznej pracy - np. raz w tygodniu - oceny zazwyczaj idą w górę w ciągu miesiąca lub dwóch. Pamiętaj, że najważniejsze to zrozumienie, nie mechaniczne zapamiętywanie - a to przychodzi z czasem i praktyką.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-7" className="bg-gradient-to-br from-orange-50/50 to-amber-50/30 border-none rounded-2xl px-6 shadow-sm hover:shadow-md transition-shadow duration-200">
-              <AccordionTrigger className="text-left text-base sm:text-lg font-semibold text-gray-900 hover:text-orange-600 py-5">
+              <AccordionTrigger className="text-left text-base sm:text-lg font-semibold text-gray-900  hover:text-orange-600 py-5">
                 Co jeśli muszę odwołać zajęcia?
               </AccordionTrigger>
-              <AccordionContent className="text-sm sm:text-base text-gray-600 leading-relaxed pb-5">
+              <AccordionContent className="text-sm sm:text-base text-gray-600  leading-relaxed pb-5">
                 Rozumiemy, że czasem życie pisze różne scenariusze! Jeśli musisz odwołać zajęcia, <strong>poinformuj nas o tym minimum 12 godzin wcześniej</strong> - wtedy bez problemu przełożymy lekcję na inny termin. Przy odwołaniu w krótszym czasie, niestety lekcja może zostać naliczona. Zawsze stawiamy na elastyczność i zrozumienie. 🙂
               </AccordionContent>
             </AccordionItem>
           </Accordion>
 
           <div className="mt-8 sm:mt-12 text-center">
-            <p className="text-sm sm:text-base text-gray-600 mb-4">
+            <p className="text-sm sm:text-base text-gray-600  mb-4">
               Nie znalazłeś odpowiedzi na swoje pytanie?
             </p>
             <Button
@@ -1464,7 +1433,7 @@ export default function Home() {
               <h4 className="font-bold mb-2 sm:mb-3 text-sm sm:text-base">Informacje</h4>
               <div className="space-y-1 sm:space-y-2 text-xs sm:text-sm">
                 <button onClick={() => scrollToSection('opinie')} className="block text-gray-400 hover:text-orange-400 transition-colors">
-                  Opinie
+                  Nasi uczniowie
                 </button>
                 <button onClick={() => scrollToSection('faq')} className="block text-gray-400 hover:text-orange-400 transition-colors">
                   FAQ
@@ -1486,7 +1455,7 @@ export default function Home() {
           </div>
 
           <div className="border-t border-gray-800 pt-4 sm:pt-6 text-center">
-            <p className="text-xs sm:text-sm text-gray-500">
+            <p className="text-xs sm:text-sm text-gray-500 ">
               © 2026 Mateneza. Wszystkie prawa zastrzeżone.
             </p>
           </div>
