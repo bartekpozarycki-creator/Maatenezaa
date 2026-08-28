@@ -18,7 +18,7 @@ const GOOGLE_REVIEWS_PAGE_URL =
   (typeof import.meta !== "undefined" && import.meta.env?.VITE_GOOGLE_REVIEWS_URL) ||
   "https://share.google/fW46XFRPEJgoX2ohJ";
 
-const GOOGLE_REVIEWS_TOTAL = 13;
+const GOOGLE_REVIEWS_TOTAL = 16;
 
 const OP_VIDEO = {
   page: [255, 255, 255],
@@ -38,7 +38,7 @@ const OP_VIDEO = {
 };
 
 const OP_GOOGLE = {
-  page: [219, 234, 254],
+  page: [255, 255, 255],
   badgeBg: [191, 219, 254],
   badgeText: [30, 58, 138],
   accent: [66, 133, 244],
@@ -507,7 +507,7 @@ Rada dla przyszłych maturzystów
 
       <section
         id="opinie-google"
-        className="py-10 sm:py-20 px-4 sm:px-6 scroll-mt-20 sm:scroll-mt-24"
+        className="py-10 sm:py-20 px-4 sm:px-6 scroll-mt-20 sm:scroll-mt-24 bg-transparent"
         style={opinionPaletteStyle(opinionGoogleSkin)}
       >
         <div className="max-w-6xl mx-auto">

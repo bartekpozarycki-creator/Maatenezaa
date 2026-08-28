@@ -12,4 +12,6 @@ export const SCREENSHOT_OPINION_IMAGES = [
   "/screeny/IMG_3375.jpeg",
   "/screeny/IMG_3382.jpeg",
   "/screeny/IMG_3405.jpg",
+  "/screeny/att.eQATIy-oslre4H8H5pS7yddXrHl2CB4aKj5A7T39GTo.jpeg",
+  "/screeny/IMG_0355.jpeg",
 ];

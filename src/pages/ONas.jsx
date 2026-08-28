@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Heart, Target, Star, GraduationCap, Lightbulb, Users } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
+import ExpandableMobileDescription from '../components/ExpandableMobileDescription';
 
 import { motion } from 'framer-motion';
 
@@ -42,6 +43,14 @@ export default function ONas() {
       image: "/wojtek.jpg",
       description:
         "Cześć! Mam na imię Wojtek. Od kilku lat pomagam uczniom szkoły podstawowej i średniej w nauce matematyki. Prowadzę zajęcia zarówno na poziomie podstawowym, jak i rozszerzonym. Chętnie pomogę z bieżącym materiałem, przygotowaniem do sprawdzianów i klasówek oraz z tematami, które sprawiają największą trudność. Od nowego roku akademickiego rozpoczynam studia na kierunku Lotnictwo na Politechnice Poznańskiej. Wierzę, że przy odrobinie cierpliwości i odpowiednim podejściu każdy jest w stanie dobrze zrozumieć matematykę.",
+    },
+    {
+      name: "Adrianna",
+      role: "Korepetytor matematyki · studentka energetyki, Politechnika Poznańska",
+      image: "/ada.JPG",
+      description:
+        "Poznajcie Adriannę - naszą prawdziwą dumę i „rodzynek” zespołu. Swoją przygodę z naukami ścisłymi przypieczętowała już w liceum, pisząc maturę z matematyki praktycznie najlepiej w całej szkole. Studiuje Energetykę na Politechnice Poznańskiej, osiągając przy tym bardzo wysokie wyniki w nauce. Adrianna specjalizuje się w pracy z licealistami oraz maturzystami, a jej podopieczni regularnie sięgają po najwyższe wyniki - niektórzy z nich wyśrubowali swoje oceny i rezultaty maturalne do blisko 100%!" +
+        `\n\n„Stawiam przede wszystkim na logikę i zrozumienie materiału - zdecydowanie nie jestem zwolenniczką wkuwania na pamięć. Każdy temat przerabiam bardzo rzetelnie, a gdy tylko jest taka możliwość, zadania maturalne wprowadzam praktycznie od początku nauki w szkole średniej.\n\nBardzo ważna jest dla mnie również relacja podczas nauki. Zawsze staram się zrozumieć perspektywę ucznia, jego sytuację i indywidualne potrzeby. Naprawdę lubię swoją pracę, a jeszcze bardziej kontakt i rozmowę z ludźmi.\n\nChętnie pomagam również po zajęciach i dbam o luźną, przyjazną atmosferę, bez niepotrzebnego stresu. Wiele osób mówi, że podczas nauki jestem dla nich po prostu jak koleżanka, na którą zawsze można liczyć.”`,
     },
     {
       name: "Tomek",
@@ -133,8 +142,8 @@ export default function ONas() {
               >
                 <div className="pointer-events-none absolute -right-14 -top-14 h-36 w-36 rounded-full bg-orange-100/80 blur-3xl transition-colors duration-300 group-hover:bg-orange-200/90" />
                 <div className="pointer-events-none absolute -bottom-20 right-1/4 h-36 w-36 rounded-full bg-amber-100/70 blur-3xl" />
-                <div className="flex flex-col lg:flex-row lg:items-stretch lg:min-h-0">
-                  <div className="relative w-full sm:w-[42%] sm:max-w-xs lg:w-[38%] lg:max-w-sm lg:flex-shrink-0 p-2.5 sm:p-3.5 lg:p-4 lg:pr-3">
+                <div className="relative z-10 flex flex-col lg:block lg:px-4 lg:pb-6 lg:pt-4">
+                  <div className="relative w-full sm:max-w-xs sm:mx-auto lg:mx-0 lg:float-left lg:w-[38%] lg:max-w-sm lg:mr-6 lg:mb-3 p-2.5 sm:p-3.5 lg:p-0 lg:pr-3">
                     <div className="relative mx-auto w-full max-w-sm lg:max-w-none">
                       <div className="relative h-[220px] sm:h-[280px] lg:h-[320px] overflow-hidden rounded-2xl">
                         <img
@@ -159,19 +168,18 @@ export default function ONas() {
                     </div>
                   </div>
 
-                  <CardContent className="relative z-10 flex flex-1 flex-col gap-0 p-3 pb-3 pt-2.5 sm:p-4 sm:pb-4 sm:pt-3 lg:p-6 lg:pl-2.5 lg:pr-7 min-h-0 lg:bg-gradient-to-br lg:from-white lg:via-orange-50/20 lg:to-amber-50/30">
-                    <div className="relative z-10 space-y-2 sm:space-y-2.5 lg:flex-1">
+                  <div className="relative z-10 p-3 pb-3 pt-2.5 sm:p-4 sm:pb-4 sm:pt-3 lg:p-0 lg:pr-3 min-h-0">
+                    <div className="relative z-10 space-y-2 sm:space-y-2.5">
                       <div>
                         <div className="h-0.5 w-8 rounded-full bg-gradient-to-r from-orange-500 to-amber-400 mb-1.5" aria-hidden />
                         <p className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700/90">
                           O założycielu
                         </p>
                       </div>
-                      <p className="text-sm sm:text-base text-gray-700  leading-snug sm:leading-relaxed whitespace-pre-line">
-                      {founder.description}
-                      </p>
+                      <ExpandableMobileDescription text={founder.description} />
                     </div>
-                  </CardContent>
+                  </div>
+                  <div className="hidden lg:block clear-both" aria-hidden="true" />
                 </div>
               </Card>
             ))}
@@ -207,8 +215,8 @@ export default function ONas() {
               >
                 <div className="pointer-events-none absolute -right-14 -top-14 h-36 w-36 rounded-full bg-orange-100/80 blur-3xl transition-colors duration-300 group-hover:bg-orange-200/90" />
                 <div className="pointer-events-none absolute -bottom-20 right-1/4 h-36 w-36 rounded-full bg-amber-100/70 blur-3xl" />
-                <div className="flex flex-col lg:flex-row lg:items-stretch lg:min-h-0">
-                  <div className="relative w-full sm:w-[42%] sm:max-w-xs lg:w-[38%] lg:max-w-sm lg:flex-shrink-0 p-2.5 sm:p-3.5 lg:p-4 lg:pr-3">
+                <div className="relative z-10 flex flex-col lg:block lg:px-4 lg:pb-6 lg:pt-4">
+                  <div className="relative w-full sm:max-w-xs sm:mx-auto lg:mx-0 lg:float-left lg:w-[38%] lg:max-w-sm lg:mr-6 lg:mb-3 p-2.5 sm:p-3.5 lg:p-0 lg:pr-3">
                     <div className="relative mx-auto w-full max-w-sm lg:max-w-none">
                       {tutor.image ? (
                         <div className="relative h-[220px] sm:h-[280px] lg:h-[320px] overflow-hidden rounded-2xl">
@@ -243,8 +251,8 @@ export default function ONas() {
                     </div>
                   </div>
 
-                  <CardContent className="relative z-10 flex flex-1 flex-col gap-0 p-3 pb-3 pt-2.5 sm:p-4 sm:pb-4 sm:pt-3 lg:p-6 lg:pl-2.5 lg:pr-7 min-h-0 lg:bg-gradient-to-br lg:from-white lg:via-orange-50/20 lg:to-amber-50/30">
-                    <div className="relative z-10 space-y-2 sm:space-y-2.5 lg:flex-1">
+                  <div className="relative z-10 p-3 pb-3 pt-2.5 sm:p-4 sm:pb-4 sm:pt-3 lg:p-0 lg:pr-3 min-h-0">
+                    <div className="relative z-10 space-y-2 sm:space-y-2.5">
                       <div>
                         <div className="h-0.5 w-8 rounded-full bg-gradient-to-r from-orange-500 to-amber-400 mb-1.5" aria-hidden />
                         <p className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700/90">
@@ -254,11 +262,10 @@ export default function ONas() {
                           <p className="text-xs sm:text-sm font-medium text-orange-900/90 mt-1.5">{tutor.specialty}</p>
                         ) : null}
                       </div>
-                      <p className="text-sm sm:text-base text-gray-700  leading-snug sm:leading-relaxed whitespace-pre-line">
-                        {tutor.description}
-                      </p>
+                      <ExpandableMobileDescription text={tutor.description} />
                     </div>
-                  </CardContent>
+                  </div>
+                  <div className="hidden lg:block clear-both" aria-hidden="true" />
                 </div>
               </Card>
             ))}

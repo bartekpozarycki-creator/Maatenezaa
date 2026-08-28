@@ -103,6 +103,11 @@ export default function Home() {
       image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6910d8d3e519cbbd5350687e/be6438e6c_IMG_6222.jpg"
     },
     {
+      name: "Adrianna",
+      role: "Korepetytor matematyki, studentka energetyki (Politechnika Poznańska)",
+      image: "/ada.JPG"
+    },
+    {
       name: "Tomek",
       role: "Korepetytor matematyki, student matematyki (UAM)",
       image: "/tomsan.jpg"
@@ -807,9 +812,15 @@ export default function Home() {
                       </div>
                     </div>
                     <p className="text-[11px] sm:text-xs text-gray-600  mt-3">kangurki • egzamin ósmoklasisty • bieżący materiał</p>
-                    <div className="mt-3 pt-3 border-t border-orange-100 text-right sm:text-left">
-                      <div className="text-2xl sm:text-3xl font-bold text-orange-600">90 zł</div>
-                      <div className="text-xs sm:text-sm text-gray-500 ">za 60 min</div>
+                    <div className="mt-3 pt-3 border-t border-orange-100 text-right sm:text-left space-y-2">
+                      <div>
+                        <div className="text-2xl sm:text-3xl font-bold text-orange-600">90 zł</div>
+                        <div className="text-xs sm:text-sm text-gray-500 ">za 60 min</div>
+                      </div>
+                      <div>
+                        <div className="text-xl sm:text-2xl font-bold text-orange-600">120 zł</div>
+                        <div className="text-xs sm:text-sm text-gray-500 ">za 90 min (1,5 h)</div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -826,9 +837,15 @@ export default function Home() {
                       </div>
                     </div>
                     <p className="text-[11px] sm:text-xs text-gray-600  mt-3">matura podstawowa • pomoc w tematach szkolnych</p>
-                    <div className="mt-3 pt-3 border-t border-orange-100 text-right sm:text-left">
-                      <div className="text-2xl sm:text-3xl font-bold text-orange-600">90 zł</div>
-                      <div className="text-xs sm:text-sm text-gray-500 ">za 60 min</div>
+                    <div className="mt-3 pt-3 border-t border-orange-100 text-right sm:text-left space-y-2">
+                      <div>
+                        <div className="text-2xl sm:text-3xl font-bold text-orange-600">90 zł</div>
+                        <div className="text-xs sm:text-sm text-gray-500 ">za 60 min</div>
+                      </div>
+                      <div>
+                        <div className="text-xl sm:text-2xl font-bold text-orange-600">120 zł</div>
+                        <div className="text-xs sm:text-sm text-gray-500 ">za 90 min (1,5 h)</div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -845,9 +862,15 @@ export default function Home() {
                       </div>
                     </div>
                     <p className="text-[11px] sm:text-xs text-gray-600  mt-3">matura rozszerzona • trudniejsze zadania • ambitne (lub mniej ;) ) cele</p>
-                    <div className="mt-3 pt-3 border-t border-orange-100 text-right sm:text-left">
-                      <div className="text-2xl sm:text-3xl font-bold text-orange-600">100 zł</div>
-                      <div className="text-xs sm:text-sm text-gray-500 ">za 60 min</div>
+                    <div className="mt-3 pt-3 border-t border-orange-100 text-right sm:text-left space-y-2">
+                      <div>
+                        <div className="text-2xl sm:text-3xl font-bold text-orange-600">100 zł</div>
+                        <div className="text-xs sm:text-sm text-gray-500 ">za 60 min</div>
+                      </div>
+                      <div>
+                        <div className="text-xl sm:text-2xl font-bold text-orange-600">140 zł</div>
+                        <div className="text-xs sm:text-sm text-gray-500 ">za 90 min (1,5 h)</div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -870,7 +893,7 @@ export default function Home() {
                   <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500 to-amber-500 text-white shadow-md">
                     <Info className="h-4 w-4 sm:h-[18px] sm:w-[18px]" aria-hidden />
                   </div>
-                  <p className="text-left text-xs sm:text-sm text-gray-800  leading-snug font-medium">
+                  <p className="text-left text-xs sm:text-sm text-gray-800 leading-snug font-semibold">
                     W przypadku pomocy jednorazowej (np. lekcja przed sprawdzianem lub kartkówką) zajęcia są płatne.
                   </p>
                 </div>
