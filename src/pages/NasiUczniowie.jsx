@@ -103,10 +103,10 @@ const googleReviews = [
     text: "W przeszłości korzystałem z pomocy Jeremiasza, którą bardzo sobie chwalę. Z osoby, która praktycznie z matematyką nie miała nic wspólnego, stałem się osobą, która podwoiła próg zdawalności matury, co jest dla mnie ogromnym sukcesem!",
   },
   {
-    id: "google-adrianna-dokladna",
-    author: "Adrianna Dokladna",
+    id: "google-marysia-ostrowska",
+    author: "Marysia Ostrowska",
     rating: 5,
-    text: "Nigdy nie sądziłam, że zadania z matmy mogą sprawiać przyjemność. Najwyraźniej potrzebowałam kogoś, kto uczy z taką pasją. Podczas zajęć ani razu nie czułam się oceniana przez swoje braki. Dzięki temu jestem teraz dużo pewniejsza siebie i nie boję się już zadawać pytań. Polecam każdemu",
+    text: "Jako osoba mająca trudności z matematyką, korepetytor Bartek bardzo mi pomógł! Tłumaczył bardzo zrozumiale, a atmosfera podczas zajęć była luźna i przyjemna. Końcowo maturę udało mi się zdać na wynik bardzo zadawalający. Bardzo polecam!!",
   },
   {
     id: "google-laura-kirke",
