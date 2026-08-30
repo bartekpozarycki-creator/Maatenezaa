@@ -18,7 +18,7 @@ const GOOGLE_REVIEWS_PAGE_URL =
   (typeof import.meta !== "undefined" && import.meta.env?.VITE_GOOGLE_REVIEWS_URL) ||
   "https://share.google/fW46XFRPEJgoX2ohJ";
 
-const GOOGLE_REVIEWS_TOTAL = 16;
+const GOOGLE_REVIEWS_TOTAL = 15;
 
 const OP_VIDEO = {
   page: [255, 255, 255],
@@ -261,7 +261,7 @@ Rada dla przyszłych maturzystów
       style={opinionPaletteStyle(opinionVideoSkin)}
     >
       <PageHeader 
-        title="Nasi uczniowie"
+        title="Nasi uczniowie / Opinie"
         subtitle="Opinie uczniów, ich osiągnięcia oraz wywiady - screeny, Google i wideo w jednym miejscu."
       />
 
