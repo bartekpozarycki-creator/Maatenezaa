@@ -24,7 +24,7 @@ export default function ONas() {
     {
       name: "Jeremiasz",
       role: "Współzałożyciel i korepetytor",
-      image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6910d8d3e519cbbd5350687e/be6438e6c_IMG_6222.jpg",
+      image: "/jere.png",
       description: "Cześć! Studiuję Mikroelektronikę i komunikację cyfrową na Politechnice Poznańskiej, a korepetycji udzielam odkąd sam siedziałem w licealnej ławce. W celu potwierdzenia kompetencji matematycznych, do tej pory na studiach ukończyłem kursy z zakresu: Analizy Matematycznej, Probabilistyki i Statystyki, Algebry oraz Podstaw metod optymalizacji matematycznej."
     }
   ];
