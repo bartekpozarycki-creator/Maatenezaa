@@ -818,7 +818,7 @@ export default function Home() {
                         <div className="text-xs sm:text-sm text-gray-500 ">za 60 min</div>
                       </div>
                       <div>
-                        <div className="text-xl sm:text-2xl font-bold text-orange-600">120 zł</div>
+                        <div className="text-xl sm:text-2xl font-bold text-orange-600">130 zł</div>
                         <div className="text-xs sm:text-sm text-gray-500 ">za 90 min (1,5 h)</div>
                       </div>
                     </div>
@@ -843,7 +843,7 @@ export default function Home() {
                         <div className="text-xs sm:text-sm text-gray-500 ">za 60 min</div>
                       </div>
                       <div>
-                        <div className="text-xl sm:text-2xl font-bold text-orange-600">120 zł</div>
+                        <div className="text-xl sm:text-2xl font-bold text-orange-600">130 zł</div>
                         <div className="text-xs sm:text-sm text-gray-500 ">za 90 min (1,5 h)</div>
                       </div>
                     </div>
