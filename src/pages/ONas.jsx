@@ -24,7 +24,9 @@ export default function ONas() {
     {
       name: "Jeremiasz",
       role: "Współzałożyciel i korepetytor",
-      image: "/jere.png",
+      image: "/jere2.jpg",
+      position: "object-[50%_43%]",
+      zoom: "scale(1.08)",
       description: "Cześć! Studiuję Mikroelektronikę i komunikację cyfrową na Politechnice Poznańskiej, a korepetycji udzielam odkąd sam siedziałem w licealnej ławce. W celu potwierdzenia kompetencji matematycznych, do tej pory na studiach ukończyłem kursy z zakresu: Analizy Matematycznej, Probabilistyki i Statystyki, Algebry oraz Podstaw metod optymalizacji matematycznej."
     }
   ];
@@ -47,7 +49,7 @@ export default function ONas() {
     {
       name: "Adrianna",
       role: "Korepetytor matematyki · studentka energetyki, Politechnika Poznańska",
-      image: "/ada.JPG",
+      image: "/ada2.jpg",
       description:
         "Poznajcie Adriannę - naszą prawdziwą dumę i „rodzynek” zespołu. Swoją przygodę z naukami ścisłymi przypieczętowała już w liceum, pisząc maturę z matematyki praktycznie najlepiej w całej szkole. Studiuje Energetykę na Politechnice Poznańskiej, osiągając przy tym bardzo wysokie wyniki w nauce. Adrianna specjalizuje się w pracy z licealistami oraz maturzystami, a jej podopieczni regularnie sięgają po najwyższe wyniki - niektórzy z nich wyśrubowali swoje oceny i rezultaty maturalne do blisko 100%!" +
         `\n\n„Stawiam przede wszystkim na logikę i zrozumienie materiału - zdecydowanie nie jestem zwolenniczką wkuwania na pamięć. Każdy temat przerabiam bardzo rzetelnie, a gdy tylko jest taka możliwość, zadania maturalne wprowadzam praktycznie od początku nauki w szkole średniej.\n\nBardzo ważna jest dla mnie również relacja podczas nauki. Zawsze staram się zrozumieć perspektywę ucznia, jego sytuację i indywidualne potrzeby. Naprawdę lubię swoją pracę, a jeszcze bardziej kontakt i rozmowę z ludźmi.\n\nChętnie pomagam również po zajęciach i dbam o luźną, przyjazną atmosferę, bez niepotrzebnego stresu. Wiele osób mówi, że podczas nauki jestem dla nich po prostu jak koleżanka, na którą zawsze można liczyć.”`,
@@ -145,12 +147,18 @@ export default function ONas() {
                 <div className="relative z-10 flex flex-col lg:block lg:px-4 lg:pb-6 lg:pt-4">
                   <div className="relative w-full sm:max-w-xs sm:mx-auto lg:mx-0 lg:float-left lg:w-[38%] lg:max-w-sm lg:mr-6 lg:mb-3 p-2.5 sm:p-3.5 lg:p-0 lg:pr-3">
                     <div className="relative mx-auto w-full max-w-sm lg:max-w-none">
-                      <div className="relative h-[220px] sm:h-[280px] lg:h-[320px] overflow-hidden rounded-2xl">
-                        <img
-                          src={founder.image}
-                          alt={founder.name}
-                          className="h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]"
-                        />
+                     <div className="relative h-[220px] sm:h-[280px] lg:h-[320px] overflow-hidden rounded-2xl">
+  
+                        {}
+                        <div style={{ transform: founder.zoom || 'none' }} className="w-full h-full">
+                          <img
+                            src={founder.image}
+                            alt={founder.name}
+                            className={`h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03] ${founder.position || 'object-center'}`}
+                          />
+                        </div>
+
+                        {}  
                         <div className="absolute left-2.5 top-2.5 z-[1] inline-flex items-center gap-1.5 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-orange-700 shadow-sm backdrop-blur-sm">
                           <Star className="h-3 w-3 fill-orange-500 text-orange-500" />
                           Mateneza
@@ -229,12 +237,13 @@ export default function ONas() {
                             <Star className="h-3 w-3 fill-orange-500 text-orange-500" />
                             Mateneza
                           </div>
-                          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-black/45 to-transparent" aria-hidden />
+                          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/80 via-black/40 to-transparent" aria-hidden />
                           <div className="absolute bottom-2 left-2.5 right-2.5 z-[1] text-white sm:left-3 sm:right-3">
-                            <h3 className="text-sm sm:text-lg font-bold mb-0.5 drop-shadow-md md:text-xl">
+                            {/* 2. Mocniejszy cień pod tekstem (drop-shadow-lg i text-shadow) */}
+                            <h3 className="text-sm sm:text-lg font-bold mb-0.5 drop-shadow-lg md:text-xl" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.8)' }}>
                               {tutor.name}
                             </h3>
-                            <p className="text-[10px] sm:text-[11px] text-white/95 leading-snug drop-shadow sm:text-xs">
+                            <p className="text-[10px] sm:text-[11px] text-white/95 leading-snug drop-shadow-lg sm:text-xs" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.8)' }}>
                               {tutor.role}
                             </p>
                           </div>
