@@ -27,7 +27,7 @@ export default function ONas() {
       image: "/jere2.jpg",
       position: "object-[50%_43%]",
       zoom: "scale(1.08)",
-      description: "Cześć! Studiuję Mikroelektronikę i komunikację cyfrową na Politechnice Poznańskiej, a korepetycji udzielam odkąd sam siedziałem w licealnej ławce. W celu potwierdzenia kompetencji matematycznych, do tej pory na studiach ukończyłem kursy z zakresu: Analizy Matematycznej, Probabilistyki i Statystyki, Algebry oraz Podstaw metod optymalizacji matematycznej."
+      description: "Cześć! Studiuję Mikroelektronikę i komunikację cyfrową na Politechnice Poznańskiej, a korepetycji udzielam, odkąd sam siedziałem w licealnej ławce. W celu potwierdzenia swoich kompetencji matematycznych ukończyłem z dobrymi wynikami kursy akademickie z zakresu Analizy Matematycznej, Probabilistyki i Statystyki, Algebry oraz Podstaw metod optymalizacji matematycznej. Matematyka przydaje mi się zresztą na co dzień na moim kierunku, chociażby przy zaawansowanych przedmiotach, gdzie głównym tematem jest transmisja i przetwarzanie sygnałów. A kiedy akurat nie liczę i nie studiuję, w wolnych chwilach od lat pasjonuję się jazdą na rowerze enduro."
     }
   ];
 
@@ -37,14 +37,16 @@ export default function ONas() {
       role: "Korepetytor matematyki · student informatyki, Politechnika Poznańska",
       image: "/szyms.png",
       description:
-        "Cześć! Mam na imię Szymon i studiuję informatykę na Politechnice Poznańskiej. Lubię matematykę i przedmioty ścisłe, dlatego zdecydowałem się pomagać innym w nauce. Udzielam korepetycji uczniom szkoły podstawowej i średniej na poziomie podstawowym. Pomagam w bieżącym materiale, przygotowaniu do sprawdzianów i klasówek oraz w nadrobieniu zaległości. Na zajęciach tłumaczę wszystko w prosty sposób i staram się dopasować tempo pracy do ucznia, tak żeby materiał był dobrze zrozumiały.",
+        "Szymon to najstarszy z naszej ekipy, łączący solidne doświadczenie z dużym luzem i dystansem. Jako technologiczny zapaleniec uwielbia rozkładać wszystko na czynniki pierwsze i szukać we wszystkim logiki. Ta dociekliwość genialnie sprawdza się na zajęciach – potrafi analitycznie rozjaśnić każdy problem, a jego naturalny spokój sprawia, że matematyka przestaje stresować." + 
+        '\n\n "Cześć, tu Szymon! Jako student informatyki na Politechnice Poznańskiej doskonale wiem, że przedmioty ścisłe potrafią zajść za skórę. Specjalizuję się analizie numerycznej, więc na matematykę patrzę przez pryzmat konkretnych obliczeń i logicznych powiązań, co często ułatwia zrozumienie i wytłumaczenie nawet tych najtrudniejszych tematów. \n\n Jeśli szukasz kogoś, kto wyjaśni Ci materiał na spokojnie, bez sztywnej atmosfery i w Twoim tempie, to trafiłeś/aś na właściwą osobę. Moim celem nie jest tylko „wyklepanie” teorii, ale pokazanie Ci konkretnych schematów i rozwiązań, które faktycznie działają na sprawdzianach. Niezależnie od tego, czy walczysz o przetrwanie, czy chcesz wyciągnąć ocenę na 6 – razem damy radę to ogarnąć." '
     },
     {
       name: "Wojtek",
       role: "Korepetytor matematyki",
       image: "/wojtek.jpg",
       description:
-        "Cześć! Mam na imię Wojtek. Od kilku lat pomagam uczniom szkoły podstawowej i średniej w nauce matematyki. Prowadzę zajęcia zarówno na poziomie podstawowym, jak i rozszerzonym. Chętnie pomogę z bieżącym materiałem, przygotowaniem do sprawdzianów i klasówek oraz z tematami, które sprawiają największą trudność. Od nowego roku akademickiego rozpoczynam studia na kierunku Lotnictwo na Politechnice Poznańskiej. Wierzę, że przy odrobinie cierpliwości i odpowiednim podejściu każdy jest w stanie dobrze zrozumieć matematykę.",
+        "Wojtek posiada największe doświadczenie dydaktyczne spośród całej naszej zatrudnionej ekipy. Aby w 100% skupić się na pracy korepetytora i rozwoju swoich umiejętności, zrobił przerwę po ukończeniu szkoły średniej. To wybitny specjalista, który świetnie przygotował już dziesiątki maturzystów, a matematyka rozszerzona to jego absolutny konik. Teraz, bogatszy o potężny bagaż doświadczeń, rozpoczyna studia inżynierskie." +
+        '\n\n"Cześć! Mam na imię Wojtek. Od kilku lat pomagam uczniom szkoły podstawowej i średniej w nauce matematyki. Chętnie pomogę z bieżącym materiałem, przygotowaniem do sprawdzianów i klasówek oraz z tematami, które sprawiają największą trudność. Od nowego roku akademickiego rozpoczynam studia na kierunku Lotnictwo na Politechnice Poznańskiej. Wierzę, że przy odrobinie cierpliwości i odpowiednim podejściu każdy jest w stanie dobrze zrozumieć matematykę".'
     },
     {
       name: "Adrianna",
@@ -59,7 +61,8 @@ export default function ONas() {
       role: "Korepetytor matematyki · student matematyki, UAM",
       image: "/tomsan.jpg",
       description:
-        "Mam na imię Tomek i studiuję matematykę na Uniwersytecie im. Adama Mickiewicza w Poznaniu. Od początku studiów przykładam dużą wagę do nauki, a pierwszy rok zakończyłem ze średnią powyżej 4,5. Sam jeszcze niedawno przygotowywałem się do sprawdzianów i matury, więc dobrze wiem, z jakimi problemami najczęściej mierzą się uczniowie. Chętnie pomogę Ci uporządkować materiał, nadrobić zaległości i lepiej zrozumieć matematykę.",
+        '"Tomek to nasz „cichociemny sukces” i doskonały dowód na to, że skromność oraz systematyczna praca przynoszą najlepsze efekty. Choć nie ma jeszcze wieloletniego doświadczenia, prosperuje fenomenalnie i osiąga jedne z najlepszych rezultatów w zespole. Na co dzień jest studentem matematyki z imponującymi wynikami, co zaowocowało zdobyciem stypendium naukowego. Jego poczciwe, skromne podejście do życia sprawia, że błyskawicznie łapie świetny kontakt z każdym uczniem."' +
+        '\n\n "Mam na imię Tomek i studiuję matematykę na Uniwersytecie im. Adama Mickiewicza w Poznaniu. Od początku studiów przykładam dużą wagę do nauki, a pierwszy rok zakończyłem ze średnią powyżej 4,5. Sam jeszcze niedawno przygotowywałem się do sprawdzianów i matury, więc dobrze wiem, z jakimi problemami najczęściej mierzą się uczniowie. Chętnie pomogę Ci uporządkować materiał, nadrobić zaległości oraz przede wszystkim lepiej zrozumieć wiele zagadnień matematycznych."'
     }
   ];
 
