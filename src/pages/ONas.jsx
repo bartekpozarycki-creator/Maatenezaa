@@ -44,6 +44,8 @@ export default function ONas() {
       name: "Szymon",
       role: "Korepetytor matematyki · student informatyki, Politechnika Poznańska",
       image: "/szyms.png",
+      position: "object-[50%_65%]",
+      zoom: "translateX(-22%) scale(1.5)",
       description:
         "Szymon to najstarszy z naszej ekipy, łączący solidne doświadczenie z dużym luzem i dystansem. Jako technologiczny zapaleniec uwielbia rozkładać wszystko na czynniki pierwsze i szukać we wszystkim logiki. Ta dociekliwość genialnie sprawdza się na zajęciach – potrafi analitycznie rozjaśnić każdy problem, a jego naturalny spokój sprawia, że matematyka przestaje stresować." + 
         '\n\n "Cześć, tu Szymon! Jako student informatyki na Politechnice Poznańskiej doskonale wiem, że przedmioty ścisłe potrafią zajść za skórę. Specjalizuję się analizie numerycznej, więc na matematykę patrzę przez pryzmat konkretnych obliczeń i logicznych powiązań, co często ułatwia zrozumienie i wytłumaczenie nawet tych najtrudniejszych tematów. \n\n Jeśli szukasz kogoś, kto wyjaśni Ci materiał na spokojnie, bez sztywnej atmosfery i w Twoim tempie, to trafiłeś/aś na właściwą osobę. Moim celem nie jest tylko „wyklepanie” teorii, ale pokazanie Ci konkretnych schematów i rozwiązań, które faktycznie działają na sprawdzianach. Niezależnie od tego, czy walczysz o przetrwanie, czy chcesz wyciągnąć ocenę na 6 – razem damy radę to ogarnąć." '
@@ -52,6 +54,8 @@ export default function ONas() {
       name: "Wojtek",
       role: "Korepetytor matematyki",
       image: "/wojtek.jpg",
+      position: "object-[15%_20%]",
+      zoom: "scale(1.5)",
       description:
         "Wojtek posiada największe doświadczenie dydaktyczne spośród całej naszej zatrudnionej ekipy. Aby w 100% skupić się na pracy korepetytora i rozwoju swoich umiejętności, zrobił przerwę po ukończeniu szkoły średniej. To wybitny specjalista, który świetnie przygotował już dziesiątki maturzystów, a matematyka rozszerzona to jego absolutny konik. Teraz, bogatszy o potężny bagaż doświadczeń, rozpoczyna studia inżynierskie." +
         '\n\n"Cześć! Mam na imię Wojtek. Od kilku lat pomagam uczniom szkoły podstawowej i średniej w nauce matematyki. Chętnie pomogę z bieżącym materiałem, przygotowaniem do sprawdzianów i klasówek oraz z tematami, które sprawiają największą trudność. Od nowego roku akademickiego rozpoczynam studia na kierunku Lotnictwo na Politechnice Poznańskiej. Wierzę, że przy odrobinie cierpliwości i odpowiednim podejściu każdy jest w stanie dobrze zrozumieć matematykę".'
@@ -60,6 +64,8 @@ export default function ONas() {
       name: "Tomek",
       role: "Korepetytor matematyki · student matematyki, UAM",
       image: "/tomsan.jpg",
+      position: "object-[20%_45%]",
+      // zoom: "translateX(-8%) scale(1.4)",
       description:
         '"Tomek to nasz „cichociemny sukces” i doskonały dowód na to, że skromność oraz systematyczna praca przynoszą najlepsze efekty. Choć nie ma jeszcze wieloletniego doświadczenia, prosperuje fenomenalnie i osiąga jedne z najlepszych rezultatów w zespole. Na co dzień jest studentem matematyki z imponującymi wynikami, co zaowocowało zdobyciem stypendium naukowego. Jego poczciwe, skromne podejście do życia sprawia, że błyskawicznie łapie świetny kontakt z każdym uczniem."' +
         '\n\n "Mam na imię Tomek i studiuję matematykę na Uniwersytecie im. Adama Mickiewicza w Poznaniu. Od początku studiów przykładam dużą wagę do nauki, a pierwszy rok zakończyłem ze średnią powyżej 4,5. Sam jeszcze niedawno przygotowywałem się do sprawdzianów i matury, więc dobrze wiem, z jakimi problemami najczęściej mierzą się uczniowie. Chętnie pomogę Ci uporządkować materiał, nadrobić zaległości oraz przede wszystkim lepiej zrozumieć wiele zagadnień matematycznych."'
@@ -231,18 +237,19 @@ export default function ONas() {
                     <div className="relative mx-auto w-full max-w-sm lg:max-w-none">
                       {tutor.image ? (
                         <div className="relative h-[220px] sm:h-[280px] lg:h-[320px] overflow-hidden rounded-2xl">
-                          <img
-                            src={tutor.image}
-                            alt={tutor.name}
-                            className="h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]"
-                          />
+                          <div style={{ transform: tutor.zoom || 'none' }} className="w-full h-full">
+                            <img
+                              src={tutor.image}
+                              alt={tutor.name}
+                              className={`h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03] ${tutor.position || 'object-center'}`}
+                            />
+                          </div>
                           <div className="absolute left-2.5 top-2.5 z-[1] inline-flex items-center gap-1.5 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-orange-700 shadow-sm backdrop-blur-sm">
                             <Star className="h-3 w-3 fill-orange-500 text-orange-500" />
                             Mateneza
                           </div>
                           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/80 via-black/40 to-transparent" aria-hidden />
                           <div className="absolute bottom-2 left-2.5 right-2.5 z-[1] text-white sm:left-3 sm:right-3">
-                            {/* 2. Mocniejszy cień pod tekstem (drop-shadow-lg i text-shadow) */}
                             <h3 className="text-sm sm:text-lg font-bold mb-0.5 drop-shadow-lg md:text-xl" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.8)' }}>
                               {tutor.name}
                             </h3>
