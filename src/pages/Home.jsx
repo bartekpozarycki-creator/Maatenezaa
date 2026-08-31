@@ -100,12 +100,13 @@ export default function Home() {
     {
       name: "Jeremiasz",
       role: "Współzałożyciel Matenezy",
-      image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6910d8d3e519cbbd5350687e/be6438e6c_IMG_6222.jpg"
+      image: "/jere2.jpg",
+      zoom: "scale(1.08)"
     },
     {
       name: "Adrianna",
       role: "Korepetytor matematyki, studentka energetyki (Politechnika Poznańska)",
-      image: "/ada.JPG"
+      image: "/ada2.jpg"
     },
     {
       name: "Tomek",
@@ -543,7 +544,8 @@ export default function Home() {
                       key={index}
                       src={member.image}
                       alt={member.name}
-                      className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                      style={{ transform: member.zoom || 'none' }}
+                      className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ${
                         index === currentTeamMemberIndex ? 'opacity-100' : 'opacity-0'
                       }`}
                     />
