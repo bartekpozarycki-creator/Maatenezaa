@@ -33,6 +33,14 @@ export default function ONas() {
 
   const tutors = [
     {
+      name: "Adrianna",
+      role: "Korepetytor matematyki · studentka energetyki, Politechnika Poznańska",
+      image: "/ada2.jpg",
+      description:
+        "Poznajcie Adriannę - naszą prawdziwą dumę i „rodzynek” zespołu. Swoją przygodę z naukami ścisłymi przypieczętowała już w liceum, pisząc maturę z matematyki praktycznie najlepiej w całej szkole. Studiuje Energetykę na Politechnice Poznańskiej, osiągając przy tym bardzo wysokie wyniki w nauce. Adrianna specjalizuje się w pracy z licealistami oraz maturzystami, a jej podopieczni regularnie sięgają po najwyższe wyniki - niektórzy z nich wyśrubowali swoje oceny i rezultaty maturalne do blisko 100%!" +
+        `\n\n„Stawiam przede wszystkim na logikę i zrozumienie materiału - zdecydowanie nie jestem zwolenniczką wkuwania na pamięć. Każdy temat przerabiam bardzo rzetelnie, a gdy tylko jest taka możliwość, zadania maturalne wprowadzam praktycznie od początku nauki w szkole średniej.\n\nBardzo ważna jest dla mnie również relacja podczas nauki. Zawsze staram się zrozumieć perspektywę ucznia, jego sytuację i indywidualne potrzeby. Naprawdę lubię swoją pracę, a jeszcze bardziej kontakt i rozmowę z ludźmi.\n\nChętnie pomagam również po zajęciach i dbam o luźną, przyjazną atmosferę, bez niepotrzebnego stresu. Wiele osób mówi, że podczas nauki jestem dla nich po prostu jak koleżanka, na którą zawsze można liczyć.”`,
+    },
+    {
       name: "Szymon",
       role: "Korepetytor matematyki · student informatyki, Politechnika Poznańska",
       image: "/szyms.png",
@@ -47,14 +55,6 @@ export default function ONas() {
       description:
         "Wojtek posiada największe doświadczenie dydaktyczne spośród całej naszej zatrudnionej ekipy. Aby w 100% skupić się na pracy korepetytora i rozwoju swoich umiejętności, zrobił przerwę po ukończeniu szkoły średniej. To wybitny specjalista, który świetnie przygotował już dziesiątki maturzystów, a matematyka rozszerzona to jego absolutny konik. Teraz, bogatszy o potężny bagaż doświadczeń, rozpoczyna studia inżynierskie." +
         '\n\n"Cześć! Mam na imię Wojtek. Od kilku lat pomagam uczniom szkoły podstawowej i średniej w nauce matematyki. Chętnie pomogę z bieżącym materiałem, przygotowaniem do sprawdzianów i klasówek oraz z tematami, które sprawiają największą trudność. Od nowego roku akademickiego rozpoczynam studia na kierunku Lotnictwo na Politechnice Poznańskiej. Wierzę, że przy odrobinie cierpliwości i odpowiednim podejściu każdy jest w stanie dobrze zrozumieć matematykę".'
-    },
-    {
-      name: "Adrianna",
-      role: "Korepetytor matematyki · studentka energetyki, Politechnika Poznańska",
-      image: "/ada2.jpg",
-      description:
-        "Poznajcie Adriannę - naszą prawdziwą dumę i „rodzynek” zespołu. Swoją przygodę z naukami ścisłymi przypieczętowała już w liceum, pisząc maturę z matematyki praktycznie najlepiej w całej szkole. Studiuje Energetykę na Politechnice Poznańskiej, osiągając przy tym bardzo wysokie wyniki w nauce. Adrianna specjalizuje się w pracy z licealistami oraz maturzystami, a jej podopieczni regularnie sięgają po najwyższe wyniki - niektórzy z nich wyśrubowali swoje oceny i rezultaty maturalne do blisko 100%!" +
-        `\n\n„Stawiam przede wszystkim na logikę i zrozumienie materiału - zdecydowanie nie jestem zwolenniczką wkuwania na pamięć. Każdy temat przerabiam bardzo rzetelnie, a gdy tylko jest taka możliwość, zadania maturalne wprowadzam praktycznie od początku nauki w szkole średniej.\n\nBardzo ważna jest dla mnie również relacja podczas nauki. Zawsze staram się zrozumieć perspektywę ucznia, jego sytuację i indywidualne potrzeby. Naprawdę lubię swoją pracę, a jeszcze bardziej kontakt i rozmowę z ludźmi.\n\nChętnie pomagam również po zajęciach i dbam o luźną, przyjazną atmosferę, bez niepotrzebnego stresu. Wiele osób mówi, że podczas nauki jestem dla nich po prostu jak koleżanka, na którą zawsze można liczyć.”`,
     },
     {
       name: "Tomek",
