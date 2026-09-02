@@ -151,7 +151,7 @@ export default function NasiUczniowie() {
       id: 1,
       name: "Kacper",
       role: "Maturzysta · Digital Design, UKEN",
-      videoUrl: "https://www.youtube.com/embed/BS9u6JKIS_k?si=5XxXoYT4I1S84COm",
+      videoUrl: "https://www.youtube.com/embed/CaaKCqIYhxg?si=qQWL5BQFXzK6eMqR",
       title: `Kacper: od „nogi z matmy” do wymarzonych studiów`,
       quote:
         `64% na maturze i wymarzone studia - kamień z serca spadł, gdy zobaczyłem wynik.`,
