@@ -816,6 +816,10 @@ export default function Home() {
                     <p className="text-[11px] sm:text-xs text-gray-600  mt-3">kangurki • egzamin ósmoklasisty • bieżący materiał</p>
                     <div className="mt-3 pt-3 border-t border-orange-100 text-right sm:text-left space-y-2">
                       <div>
+                        <div className="text-xl sm:text-2xl font-bold text-orange-600">70 zł</div>
+                        <div className="text-xs sm:text-sm text-gray-500 ">za 45 min</div>
+                      </div>
+                      <div>
                         <div className="text-2xl sm:text-3xl font-bold text-orange-600">90 zł</div>
                         <div className="text-xs sm:text-sm text-gray-500 ">za 60 min</div>
                       </div>
@@ -841,6 +845,10 @@ export default function Home() {
                     <p className="text-[11px] sm:text-xs text-gray-600  mt-3">matura podstawowa • pomoc w tematach szkolnych</p>
                     <div className="mt-3 pt-3 border-t border-orange-100 text-right sm:text-left space-y-2">
                       <div>
+                        <div className="text-xl sm:text-2xl font-bold text-orange-600">70 zł</div>
+                        <div className="text-xs sm:text-sm text-gray-500 ">za 45 min</div>
+                      </div>
+                      <div>
                         <div className="text-2xl sm:text-3xl font-bold text-orange-600">90 zł</div>
                         <div className="text-xs sm:text-sm text-gray-500 ">za 60 min</div>
                       </div>
@@ -865,6 +873,10 @@ export default function Home() {
                     </div>
                     <p className="text-[11px] sm:text-xs text-gray-600  mt-3">matura rozszerzona • trudniejsze zadania • ambitne (lub mniej ;) ) cele</p>
                     <div className="mt-3 pt-3 border-t border-orange-100 text-right sm:text-left space-y-2">
+                      <div>
+                        <div className="text-xl sm:text-2xl font-bold text-orange-600">80 zł</div>
+                        <div className="text-xs sm:text-sm text-gray-500 ">za 45 min</div>
+                      </div>
                       <div>
                         <div className="text-2xl sm:text-3xl font-bold text-orange-600">100 zł</div>
                         <div className="text-xs sm:text-sm text-gray-500 ">za 60 min</div>
